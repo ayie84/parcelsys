@@ -11,31 +11,14 @@ con2db();
 //$result = courier_reg();
 //echo 'parcel.php file';
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>UMP Parcel</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="inc/css/bootstrap.min.css">
-  <link rel="stylesheet" href="inc/css/style.min.css">
-  <script src="inc/js/jquery.min.js"></script>
-  <script src="inc/js/bootstrap.min.js"></script>
-  <style>
-	.spacer { margin-top: 40px;}
-  </style>
-</head>
-<body>
 
-<?php //navbar(); ?>
-  
-<div class="container">
+<?php include 'inc/header.php'?>
+
+
 	
 	<?php
 		view_parcel_record();
 		?>
-</div>
 
-</body>
-</html>
 
+<?php include 'inc/footer.php'?>
