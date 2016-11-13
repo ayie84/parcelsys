@@ -7,19 +7,13 @@ parcel.php
 
 */
 include 'inc/function.php';
-
+title("This Is Tajuk");
 con2db();
-//$result = courier_reg();
-//echo 'parcel.php file';
+
+//title("MyWebTitle");
+include 'inc/header.php';
+
+view_parcel_record();
+
+include 'inc/footer.php';
 ?>
-
-<?php include 'inc/header.php'?>
-
-
-	
-	<?php
-		view_parcel_record();
-		?>
-
-
-<?php include 'inc/footer.php'?>

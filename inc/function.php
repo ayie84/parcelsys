@@ -6,16 +6,17 @@
 //Connection File
 session_start();
 
-function display()
+function title($title)
 {
-	echo 'this function is RUNNING.. :)';
+	echo '<title>'.$title.'</title>';
+	//echo 'this function is RUNNING.. :)';
 }
 
 function con2db() //connection to db
 {
 	$user_name = "root"; //username
 	$password = "";//password
-	$database = "parcel";//dbname
+	$database = "ump_pmail";//dbname
 	$host_name = "localhost"; //server
 
 	$connect_db=mysql_connect($host_name, $user_name, $password);
