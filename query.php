@@ -1,6 +1,5 @@
 <?php
 /*
-UMP Parcel Databased & Tracking System
 10-11-2016
 parcel.php
 -store & view courier company
