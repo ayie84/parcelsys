@@ -15,7 +15,7 @@ function con2db() //connection to db
 {
 	$user_name = "root"; //username
 	$password = "";//password
-	$database = "parcel";//dbname
+	$database = "ump_pmail";//dbname
 	$host_name = "localhost"; //server
 
 	$connect_db=mysql_connect($host_name, $user_name, $password);
