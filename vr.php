@@ -7,6 +7,7 @@ parcel.php
 
 */
 include 'inc/function.php';
+
 con2db();
 //$result = courier_reg();
 //echo 'parcel.php file';
