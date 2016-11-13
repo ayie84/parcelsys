@@ -6,9 +6,10 @@
 //Connection File
 session_start();
 
-function display()
+function title($title)
 {
-	echo 'this function is RUNNING.. :)';
+	echo '<title>'.$title.'</title>';
+	//echo 'this function is RUNNING.. :)';
 }
 
 function con2db() //connection to db
