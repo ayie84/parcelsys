@@ -15,9 +15,13 @@ function title($title)
 	//echo 'this function is RUNNING.. :)';
 }
 
-function con2db() //connection to db
+/*function con2db() //connection to db
 {
-
+	/*$user_name = "root"; //username
+	$password = "";//password
+	$database = "ump_pmail";//dbname
+	$host_name = "localhost"; //server
+	
 	$connect_db=mysql_connect($host_name, $user_name, $password);
 
 	$find_db=mysql_select_db($database);
@@ -35,7 +39,7 @@ function con2db() //connection to db
 	$con_mysql = 0;
 	$_SESSION['mysql_con'] = $con_mysql;
 	}
-}
+}*/
 
 //Auth after login
 function auth()
