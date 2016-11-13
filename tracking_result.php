@@ -7,7 +7,7 @@ con2db();
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>UMP Tracking Result..</title>
+  <title>Parcel Tracking Result..</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="inc/css/bootstrap.min.css">
