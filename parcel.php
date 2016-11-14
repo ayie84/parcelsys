@@ -7,7 +7,7 @@
 
 */
 include 'inc/function.php';
-
+debugScript(); //comment this line for debug error msg
 con2db();
 $result = parcelReg();
 //title("it about Test");
