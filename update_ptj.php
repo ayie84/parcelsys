@@ -1,35 +1,27 @@
 <?php
-//include 'inc/mail_func.php';
+/*
+@Title 		: Parcel Management System
+@Filename 	: update_ptj.php
+@Author		: Fit3
+@date		: 13-11-16
+
+*/
 include 'inc/function.php';
+
+debugScript();
+
 con2db();
+pageTitle("Update PTJ Data");
+include 'inc/header.php';
 $id = $_REQUEST['id'];
 $query =  mysql_query("SELECT  * FROM `ptj` WHERE id=$id") or die (mysql_query());
 $test = mysql_fetch_array($query);//will show 1st data only
 $ptj_name = $test['ptj_name'];
 $ptj_acro = $test['ptj_acro'];
 $ptj_code = $test['ptj_code'];
-$result = ptj_update();
+$result = ptjUpdate();
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>UMP Update PTJ Data..</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="inc/css/bootstrap.min.css">
-  <link rel="stylesheet" href="inc/css/style.min.css">
-  <script src="inc/js/jquery.min.js"></script>
-  <script src="inc/js/bootstrap.min.js"></script>
-  <style>
-	.spacer { margin-top: 40px;}
-  </style>
-</head>
-<body>
-
-<?php navbar(); ?>
-  
-<div class="container row spacer">
-	<div class="col-md-offset-5 col-md-4" id="box">
+<div class="col-md-offset-4 col-md-4" id="box">
     <h3>Update PTJ</h3><hr>                  
 	<form class="form-horizontal" name="form" method="post" action="">
 	<input type="hidden" name="new" value="1" />
@@ -76,9 +68,9 @@ $result = ptj_update();
 
 	</fieldset>
 	</form> 
-	<?php  ?>
-</div>
+	</div>
 
-</body>
-</html>
 
+<?php
+include 'inc/footer.php';
+?>

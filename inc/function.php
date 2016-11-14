@@ -237,7 +237,7 @@ function ptjReg()
 }
 
 
-function ptj_update()
+function ptjUpdate()
 {
 	$status = 0;
 	con2db();
@@ -263,9 +263,8 @@ function ptj_update()
 	return $result;
 }
 
-function del_ptj()
+function ptjDel()
 {
-	navbar();
 	$id = $_REQUEST['id'];
 
 	$query =  mysql_query("DELETE  FROM ptj WHERE id=$id") or die (mysql_query());
