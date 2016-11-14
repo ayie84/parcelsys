@@ -8,7 +8,7 @@
 */
 include 'inc/function.php';
 
-debugScript();
+debugScript(); //comment this line for debug error msg
 
 con2db();
 pageTitle("Update Parcel Data");
