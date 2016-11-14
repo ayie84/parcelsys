@@ -100,7 +100,6 @@ function parcelReg()
 {
 	
 	con2db();
-	if(!empty($title)){
 	if(isset($_POST['new']) && $_POST['new']==1)
 	{
 	
@@ -119,7 +118,6 @@ function parcelReg()
 		}
 	}
 	return $result;
-	}
 }
 
 
@@ -127,10 +125,8 @@ function parcelUpdate()
 {
 	
 	con2db();
-	//
 	if(isset($_POST['new']) && $_POST['new']==1)
 	{
-	
 	$id = $_REQUEST['id'];
 	$parcel_courier = $_REQUEST['parcel_courier'];
 	$parcel_cnumber = $_REQUEST['parcel_cnumber'];
@@ -151,15 +147,12 @@ function parcelUpdate()
 		}else {
 		$result='<div class="alert alert-danger">OOPPSSS Something Wrong there, Please Try Again. TQ</div>';
 	}
-	
-	
 	return $result;
 	}
 }
 
-function del_parcel()
+function parcelDel()
 {
-	navbar();
 	$id = $_REQUEST['id'];
 
 	$query =  mysql_query("DELETE  FROM parcel WHERE id=$id") or die (mysql_query());
@@ -169,7 +162,6 @@ function del_parcel()
 function courierReg()
 {
 	con2db();
-	if(!empty($result)){
 	if(isset($_POST['new']) && $_POST['new']==1)
 	{
 	
@@ -188,7 +180,7 @@ function courierReg()
 		}
 	}
 	return $result;
-	}
+	
 }
 
 function courier_update()
@@ -229,7 +221,6 @@ function del_courier()
 function ptjReg()
 {
 	con2db();
-	if(!empty($result)){
 	if(isset($_POST['new']) && $_POST['new']==1)
 	{
 	$ptj_name =$_REQUEST['ptj_name'];
@@ -244,7 +235,6 @@ function ptjReg()
 		}
 	}
 	return $result;
-	}
 }
 
 
