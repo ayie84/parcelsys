@@ -664,10 +664,8 @@ function track()
 				<td>'.$time.'</td>
 			</tr>
 			';
-             
-			 
             }
-             echo '</tbody></table></div></div></div></div>';
+            
         }
         else{ // if there is no matching rows do following
             echo "<center>Maaf, Tiada Maklumat Di Temui</center>";
@@ -676,7 +674,8 @@ function track()
     }
     else{ // if query length is less than minimum
         echo "Minimum length is ".$min_length;
-    }
+    } 
+	echo '</tbody></table></div></div></div></div>';
 }
 
 
