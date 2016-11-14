@@ -1,6 +1,10 @@
 <?php
 /*
-10-11-2016
+@Title 		: Parcel Management System
+@Filename 	: Function.php
+@Author		: Fit3
+@date		: 13-11-16
+
 */
 
 include 'config/database.php';
@@ -8,37 +12,13 @@ include 'config/database.php';
 //Connection File
 session_start();
 
-function title($title)
+function pageTitle($title)
 {
+	if(!empty($title)){
 	echo '<title>'.$title.'</title>';
+	}
 	//echo 'this function is RUNNING.. :)';
 }
-
-/*function con2db() //connection to db
-{
-	/*$user_name = "root"; //username
-	$password = "";//password
-	$database = "ump_pmail";//dbname
-	$host_name = "localhost"; //server
-	
-	$connect_db=mysql_connect($host_name, $user_name, $password);
-
-	$find_db=mysql_select_db($database);
-
-	if ($find_db) {
-
-	//echo "Database exist";
-	$con_mysql = 1;
-	$_SESSION['mysql_con'] = $con_mysql;
-
-	}
-	else {
-
-	//echo "Database does not exist";
-	$con_mysql = 0;
-	$_SESSION['mysql_con'] = $con_mysql;
-	}
-}*/
 
 //Auth after login
 function auth()

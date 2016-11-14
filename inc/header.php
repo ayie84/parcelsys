@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <?php title(); ?>
+  <?php pageTitle(); ?>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="public/css/bootstrap.min.css">
@@ -13,4 +13,4 @@
 
 <?php navbar(); ?>
   
-<div class="container">
+<div class="container spacer">
