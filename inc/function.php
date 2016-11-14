@@ -211,10 +211,10 @@ function del_courier()
 	echo "<meta http-equiv=Refresh content=0;url=courier.php>";
 }
 
-function ptj_reg()
+function ptjReg()
 {
-	$status = 0;
 	con2db();
+	if(!empty($result)){
 	if(isset($_POST['new']) && $_POST['new']==1)
 	{
 	$ptj_name =$_REQUEST['ptj_name'];
@@ -229,6 +229,7 @@ function ptj_reg()
 		}
 	}
 	return $result;
+	}
 }
 
 
@@ -515,7 +516,7 @@ function courierView()
 		}
 }
 
-function bsview_ptj()
+function ptjView()
 {
 	con2db();//db connect
 	$value = mysql_query("SELECT COUNT( * ) AS Value FROM  `ptj`") or die (mysql_query());
@@ -577,7 +578,7 @@ function bsview_ptj()
 			$total_records = $row[0];  
 			$total_pages = ceil($total_records / $limit);
 			?>
-			<div class="col-md-12 text-center">
+			<div class="col-md-offset-3	 col-md-8 row spacer">>
 			<ul class="pagination navbar-right margin-right=10px">
 			<?php 
 			for ($i=1; $i<=$total_pages; $i++) {
