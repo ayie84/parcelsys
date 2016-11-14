@@ -8,7 +8,7 @@
 */
 session_start();
 include 'inc/function.php';
-auth();
+//auth();
 con2db();
 pageTitle("Parcel Query Data");
 include 'inc/header.php';

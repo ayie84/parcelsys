@@ -9,7 +9,7 @@
 session_start();
 
 include 'inc/function.php';
-auth();
+//auth();
 con2db();
 pageTitle("Parcel Query Result");
 include 'inc/header.php';

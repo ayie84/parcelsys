@@ -7,7 +7,7 @@
 
 */
 include 'inc/function.php';
-auth();
+//auth();
 debugScript();//comment this line to debug
 con2db();
 pageTitle("Courier");

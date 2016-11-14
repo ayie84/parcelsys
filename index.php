@@ -47,7 +47,8 @@ include 'inc/headerIndex.php';
 											</div>
 										</div>
 										<div class="form-group">
-											<input type="submit" class="btn btn-lg btn-primary btn-block" value="Sign in">
+											<!--<input type="submit" class="btn btn-lg btn-primary btn-block" value="Sign in">-->
+											<input type="submit" class="btn btn-warning pull-right" value="Login">
 										</div>
 									</div>
 								</div>

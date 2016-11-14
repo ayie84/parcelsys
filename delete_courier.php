@@ -8,7 +8,7 @@
 */
 session_start();
 include 'inc/function.php';
-auth();
+//auth();
 
 debugScript(); //comment this line for debug error msg
 

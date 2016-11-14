@@ -7,7 +7,7 @@
 
 */
 include 'inc/function.php';
-auth();
+//auth();
 debugScript(); //comment this line for debug error msg
 
 con2db();

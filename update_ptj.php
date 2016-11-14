@@ -9,7 +9,7 @@
 session_start();
 
 include 'inc/function.php';
-auth();
+//auth();
 debugScript();
 
 con2db();
