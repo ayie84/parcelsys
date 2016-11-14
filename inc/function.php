@@ -12,6 +12,12 @@ include 'config/database.php';
 //Connection File
 session_start();
 
+function debugScript()
+{
+	ini_set('display_errors', 0);
+	error_reporting(E_ERROR | E_WARNING | E_PARSE); 
+}
+
 function pageTitle($title)
 {
 	if(!empty($title)){
@@ -116,30 +122,39 @@ function parcelReg()
 	}
 }
 
-function parcel_update()
+
+function parcelUpdate()
 {
-	$status = 0;
+	
 	con2db();
+	//
 	if(isset($_POST['new']) && $_POST['new']==1)
 	{
 	
 	$id = $_REQUEST['id'];
-				$parcel_courier = $_REQUEST['parcel_courier'];
-				$parcel_cnumber = $_REQUEST['parcel_cnumber'];
-				$parcel_rcpt_name = $_REQUEST['parcel_rcpt_name'];
-				$parcel_ptj = $_REQUEST['parcel_ptj'];
-				$parcel_takenby = $_REQUEST['parcel_takenby'];
+	$parcel_courier = $_REQUEST['parcel_courier'];
+	$parcel_cnumber = $_REQUEST['parcel_cnumber'];
+	$parcel_rcpt_name = $_REQUEST['parcel_rcpt_name'];
+	$parcel_ptj = $_REQUEST['parcel_ptj'];
+	$parcel_takenby = $_REQUEST['parcel_takenby'];
 				
-				mysql_query("UPDATE parcel SET parcel_courier = '$parcel_courier', parcel_cnumber='$parcel_cnumber', parcel_rcpt_name='$parcel_rcpt_name', parcel_ptj = '$parcel_ptj', parcel_takenby = '$parcel_takenby' WHERE id = '$id'")or die(mysql_error());
-
+	mysql_query("UPDATE parcel SET 
+	parcel_courier = '$parcel_courier', 
+	parcel_cnumber='$parcel_cnumber',
+	parcel_rcpt_name='$parcel_rcpt_name', 
+	parcel_ptj = '$parcel_ptj', 
+	parcel_takenby = '$parcel_takenby' 
+	WHERE id = '$id'")or die(mysql_error());
 	if ($error == false) {
+		
 		$result='<div class="alert alert-success vertical-center">'.$parcel_cnumber.' UPDATE Successful!!</div> <meta http-equiv=Refresh content=1;url=parcel.php>';
 		}else {
 		$result='<div class="alert alert-danger">OOPPSSS Something Wrong there, Please Try Again. TQ</div>';
-		}
 	}
-	//echo "";
+	
+	
 	return $result;
+	}
 }
 
 function del_parcel()
@@ -267,7 +282,7 @@ function del_ptj()
 	$query =  mysql_query("DELETE  FROM ptj WHERE id=$id") or die (mysql_query());
 	echo "<meta http-equiv=Refresh content=0;url=ptj.php>";
 }
-function bs_ptj_ret()
+function ptjGetDropMenu()
 {
 	con2db();
 
@@ -297,7 +312,7 @@ function bs_ptj_ret()
 	echo "</select></div>";// Closing of list box 
 }
 
-function bs_courier_ret()
+function courierGetDropMenu()
 {
 	con2db();
 

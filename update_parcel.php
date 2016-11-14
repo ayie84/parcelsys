@@ -1,35 +1,27 @@
 <?php
-//include 'inc/mail_func.php';
+/*
+@Title 		: Parcel Management System
+@Filename 	: update_parcel.php
+@Author		: Fit3
+@date		: 13-11-16
+
+*/
 include 'inc/function.php';
+
+debugScript();
+
 con2db();
+pageTitle("Update Parcel Data");
+include 'inc/header.php';
 $id = $_REQUEST['id'];
 $query =  mysql_query("SELECT  * FROM `parcel` WHERE id=$id") or die (mysql_query());
 $test = mysql_fetch_array($query);//will show 1st data only
 $parcel_cnumber = $test['parcel_cnumber'];
 $parcel_rcpt_name = $test['parcel_rcpt_name'];
 $parcel_takenby = $test['parcel_takenby'];
-$result = parcel_update();
+$result = parcelUpdate();
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>UMP Update Parcel Data..</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="inc/css/bootstrap.min.css">
-  <link rel="stylesheet" href="inc/css/style.min.css">
-  <script src="inc/js/jquery.min.js"></script>
-  <script src="inc/js/bootstrap.min.js"></script>
-  <style>
-	.spacer { margin-top: 40px;}
-  </style>
-</head>
-<body>
-
-<?php navbar(); ?>
-  
-<div class="container row spacer">
-	<div class="col-md-offset-5 col-md-4" id="box">
+<div class="col-md-offset-4 col-md-4" id="box">
     <h3>Update Parcel</h3><hr>                  
 	<form class="form-horizontal" name="form" method="post" action="">
 	<input type="hidden" name="new" value="1" />
@@ -54,13 +46,13 @@ $result = parcel_update();
 	
 	<div class="form-group">
     <div class="col-md-12">
-        <?php bs_ptj_ret(); ?>
+        <?php ptjGetDropMenu(); ?>
     </div>
     </div>
 										
 	<div class="form-group">
     <div class="col-md-12">
-        <?php bs_courier_ret(); ?>
+        <?php courierGetDropMenu(); ?>
     </div>
     </div>
 	
@@ -87,9 +79,7 @@ $result = parcel_update();
 
 	</fieldset>
 	</form> 
-	<?php  ?>
-</div>
-
-</body>
-</html>
-
+	</div>
+<?php
+include 'inc/footer.php';
+?>
