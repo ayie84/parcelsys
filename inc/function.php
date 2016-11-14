@@ -680,7 +680,7 @@ function track()
 
 
 
-function view_parcel_record()
+function parcelReportToday()
 {
 	date_default_timezone_set("Asia/Kuala_Lumpur");
 	$today = date("Y-m-d H:i:s");

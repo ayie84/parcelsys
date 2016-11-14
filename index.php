@@ -14,5 +14,6 @@ con2db();
 pageTitle("Parcel Management System");
 include 'inc/header.php';
 echo 'index file.php';
+parcelReportToday();
 include 'inc/footer.php';
 ?>
