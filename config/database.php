@@ -1,16 +1,13 @@
 <?php
 
-function con2db() //connection to db
+	function con2db() //connection to db
 {
-
 	/*$user_name = "walimatu_postmel"; //username
 	$password = "Pusatmel2016";//password
 	$database = "walimatu_pusatmel";//dbname
 	$host_name = "localhost"; //server
 	*/
 	
-	function con2db() //connection to db
-{
 	$user_name = "root"; //username
 	$password = "";//password
 	$database = "ump_pmail";//dbname
@@ -39,6 +36,7 @@ function con2db() //connection to db
 	$con_mysql = 0;
 	$_SESSION['mysql_con'] = $con_mysql;
 	}
+}
 }
 
 ?>
