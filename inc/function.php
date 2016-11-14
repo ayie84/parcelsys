@@ -699,7 +699,7 @@ function parcelReportToday()
 	{
 	$names = array();
 	//$query = mysql_query("SELECT * FROM parcel");
-	$query =  mysql_query("SELECT  * FROM `parcel` ORDER BY `parcel_courier` ASC ") or die (mysql_query());
+	$query =  mysql_query("SELECT  * FROM `parcel`  where `parcel_timestamp` LIKE '%".$date."%' ORDER BY `parcel_courier` ASC ") or die (mysql_query());
 			echo '
 			
 			<div class="row">
