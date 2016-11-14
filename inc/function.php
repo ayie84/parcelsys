@@ -151,10 +151,10 @@ function del_parcel()
 	echo "<meta http-equiv=Refresh content=0;url=parcel.php>";
 }
 
-function courier_reg()
+function courierReg()
 {
-	$status = 0;
 	con2db();
+	if(!empty($result)){
 	if(isset($_POST['new']) && $_POST['new']==1)
 	{
 	
@@ -173,6 +173,7 @@ function courier_reg()
 		}
 	}
 	return $result;
+	}
 }
 
 function courier_update()
@@ -432,7 +433,7 @@ function parcelView()
 		}
 }
 
-function bsview_courier()
+function courierView()
 {
 	con2db();//db connect
 	$value = mysql_query("SELECT COUNT( * ) AS Value FROM  `courier`") or die (mysql_query());
@@ -440,7 +441,7 @@ function bsview_courier()
 	$val = $num_rows['Value'];
 	if($val>0)
 		{
-			$limit = 5;  
+			$limit = 10;  
 			if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; };  
 			$start_from = ($page-1) * $limit; 
 			$query =  mysql_query("SELECT  * FROM `courier` ORDER BY id DESC LIMIT $start_from, $limit") or die (mysql_query());
