@@ -6,8 +6,9 @@
 @date		: 13-11-16
 
 */
-session_start();
+//session_start();
 include 'inc/function.php';
+debugScript();//comment this line to debug
 //auth();
 con2db();
 pageTitle("Parcel Query Data");

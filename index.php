@@ -6,12 +6,13 @@
 @date		: 13-11-16
 
 */
-
-include 'inc/header.php';
+include 'inc/function.php';
 debugScript(); //comment this line for debug error msg
 $navbar = '0';
 con2db();
 pageTitle("Parcel Management System");
+include 'inc/header.php';
+
 ?>
  <div class="container" style="margin-top:40px">
 		<div class="row spacer">

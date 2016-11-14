@@ -9,6 +9,7 @@
 session_start();
 
 include 'inc/function.php';
+debugScript();//comment this line to debug
 $navbar = '1';
 //auth();
 con2db();
