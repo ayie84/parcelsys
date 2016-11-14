@@ -183,7 +183,7 @@ function courierReg()
 	
 }
 
-function courier_update()
+function courierUpdate()
 {
 	$status = 0;
 	con2db();
