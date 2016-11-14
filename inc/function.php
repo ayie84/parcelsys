@@ -7,7 +7,7 @@
 
 */
 
-session_start();
+//session_start();
 include 'config/database.php';
 
 //Connection File

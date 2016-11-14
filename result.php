@@ -9,6 +9,7 @@
 session_start();
 
 include 'inc/function.php';
+$navbar = '1';
 //auth();
 con2db();
 pageTitle("Parcel Query Result");

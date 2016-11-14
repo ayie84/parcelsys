@@ -1,4 +1,7 @@
-<?php session_start(); ?>
+<?php 
+//session_start();
+//include 'function.php'; 
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +17,6 @@
 <body>
 
 <?php 
-//echo $navbar;
 if($navbar=='0')
 {
 	//no Nav bar
