@@ -1,6 +1,6 @@
 <?php
 
-	function con2db() //connection to db
+function con2db() //connection to db
 {
 	/*$user_name = "walimatu_postmel"; //username
 	$password = "Pusatmel2016";//password
@@ -36,7 +36,7 @@
 	$con_mysql = 0;
 	$_SESSION['mysql_con'] = $con_mysql;
 	}
-}
+	}
 }
 
 ?>

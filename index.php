@@ -7,7 +7,6 @@
 
 */
 include 'inc/function.php';
-
 debugScript(); //comment this line for debug error msg
 
 con2db();
@@ -22,7 +21,7 @@ include 'inc/headerIndex.php';
 						<strong> Parcel Management System</strong>
 					</div>
 					<div class="panel-body">
-						<form role="form" action="#" method="POST">
+						<form role="form" action="login-exec.php" method="POST"> <!-- <form id="loginForm" name="loginForm" method="post" action="/aug/login-exec.php"> -->
 							<fieldset>
 								<div class="row">
 									<div class="center-block spacer" align="center">
@@ -36,7 +35,7 @@ include 'inc/headerIndex.php';
 												<span class="input-group-addon">
 													<i class="glyphicon glyphicon-user"></i>
 												</span> 
-												<input class="form-control" placeholder="Username" name="loginname" type="text" autofocus>
+												<input class="form-control" placeholder="Username" name="login" type="text" autofocus>
 											</div>
 										</div>
 										<div class="form-group">

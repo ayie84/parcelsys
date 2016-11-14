@@ -7,6 +7,7 @@
 
 */
 include 'inc/function.php';
+auth();
 debugScript(); //comment this line for debug error msg
 con2db();
 pageTitle("PTJ");

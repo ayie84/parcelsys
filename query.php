@@ -6,8 +6,9 @@
 @date		: 13-11-16
 
 */
+session_start();
 include 'inc/function.php';
-
+auth();
 con2db();
 pageTitle("Parcel Query Data");
 include 'inc/header.php';

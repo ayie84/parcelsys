@@ -6,8 +6,10 @@
 @date		: 13-11-16
 
 */
-include 'inc/function.php';
+session_start();
 
+include 'inc/function.php';
+auth();
 debugScript(); //comment this line for debug error msg
 
 con2db();

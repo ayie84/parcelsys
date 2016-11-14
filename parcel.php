@@ -6,7 +6,12 @@
 @date		: 13-11-16
 
 */
+session_start();
+	
+	
+
 include 'inc/function.php';
+auth();
 debugScript(); //comment this line for debug error msg
 con2db();
 $result = parcelReg();
