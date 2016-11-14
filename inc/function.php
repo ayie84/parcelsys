@@ -397,13 +397,13 @@ function parcelView()
 				}
 			echo '</tbody></table></div></div></div></div>';
 
-			$sql = "SELECT COUNT(id) FROM parcel";  
+			$sql = "SELECT COUNT(id) FROM parcel WHERE `parcel_timestamp` LIKE '%".$date."%'";  
 			$rs_result = mysql_query($sql);  
 			$row = mysql_fetch_row($rs_result);  
 			$total_records = $row[0];  
 			$total_pages = ceil($total_records / $limit);
 			?>
-			<div class="col-md-12 text-center">
+			<div class="col-md-offset-3	 col-md-8 row spacer">
 			<ul class="pagination navbar-right margin-right=10px">
 			<?php 
 			for ($i=1; $i<=$total_pages; $i++) {

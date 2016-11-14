@@ -1,9 +1,9 @@
 <?php
 /*
-UMP Parcel Databased & Tracking System
-10-11-2016
-parcel.php
--store & view courier company
+@Title 		: Parcel Management System
+@Filename 	: Parcel.php
+@Author		: Fit3
+@date		: 13-11-16
 
 */
 include 'inc/function.php';
@@ -11,7 +11,7 @@ include 'inc/function.php';
 con2db();
 $result = parcelReg();
 //title("it about Test");
-pageTitle("MyWebTitle");
+pageTitle("Parcel Management System");
 include 'inc/header.php';
 
 ?>
