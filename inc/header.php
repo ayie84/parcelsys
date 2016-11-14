@@ -13,6 +13,15 @@
 </head>
 <body>
 
-<?php navbar(); ?>
+<?php 
+//echo $navbar;
+if($navbar=='0')
+{
+	//no Nav bar
+}else{
+	navbar();
+}
+ 
+?>
   
 <div class="container spacer">
