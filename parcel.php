@@ -48,7 +48,7 @@ include 'inc/header.php';
 			<div class="form-group">
 				<div class="col-md-12">
                     <div class="input-group">                    
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>                        
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-saved"></i></span>                        
                     <input name="parcel_takenby" placeholder="Taken By" class="form-control" type="text">                          
                     </div>
                 </div>

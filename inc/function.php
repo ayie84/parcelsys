@@ -92,8 +92,9 @@ function courierDropMenu()
 
 function parcelReg()
 {
-	$status = 0;
+	
 	con2db();
+	if(!empty($title)){
 	if(isset($_POST['new']) && $_POST['new']==1)
 	{
 	
@@ -112,6 +113,7 @@ function parcelReg()
 		}
 	}
 	return $result;
+	}
 }
 
 function parcel_update()
@@ -492,7 +494,7 @@ function bsview_courier()
 			$total_records = $row[0];  
 			$total_pages = ceil($total_records / $limit);
 			?>
-			<div class="col-md-12 text-center">
+			<div class="col-md-offset-3	 col-md-8 row spacer">
 			<ul class="pagination navbar-right margin-right=10px">
 
 			<?php 
