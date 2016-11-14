@@ -77,7 +77,7 @@ function navbar()
 	
 }
 
-function bs_ptj()
+function ptjDropMenu()
 {
 	con2db();
 	$query="SELECT * FROM ptj"; 
@@ -93,7 +93,7 @@ function bs_ptj()
     echo '</select></div></div></div>';
 }
 
-function bs_courier()
+function courierDropMenu()
 {
 	con2db();
 	$query="SELECT * FROM courier"; 
@@ -110,7 +110,7 @@ function bs_courier()
     echo '</select></div></div></div>';
 }
 
-function parcel_reg()
+function parcelReg()
 {
 	$status = 0;
 	con2db();
@@ -123,7 +123,6 @@ function parcel_reg()
 	$parcel_ptj = $_REQUEST['ptj'];
 	$parcel_courier = $_REQUEST['courier'];
 	$parcel_takenby = $_REQUEST['parcel_takenby'];
-	//$class_ses = $_REQUEST['cses'];
 	$ins_query="insert into parcel(`parcel_cnumber`,`parcel_rcpt_name`,`parcel_ptj`,`parcel_courier`,`parcel_takenby`)values('$parcel_cnumber','$parcel_rcpt_name','$parcel_ptj','$parcel_courier','$parcel_takenby')";
 	mysql_query($ins_query) or die(mysql_error());
 	if ($error == false) {
@@ -344,7 +343,7 @@ function bs_courier_ret()
 	echo "</select></div>";// Closing of list box 
 }
 
-function bsview_parcel()
+function parcelView()
 {
 
 	date_default_timezone_set("Asia/Kuala_Lumpur");

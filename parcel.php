@@ -1,13 +1,13 @@
 <?php
 /*
-10-11-2016
-parcel.php
--store & view courier company
+@Title 		: Parcel Management System
+@Filename 	: parcel.php
+@Author		: Fit3
 
 */
 include 'inc/function.php';
 con2db();
-$result = parcel_reg();
+$result = parcelReg();
 //echo 'parcel.php file';
 ?>
 <!DOCTYPE html>
@@ -57,8 +57,8 @@ $result = parcel_reg();
             </div>
 
                 <?php 	
-					bs_ptj(); 
-					bs_courier();
+					ptjDropMenu(); 
+					courierDropMenu();
 				?>
 				
 			<div class="form-group">
@@ -78,8 +78,7 @@ $result = parcel_reg();
 
             <div class="form-group">                       
 				<div class="col-md-12">
-				
-					<input class="btn btn-warning pull-right" name="submit" type="submit" value="Submit"><?php //parcel_reg(); ?>
+					<input class="btn btn-warning pull-right" name="submit" type="submit" value="Submit">
 				</div>
             </div>
             </fieldset>
@@ -87,7 +86,7 @@ $result = parcel_reg();
 		
 	</div>
 	</div>
-	<?php bsview_parcel(); ?>
+	<?php parcelView(); ?>
 </div>
 
 </body>
