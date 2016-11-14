@@ -14,9 +14,6 @@ function title($title)
 	//echo 'this function is RUNNING.. :)';
 }
 
-<<<<<<< HEAD
-
-=======
 /*function con2db() //connection to db
 {
 	/*$user_name = "root"; //username
@@ -42,7 +39,6 @@ function title($title)
 	$_SESSION['mysql_con'] = $con_mysql;
 	}
 }*/
->>>>>>> 3360b78a538c7172743be7de779e19ab9cb5a166
 
 //Auth after login
 function auth()
