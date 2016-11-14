@@ -209,9 +209,8 @@ function courierUpdate()
 	return $result;
 }
 
-function del_courier()
+function courierDel()
 {
-	navbar();
 	$id = $_REQUEST['id'];
 
 	$query =  mysql_query("DELETE  FROM courier WHERE id=$id") or die (mysql_query());
