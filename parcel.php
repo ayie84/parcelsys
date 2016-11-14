@@ -70,6 +70,6 @@ include 'inc/header.php';
 		
 	</div>
 <?php
-//parcelView();
+parcelView();
 include 'inc/footer.php';
 ?>
