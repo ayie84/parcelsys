@@ -11,8 +11,10 @@
   <link rel="stylesheet" href="public/css/bootstrap.min.css">
   <link rel="stylesheet" href="public/css/style.min.css">
   <link rel="stylesheet" href="public/css/loginmodule.css">
+  <link rel="stylesheet" href="public/css/bootstrap-datepicker.css">
   <script src="public/js/jquery.min.js"></script>
   <script src="public/js/bootstrap.min.js"></script>
+  <script src="public/js/bootstrap-datepicker.js"></script>
 </head>
 <body>
 

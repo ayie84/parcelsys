@@ -17,7 +17,7 @@ include 'inc/header.php';
 
 	<div class="col-md-offset-4 col-md-4" id="box">
 	<h3>Add PTJ </h3><hr>
-	<form class="form-horizontal" name="form" method="post" action="">
+	<form class="form-horizontal" name="form" method="post" action="result.php">
 	<input type="hidden" name="new" value="1" />
 	<!--<form class="form-horizontal" name="form" action="" method="post" id="contact_form">-->
         <fieldset>
@@ -26,7 +26,7 @@ include 'inc/header.php';
 				<div class="col-md-12">
                     <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-list-alt"></i></span>                          
-                    <input name="ptj_name" id="ptj_name" placeholder="PTJ Name" class="form-control" type="text" required>
+                    <input name="query" id="query" placeholder="PTJ Name" class="form-control" type="text" required>
                     </div>                        
                 </div>
             </div>
