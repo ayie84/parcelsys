@@ -38,19 +38,18 @@ function pageTitle($title)
 //bootstrap navigantion Bar
 function navbar()
 {
-	echo '
-	<nav class="navbar navbar-default navbar-fixed-top">
+echo '<nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-envelope"></span> parcel@Mail</a>
     </div>
     <ul class="nav navbar-nav">
-      <li class="active"><a href="home.php">Home</a></li>
+      <li class="active"><a href="picker.php">Home</a></li>
+      <!--<li class="active"><a href="home.php">Home</a></li>-->
       <li><a href="parcel.php">Parcel</a></li>
       <li><a href="courier.php">Courier</a></li>
       <li><a href="ptj.php">PTJ</a></li>
     </ul>
-    </ul>	
 	<ul class="nav navbar-nav navbar-right">
         <li><a><form class="form-inline float-xs-right" method="get" action="result.php">
     <input name="query" class="form-control" type="text" placeholder="Tracking Number">
@@ -58,7 +57,7 @@ function navbar()
   </form></a></li>
     </ul>
 	
- </div>
+  </div>
 </nav>';
 	
 }
