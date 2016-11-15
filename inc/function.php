@@ -61,7 +61,7 @@ function navbar()
 </nav>';*/
 
 echo '
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -395,7 +395,7 @@ function parcelView()
 	date_default_timezone_set("Asia/Kuala_Lumpur");
     //echo date('d-m-Y H:i:s'); //Returns IST
    // echo date('Y-m-d H:i:s'); //Returns IST
-
+	$tableTitle = 'Received Parcel Today';
 	$today = date("Y-m-d H:i:s");
 
 	
@@ -416,32 +416,24 @@ function parcelView()
 			if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; };  
 			$start_from = ($page-1) * $limit; 
 			$query =  mysql_query("SELECT  * FROM `parcel` WHERE `parcel_timestamp` LIKE '%".$date."%' ORDER BY id DESC LIMIT $start_from, $limit") or die (mysql_query());
+			echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';
+			echo '<div class="col-md-offset-2 col-md-8 row spacer" >';
+			echo '<h3 class="sub-header">'.$tableTitle.' - '.$date.'</h3></div>';
+			
 			echo '
-			
-			<div class="row">
-			<div class="col-md-offset-2	 col-md-8 row spacer">
-			<div class="panel panel-default panel-table row spacer"  id="box">
-			<div class="panel-heading">
-			<div class="row">
-			<div class="col col-xs-6" >
-			<h3 class="panel-title">Parcel List For Today [ '.$date.' ]</h3>
-			</div>
-			<div class="col col-xs-6 text-right">
+			<div class="col col-xs-10 text-right">
 			<button type="button" class="btn btn-warning pull-right">View Report</button>
-			</div></div></div>
-			<div class="panel-body">
-			<!--<div class="table-responsive">-->
-			<!--<table class="table table-striped table-bordered table-list">-->
-			<table class="table-responsive">
+			</div>
+			<div class="table-responsive col-md-offset-2 col-md-8 row spacer">
+			<table class="table table-striped table-bordered table-list" style="word-wrap: break-word;">
 			<thead>
-			<tr>
-			
-			<th>Name</th>
-			<th>Courier</th>
-			<th>PTJ</th>
-			<th>Taken By</th>
-			<th><em class="glyphicon glyphicon-cog"></em></th>
-			</tr> 
+			  <tr>
+				<th class="text-center">Tracking Number</th>
+				<th class="text-center">Courier</th>
+				<th class="text-center">PTJ</th>
+				<th class="text-center">Taken By</th>
+				<th style="width:15%" class="text-center"><em class="glyphicon glyphicon-cog"></em></th>
+				</tr> 
 			</thead>
 			<tbody>
 			';
@@ -463,7 +455,7 @@ function parcelView()
 					$cnt++;
 			
 				}
-			echo '</tbody></table></div></div></div></div>';
+			echo '</tbody></table></div>';
 
 			$sql = "SELECT COUNT(id) FROM parcel WHERE `parcel_timestamp` LIKE '%".$date."%'";  
 			$rs_result = mysql_query($sql);  
@@ -471,7 +463,7 @@ function parcelView()
 			$total_records = $row[0];  
 			$total_pages = ceil($total_records / $limit);
 			?>
-			<div class="col-md-offset-3	 col-md-8 row spacer">
+			<div class="col-md-offset-3	 col-md-9 row spacer">
 			<ul class="pagination navbar-right margin-right=10px">
 			<?php 
 			for ($i=1; $i<=$total_pages; $i++) {
@@ -482,79 +474,84 @@ function parcelView()
 		}
 		else
 		{ //jika tiada data pada table, echo this..
+			echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';
+			echo '<div class="col-md-offset-2 col-md-8 row spacer" >';
+			echo '<h3 class="sub-header">'.$tableTitle.' - '.$date.'</h3></div>';
+			
 			echo '
-			<div class="row">
-			<div class="col-md-offset-2	 col-md-8 row spacer">
-			<div class="panel panel-default panel-table row spacer"  id="box">
-			<div class="panel-heading">
-			<div class="row">
-			<div class="col col-xs-6" >
-			<h3 class="panel-title">Parcel List For Today [ '.$date.' ]</h3>
-			</div>
-			<div class="col col-xs-6 text-right">
+			<div class="col col-xs-10 text-right">
 			<button type="button" class="btn btn-warning pull-right">View Report</button>
-			</div></div></div>
-			<center>Sorry No Record found for Parcel Today.</center>';
+			</div>
+			<div class="table-responsive col-md-offset-2 col-md-8 row spacer">
+			<table class="table table-striped table-bordered table-list" style="word-wrap: break-word;">
+			<thead>
+			  <tr>
+				<th class="text-center">Tracking Number</th>
+				<th class="text-center">Courier</th>
+				<th class="text-center">PTJ</th>
+				<th class="text-center">Taken By</th>
+				<th style="width:15%" class="text-center"><em class="glyphicon glyphicon-cog"></em></th>
+				</tr> 
+			</thead>
+			<tbody><tr><td colspan=5>
+			';
+			echo '
+			<center>Sorry No Record found for Parcel Today.</center></td></tr></tbody></table></div>';
 		}
 }
 
 function courierView()
 {
+	
 	con2db();//db connect
+	$tableTitle = 'Courier List';
 	$value = mysql_query("SELECT COUNT( * ) AS Value FROM  `courier`") or die (mysql_query());
 	$num_rows = mysql_fetch_array($value);
 	$val = $num_rows['Value'];
 	if($val>0)
-		{
-			$limit = 10;  
-			if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; };  
-			$start_from = ($page-1) * $limit; 
-			$query =  mysql_query("SELECT  * FROM `courier` ORDER BY id DESC LIMIT $start_from, $limit") or die (mysql_query());
-			
-			echo '
-			
-			<div class="row">
-			<div class="col-md-offset-2	 col-md-8 row spacer">
-			<div class="panel panel-default panel-table row spacer"  id="box">
-			<div class="panel-heading">
-			<div class="row">
-			<div class="col col-xs-6" >
-			<h3 class="panel-title">Courier List</h3>
+	{
+		$limit = 10;  
+		if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; };  
+		$start_from = ($page-1) * $limit; 
+		$query =  mysql_query("SELECT  * FROM `courier` ORDER BY id DESC LIMIT $start_from, $limit") or die (mysql_query());
+		
+		echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';
+		echo '<div class="col-md-offset-2 col-md-8 row spacer" >';
+		echo '<h3 class="sub-header">'.$tableTitle.'</h3></div>';
+		echo '
+		<div class="col col-xs-10 text-right">
+			<button type="button" class="btn btn-warning pull-right">View Report</button>
 			</div>
-			<div class="col col-xs-6 text-right">
-			<a href="add_courier.php"><button type="button" class="btn btn-warning pull-right">View Full List</button></a>
-			</div>
-			</div>
-			</div>
-			<div class="panel-body">
-			<table class="table table-striped table-bordered table-list">
-			<thead>
+		<div class="table-responsive col-md-offset-2 col-md-8 row spacer">
+		<table class="table table-striped table-bordered table-list" style="word-wrap: break-word;">
+        <thead>
 			<tr>
-			<th>Courier</th>
-			<th>Contact Number</th>
-			<th>Fax Number</th>
-			<th><em class="glyphicon glyphicon-cog"></em></th>
+				<th class="text-center">Courier</th>
+				<th class="text-center">Contact Number</th>
+				<th class="text-center">Fax Number</th>
+				<th style="width:15%"><em class="glyphicon glyphicon-cog"></em></th>
 			</tr> 
-			</thead>
-			<tbody>
-			';
-			while($test = mysql_fetch_array($query))//loop process
+        </thead>
+        <tbody>
+		';
+		while($test = mysql_fetch_array($query))//loop process
 				{
 					$id = $test['id'];
 					$_SESSION['id'] = $id;
 					
-					echo '<tr><td style="width:5%">'. $test['courier_name'].'</td>';
-					echo '<td style="width:5%">'. $test['courier_contact_no'].'</td>';
-					echo '<td style="width:5%">'. $test['courier_fax_no'].'</td>';
-					echo '<td align="center" style="width:2%">
+					echo '<tr><td>'. $test['courier_name'].'</td>';
+					echo '<td>'. $test['courier_contact_no'].'</td>';
+					echo '<td>'. $test['courier_fax_no'].'</td>';
+					echo '<td align="center">
 					<a href="update_courier.php?id='.$id.'" class="btn btn-default" onclick="javascript:return confirm(\'Are you sure to UPDATE '.$test['courier_name'].'?\')"><em class="glyphicon glyphicon-pencil"></em></a>
 					<a href="delete_courier.php?id='.$id.'" class="btn btn-danger" onclick="javascript:return confirm(\'Are You Sure to REMOVE '.$test['courier_name'].'?\')"><em class="glyphicon glyphicon-trash"></em></a>
 					</td>';
 					echo '</tr>';
 			
 		}
-			echo '</tbody></table></div></div></div></div>';
-			$sql = "SELECT COUNT(id) FROM courier";  
+		
+		echo '</tbody></table></div>';
+		$sql = "SELECT COUNT(id) FROM courier";  
 			$rs_result = mysql_query($sql);  
 			$row = mysql_fetch_row($rs_result);  
 			$total_records = $row[0];  
@@ -573,16 +570,38 @@ function courierView()
 			?>
 
 		  </ul></div><?php
-		}
-		else
-		{ //jika tiada data pada table, echo this..
-			echo '<center>Sorry No Record found for Courier.</center>';
-		}
+	}
+	else
+	{ //jika tiada data pada table, echo this..
+		echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';
+			echo '<div class="col-md-offset-2 col-md-8 row spacer" >';
+			echo '<h3 class="sub-header">'.$tableTitle.'</h3></div>';
+			
+			echo '
+			<div class="col col-xs-10 text-right">
+			<button type="button" class="btn btn-warning pull-right">View Report</button>
+			</div>
+			<div class="table-responsive col-md-offset-2 col-md-8 row spacer">
+			<table class="table table-striped table-bordered table-list" style="word-wrap: break-word;">
+			<thead>
+			  <tr>
+				<th class="text-center">Courier</th>
+				<th class="text-center">Contact Number</th>
+				<th class="text-center">Fax Number</th>
+				<th style="width:15%"><em class="glyphicon glyphicon-cog"></em></th>
+			</tr> 
+			</thead>
+			<tbody><tr><td colspan=4>
+			';
+			echo '
+			<center>Sorry No Record found for Courier.</center></td></tr></tbody></table></div>';
+	}
 }
 
 function ptjView()
 {
 	con2db();//db connect
+	$tableTitle = "PTJ List";
 	$value = mysql_query("SELECT COUNT( * ) AS Value FROM  `ptj`") or die (mysql_query());
 	$num_rows = mysql_fetch_array($value);
 	$val = $num_rows['Value'];
@@ -593,28 +612,21 @@ function ptjView()
 			if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; };  
 			$start_from = ($page-1) * $limit; 
 			$query =  mysql_query("SELECT  * FROM `ptj` ORDER BY id DESC LIMIT $start_from, $limit") or die (mysql_query());
+			echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';
+			echo '<div class="col-md-offset-2 col-md-8 row spacer" >';
+			echo '<h3 class="sub-header">'.$tableTitle.'</h3></div>';
 			echo '
-			
-			<div class="row">
-			<div class="col-md-offset-2	 col-md-8 row spacer	 ">
-			<div class="panel panel-default panel-table row spacer"  id="box">
-			<div class="panel-heading">
-			<div class="row">
-			<div class="col col-xs-6" >
-			<h3 class="panel-title">Parcel List For Today</h3>
-			</div>
-			<div class="col col-xs-6 text-right">
-			<button type="button" class="btn btn-warning pull-right">View Report</button>
-			</div></div></div>
-			<div class="panel-body">
-			<table class="table table-striped table-bordered table-list">
+			<div class="col col-xs-10 text-right">
+				<button type="button" class="btn btn-warning pull-right">View Report</button>
+				</div>
+			<div class="table-responsive col-md-offset-2 col-md-8 row spacer">
+			<table class="table table-striped table-bordered table-list" style="word-wrap: break-word;">
 			<thead>
-			<tr>
-			
-			<th>PTJ Name</th>
-			<th>PTJ Code</th>
-			<th><em class="glyphicon glyphicon-cog"></em></th>
-			</tr> 
+			  <tr>
+				<th class="text-center">Courier</th>
+				<th class="text-center">Contact Number</th>
+				<th style="width:15%" class="text-center"><em class="glyphicon glyphicon-cog"></em></th>
+				</tr> 
 			</thead>
 			<tbody>
 			';
@@ -624,9 +636,9 @@ function ptjView()
 					$id = $test['id'];
 					$_SESSION['id'] = $id;
 
-					echo '<tr><td style="width:30%">'. $test['ptj_name'].'</td>';
-					echo '<td style="width:15%">'. $test['ptj_acro'].'</td>';
-					echo '<td align="center" style="width:10%">
+					echo '<tr><td>'. $test['ptj_name'].'</td>';
+					echo '<td>'. $test['ptj_acro'].'</td>';
+					echo '<td align="center">
 					<a href="update_ptj.php?id='.$id.'" class="btn btn-default" onclick="javascript:return confirm(\'Are you sure to UPDATE '.$test['ptj_name'].'?\')"><em class="glyphicon glyphicon-pencil"></em></a>
 					<a href="delete_ptj.php?id='.$id.'" class="btn btn-danger" onclick="javascript:return confirm(\'Are You Sure to REMOVE '.$test['ptj_name'].'?\')"><em class="glyphicon glyphicon-trash"></em></a>
 					</td>';
@@ -634,7 +646,7 @@ function ptjView()
 					$cnt++;
 			
 				}
-			echo '</tbody></table></div></div></div></div>';
+			echo '</tbody></table></div>';
 
 			$sql = "SELECT COUNT(id) FROM ptj";  
 			$rs_result = mysql_query($sql);  
@@ -642,7 +654,7 @@ function ptjView()
 			$total_records = $row[0];  
 			$total_pages = ceil($total_records / $limit);
 			?>
-			<div class="col-md-offset-3	 col-md-8 row spacer">>
+			<div class="col-md-offset-3	 col-md-8 row spacer">
 			<ul class="pagination navbar-right margin-right=10px">
 			<?php 
 			for ($i=1; $i<=$total_pages; $i++) {
@@ -653,7 +665,27 @@ function ptjView()
 		}
 		else
 		{ //jika tiada data pada table, echo this..
-			echo '<center>Sorry No Record found for PTJ.</center>';
+			echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';
+			echo '<div class="col-md-offset-2 col-md-8 row spacer" >';
+			echo '<h3 class="sub-header">'.$tableTitle.'</h3></div>';
+			
+			echo '
+			<div class="col col-xs-10 text-right">
+			<button type="button" class="btn btn-warning pull-right">View Report</button>
+			</div>
+			<div class="table-responsive col-md-offset-2 col-md-8 row spacer">
+			<table class="table table-striped table-bordered table-list" style="word-wrap: break-word;">
+			<thead>
+			  <tr>
+				<th class="text-center">Courier</th>
+				<th class="text-center">Contact Number</th>
+				<th style="width:15%" class="text-center"><em class="glyphicon glyphicon-cog"></em></th>
+				</tr> 
+			</thead>
+			<tbody><tr><td colspan=3>
+			';
+			echo '
+			<center>Sorry No Record found for PTJ.</center></td></tr></tbody></table></div>';
 		}
 }
 
@@ -676,32 +708,28 @@ function track()
         $raw_results = mysql_query("SELECT * FROM parcel WHERE (`parcel_cnumber` LIKE '%".$query."%') OR (`parcel_courier` LIKE '%".$query."%')") or die(mysql_error());
 		
 		
-		echo '<div class="row">
-			<div class="col-md-offset-3	 col-md-6 row spacer">
-			<div class="panel panel-default panel-table row spacer"  id="box">
-			<div class="panel-heading">
-			<div class="row">
-			<div class="col col-xs-6" >
-			<h3 class="panel-title">Parcel Tracking Result</h3>
-			</div>
-			<div class="col col-xs-6 text-right">
-			<a href="tracking.php"><button type="button" class="btn btn-warning pull-right">Track Other</button></a>
-			</div></div></div>
-			<div class="panel-body">
-			<table class="table table-striped table-bordered table-list">
-			<thead>
-			<tr>
+		echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';
+			echo '<div class="col-md-offset-2 col-md-8 row spacer" >';
+			echo '<h3 class="sub-header">Received Parcel Today</h3></div>';
 			
-			<th style="width:25%">Tracking Number</th>
-			<th style="width:25%">Courier</th>
-			<th style="width:25%">Taken By</th>
-			<th style="width:25%">Received Date</th>
-			<th style="width:25%">Received Time</th>
-			<!--<th><em class="glyphicon glyphicon-cog"></em></th>-->
-			</tr> 
+			echo '
+			<div class="col col-xs-10 text-right">
+			<button type="button" class="btn btn-warning pull-right">View Report</button>
+			</div>
+			<div class="table-responsive col-md-offset-2 col-md-8 row spacer">
+			<table class="table table-striped table-bordered table-list" style="word-wrap: break-word;">
+			<thead>
+			  <tr>
+				<th class="text-center">Tracking Number</th>
+				<th class="text-center">Courier</th>
+				<th class="text-center">Taken By</th>
+				<th class="text-center">Received Date</th>
+				<th class="text-center">Received Time</th>
+				<!--<th style="width:15%" class="text-center"><em class="glyphicon glyphicon-cog"></em></th>-->
+				</tr> 
 			</thead>
-			<tbody>';
- 
+			<tbody>
+			';
          
         if(mysql_num_rows($raw_results) > 0){ // if one or more rows are returned do following
              
@@ -726,17 +754,19 @@ function track()
 			</tr>
 			';
             }
-            //echo '</tbody></table></div></div></div></div>';
+            echo '</tbody></table></div>';
         }
         else{ // if there is no matching rows do following
-            echo "<center>Maaf, Tiada Maklumat Di Temui</center>";
+            
+			echo "<tr><td colspan='5'><center>Maaf, Tiada Rekod ".$query." Di Temui</center></td></tr>";
+			echo '</tbody></table></div>';
         }
          
     }
     else{ // if query length is less than minimum
         echo "Minimum length is ".$min_length;
     } 
-	echo '</tbody></table></div></div></div></div>';
+	echo '</tbody></table></div>';
 }
 
 
