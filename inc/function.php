@@ -88,6 +88,7 @@ echo '
             <li><a href="#">By Date</a></li>
             <li><a href="#">By Tracking Number</a></li>
             <li><a href="#">By PTJ</a></li>
+            <li><a href="tableresponsive.php">table</a></li>
           </ul>
         </li>
       </ul>
@@ -428,9 +429,10 @@ function parcelView()
 			<div class="col col-xs-6 text-right">
 			<button type="button" class="btn btn-warning pull-right">View Report</button>
 			</div></div></div>
-			<!--<div class="panel-body">-->
-			<div class="table-responsive">
-			<table class="table table-striped table-bordered table-list">
+			<div class="panel-body">
+			<!--<div class="table-responsive">-->
+			<!--<table class="table table-striped table-bordered table-list">-->
+			<table class="table-responsive">
 			<thead>
 			<tr>
 			
