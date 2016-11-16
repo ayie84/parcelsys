@@ -4,14 +4,14 @@
 @Filename 	: 403.php
 @Author		: Fit3
 @date		: 13-11-16
-
 */
 include 'inc/function.php';
 debugScript(); //comment this line for debug error msg
 pageTitle("Pages Not Found");
-include 'inc/headerIndex.php';
+$navbar= '0';
+include 'inc/header.php';
 ?>
-        <!-- small navbar -->
+     <!-- small navbar -->
         <nav class="navbar navbar-default navbar-fixed-top bootstrap-admin-navbar-sm" role="navigation">
             <div class="container">
                 
@@ -39,7 +39,7 @@ include 'inc/headerIndex.php';
                     </div>
                 </div>
             </div>
-        </div>
+        </div>   
 
 <?php
 include 'inc/footer.php';
