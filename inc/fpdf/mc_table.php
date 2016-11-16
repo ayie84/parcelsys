@@ -22,6 +22,36 @@ $this->Cell($this->widths[$i],10,$h[$i],1,0,'C');
 	$this->Ln();
 }
 
+function Header()
+{
+    // Logo
+    $this->Image('public/images/ump.png',10,6,30);
+    // Arial bold 15
+    $this->SetFont('Arial','B',15);
+    // Move to the right
+    $this->Cell(60);
+    // Title
+    //$this->Cell(25, 10, '', 0);
+	$this->Cell(75, 10, 'Parcel Management System' ,0);
+	$this->Cell(30);
+	$this->SetFont('Arial', '', 9);
+	$this->Cell(30, 10, 'Date: '.date('d-m-Y').'', 0);
+	//$pdf->Ln(15);
+    // Line break
+    $this->Ln(20);
+}
+
+// Page footer
+function Footer()
+{
+	// Position at 1.5 cm from bottom
+    $this->SetY(-15);
+    // Arial italic 8
+    $this->SetFont('Arial','I',8);
+    // Page number
+    $this->Cell(0,10,'Page '.$this->PageNo().'/{nb}',0,0,'C');
+}
+
 
 function SetWidths($w)
 {
