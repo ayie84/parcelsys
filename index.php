@@ -19,7 +19,7 @@ include 'inc/header.php';
 			<div class="col-sm-6 col-md-4 col-md-offset-4">
 				<div class="panel panel-default">
 					<div class="panel-heading">
-						<strong> Parcel Management System</strong>
+						<strong><center> Parcel Management System</center></strong>
 					</div>
 					<div class="panel-body">
 						<form role="form" action="login-exec.php" method="POST"> <!-- <form id="loginForm" name="loginForm" method="post" action="/aug/login-exec.php"> -->
