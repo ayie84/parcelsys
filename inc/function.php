@@ -85,10 +85,8 @@ echo '
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Query <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">By Date</a></li>
-            <li><a href="#">By Tracking Number</a></li>
-            <li><a href="#">By PTJ</a></li>
-            <li><a href="tableresponsive.php">table</a></li>
+            <li><a href="querybydate.php">By Date</a></li>
+            <li><a href="query.php">By Tracking Number</a></li>
           </ul>
         </li>
       </ul>
@@ -876,6 +874,127 @@ function parcelReportToday()
 			</thead>
 			<tbody>
 			<tr><td colspan="2" align="center">No Record Found</td><td></td></tr>';
+		}
+}
+
+function parcelViewByDate()
+{
+
+	date_default_timezone_set("Asia/Kuala_Lumpur");
+    //echo date('d-m-Y H:i:s'); //Returns IST
+   // echo date('Y-m-d H:i:s'); //Returns IST
+	$tableTitle = 'Received Parcel Today';
+	$today = date("Y-m-d H:i:s");
+	
+	$date = $_REQUEST['date_picker'];
+	
+	//$timestamp = $today;
+	$splitTimeStamp = explode(" ",$timestamp);
+	//$date= '2016'; //for testing purpose, to view all data to pages.
+	//$date = $splitTimeStamp[0];
+	//$time = $splitTimeStamp[1];
+	
+	con2db();//db connect
+	$value = mysql_query("SELECT COUNT( * ) AS Value FROM  `parcel` where `parcel_timestamp` LIKE '%".$date."%'") or die (mysql_query());
+	//$value = mysql_query("SELECT COUNT( * ) AS Value FROM  `parcel` where `parcel_timestamp` LIKE '%2016%'") or die (mysql_query());
+	$num_rows = mysql_fetch_array($value);
+	$val = $num_rows['Value'];
+	if($val>0)
+		{
+			$cnt = 1;
+			$limit = 10;  
+			if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; };  
+			$start_from = ($page-1) * $limit; 
+			$query =  mysql_query("SELECT  * FROM `parcel` WHERE `parcel_timestamp` LIKE '%".$date."%' ORDER BY id DESC LIMIT $start_from, $limit") or die (mysql_query());
+			echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';
+			echo '<div class="col-md-offset-2 col-md-8 row spacer" >';
+			echo '<h3 class="sub-header">'.$tableTitle.' - '.$date.'</h3></div>';
+			
+			echo '
+			<div class="col col-xs-10 text-right">
+			<!--<button type="button" class="btn btn-warning pull-right">View Report</button>-->
+			<a href="printpdf07.php?date='.$date.'" class="btn btn-warning pull-right" >Export To PDF</a>
+			</div>
+			<div class="table-responsive col-md-offset-2 col-md-8 row spacer">
+			<table class="table table-striped table-bordered table-list" style="word-wrap: break-word;">
+			<thead>
+			  <tr>
+				<th class="text-center">Tracking Number</th>
+				<th class="text-center">Courier</th>
+				<th class="text-center">PTJ</th>
+				<th class="text-center">Taken By</th>
+				<th style="width:15%" class="text-center"><em class="glyphicon glyphicon-cog"></em></th>
+				</tr> 
+			</thead>
+			<tbody>
+			';
+			//$query01 =  mysql_query("SELECT  * FROM `parcel` ORDER BY id ASC") or die (mysql_query());
+			while($test = mysql_fetch_array($query))//loop process
+				{
+					$id = $test['id'];
+					$_SESSION['id'] = $id;
+
+					echo '<tr><td>'. $test['parcel_cnumber'].'</td>';
+					echo '<td>'. $test['parcel_courier'].'</td>';
+					echo '<td>'. $test['parcel_ptj'].'</td>';
+					echo '<td>'. $test['parcel_takenby'].'</td>';
+					echo '<td align="center">
+					<a href="update_parcel.php?id='.$id.'" class="btn btn-default" onclick="javascript:return confirm(\'Are you sure to UPDATE '.$test['parcel_cnumber'].'?\')"><em class="glyphicon glyphicon-pencil"></em></a>
+					<a href="delete_parcel.php?id='.$id.'" class="btn btn-danger" onclick="javascript:return confirm(\'Are You Sure to REMOVE '.$test['parcel_cnumber'].'?\')"><em class="glyphicon glyphicon-trash"></em></a>
+					</td>';
+					echo '</tr>';
+					$cnt++;
+			
+				}
+			echo '</tbody></table></div>';
+			
+			$sql = "SELECT COUNT(id) FROM parcel WHERE `parcel_timestamp` LIKE '%".$date."%'";  
+			$rs_result = mysql_query($sql);  
+			$row = mysql_fetch_row($rs_result);  
+			$total_records = $row[0];  
+			$total_pages = ceil($total_records / $limit);
+			?>
+			<div class="col-md-offset-3	 col-md-8 row spacer">
+			<ul class="pagination navbar-right margin-right=10px">
+
+			<?php 
+			
+			
+			for ($i=1; $i<=$total_pages; $i++) {
+				
+			echo '<li><a href="parcel.php?page='.$i.'">'.$i.'</a></li>';
+			};
+			?>
+
+		  </ul></div>
+
+		<?php	
+		}
+		else
+		{ //jika tiada data pada table, echo this..
+			echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';
+			echo '<div class="col-md-offset-2 col-md-8 row spacer" >';
+			echo '<h3 class="sub-header">'.$tableTitle.' - '.$date.'</h3></div>';
+			
+			echo '
+			<div class="col col-xs-10 text-right">
+			<!--<button type="button" class="btn btn-warning pull-right">View Report</button>-->
+			</div>
+			<div class="table-responsive col-md-offset-2 col-md-8 row spacer">
+			<table class="table table-striped table-bordered table-list" style="word-wrap: break-word;">
+			<thead>
+			  <!--<tr>
+				<th class="text-center">Tracking Number</th>
+				<th class="text-center">Courier</th>
+				<th class="text-center">PTJ</th>
+				<th class="text-center">Taken By</th>
+				<th style="width:15%" class="text-center"><em class="glyphicon glyphicon-cog"></em></th>
+				</tr> -->
+			</thead>
+			<tbody><tr><td colspan=5>
+			';
+			echo '
+			<center>Sorry No Record found for Parcel Today.</center></td></tr></tbody></table></div>';
 		}
 }
 ?>
