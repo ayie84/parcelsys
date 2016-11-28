@@ -12,7 +12,7 @@ debugScript();//comment this line to debug
 //auth();
 con2db();
 pageTitle("Parcel Query Data");
-include 'inc/header01.php';
+include 'inc/header.php';
 
 ?>
 	<div class="col-md-offset-4 col-md-4" id="box">
