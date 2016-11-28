@@ -94,7 +94,7 @@ $pdf->SetHeaders(array('C. Number','Courier','C. Number','Date','Time'));
 		$pdf->Row($data[$i]);
 	}
 
-/*
+$pdf->AddPage();
 $pdf->Ln(10);
 $pdf->SetFont('Arial', 'B', 6);
 $pdf->Cell(50,5,"__________________________",0,0);
@@ -125,6 +125,6 @@ $pdf->Cell(50,5,"",0,0);
 $pdf->Cell(90);
 $pdf->Cell(0,5,"Chop Syarikat :",0,1);
 $pdf->Ln(1);
-*/
+
 $pdf->Output();
 ?>
