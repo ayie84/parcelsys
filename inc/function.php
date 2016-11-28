@@ -883,7 +883,7 @@ function parcelViewByDate()
 	date_default_timezone_set("Asia/Kuala_Lumpur");
     //echo date('d-m-Y H:i:s'); //Returns IST
    // echo date('Y-m-d H:i:s'); //Returns IST
-	$tableTitle = 'Received Parcel Today';
+	$tableTitle = 'Received Parcel On';
 	$today = date("Y-m-d H:i:s");
 	
 	$date = $_REQUEST['date_picker'];
