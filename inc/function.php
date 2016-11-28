@@ -458,20 +458,27 @@ function parcelView()
 			
 				}
 			echo '</tbody></table></div>';
-
+			
 			$sql = "SELECT COUNT(id) FROM parcel WHERE `parcel_timestamp` LIKE '%".$date."%'";  
 			$rs_result = mysql_query($sql);  
 			$row = mysql_fetch_row($rs_result);  
 			$total_records = $row[0];  
 			$total_pages = ceil($total_records / $limit);
 			?>
-			<div class="col-md-offset-3	 col-md-9 row spacer">
+			<div class="col-md-offset-3	 col-md-8 row spacer">
 			<ul class="pagination navbar-right margin-right=10px">
+
 			<?php 
+			
+			
 			for ($i=1; $i<=$total_pages; $i++) {
+				
 			echo '<li><a href="parcel.php?page='.$i.'">'.$i.'</a></li>';
-			};?>
-		    </ul></div>
+			};
+			?>
+
+		  </ul></div>
+
 		<?php	
 		}
 		else
@@ -482,18 +489,18 @@ function parcelView()
 			
 			echo '
 			<div class="col col-xs-10 text-right">
-			<button type="button" class="btn btn-warning pull-right">View Report</button>
+			<!--<button type="button" class="btn btn-warning pull-right">View Report</button>-->
 			</div>
 			<div class="table-responsive col-md-offset-2 col-md-8 row spacer">
 			<table class="table table-striped table-bordered table-list" style="word-wrap: break-word;">
 			<thead>
-			  <tr>
+			  <!--<tr>
 				<th class="text-center">Tracking Number</th>
 				<th class="text-center">Courier</th>
 				<th class="text-center">PTJ</th>
 				<th class="text-center">Taken By</th>
 				<th style="width:15%" class="text-center"><em class="glyphicon glyphicon-cog"></em></th>
-				</tr> 
+				</tr> -->
 			</thead>
 			<tbody><tr><td colspan=5>
 			';
@@ -767,6 +774,7 @@ function track()
     }
     else{ // if query length is less than minimum
         echo "Minimum length is ".$min_length;
+		echo '</tbody></table></div>';
     } 
 	echo '</tbody></table></div>';
 }

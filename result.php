@@ -14,6 +14,8 @@ $navbar = '1';
 con2db();
 pageTitle("Parcel Query Result");
 include 'inc/header.php';
+$date_picker = $_REQUEST['date_picker'];
 track();
+echo $date_picker;
 include 'inc/footer.php';
 ?>

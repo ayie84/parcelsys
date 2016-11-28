@@ -12,9 +12,9 @@ debugScript();//comment this line to debug
 //auth();
 con2db();
 pageTitle("Parcel Query Data");
-include 'inc/header.php';
-?>
+include 'inc/header01.php';
 
+?>
 	<div class="col-md-offset-4 col-md-4" id="box">
 	<h3>Add PTJ </h3><hr>
 	<form class="form-horizontal" name="form" method="post" action="result.php">
@@ -24,10 +24,9 @@ include 'inc/header.php';
         <!-- Text input-->
 			<div class="form-group">
 				<div class="col-md-12">
-                    <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-list-alt"></i></span>                          
-                    <input name="query" id="query" placeholder="PTJ Name" class="form-control" type="text" required>
-                    </div>                        
+                    <div class="input-group date">
+					<input name="date_picker" type="text" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+					</div>                        
                 </div>
             </div>
 			
