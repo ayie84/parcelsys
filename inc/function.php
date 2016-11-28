@@ -401,8 +401,8 @@ function parcelView()
 	
 	$timestamp = $today;
 	$splitTimeStamp = explode(" ",$timestamp);
-	$date= '2016'; //for testing purpose, to view all data to pages.
-	//$date = $splitTimeStamp[0];
+	//$date= '2016'; //for testing purpose, to view all data to pages.
+	$date = $splitTimeStamp[0];
 	$time = $splitTimeStamp[1];
 	
 	con2db();//db connect
@@ -773,8 +773,8 @@ function track()
          
     }
     else{ // if query length is less than minimum
-        echo "Minimum length is ".$min_length;
-		echo '</tbody></table></div>';
+        echo "<center>Minimum length is ".$min_length;
+		echo '</center></tbody></table></div>';
     } 
 	echo '</tbody></table></div>';
 }

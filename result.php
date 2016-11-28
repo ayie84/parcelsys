@@ -13,9 +13,13 @@ $navbar = '1';
 //auth();
 con2db();
 pageTitle("Parcel Query Result");
-include 'inc/header.php';
+include 'inc/header.php';?>
+<div class="col-md-offset-4 col-md-4 row spacer">
+<?php
 $date_picker = $_REQUEST['date_picker'];
 track();
-echo $date_picker;
+echo $date_picker;?>
+</div>
+<?php
 include 'inc/footer.php';
 ?>
