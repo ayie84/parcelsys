@@ -401,12 +401,13 @@ function parcelView()
 	
 	$timestamp = $today;
 	$splitTimeStamp = explode(" ",$timestamp);
-	$date = $splitTimeStamp[0];
+	$date= '2016'; //for testing purpose, to view all data to pages.
+	//$date = $splitTimeStamp[0];
 	$time = $splitTimeStamp[1];
 	
 	con2db();//db connect
 	$value = mysql_query("SELECT COUNT( * ) AS Value FROM  `parcel` where `parcel_timestamp` LIKE '%".$date."%'") or die (mysql_query());
-	//$value = mysql_query("SELECT COUNT( * ) AS Value FROM  `parcel` where `parcel_timestamp` LIKE '%".$date."%'") or die (mysql_query());
+	//$value = mysql_query("SELECT COUNT( * ) AS Value FROM  `parcel` where `parcel_timestamp` LIKE '%2016%'") or die (mysql_query());
 	$num_rows = mysql_fetch_array($value);
 	$val = $num_rows['Value'];
 	if($val>0)
@@ -422,7 +423,8 @@ function parcelView()
 			
 			echo '
 			<div class="col col-xs-10 text-right">
-			<button type="button" class="btn btn-warning pull-right">View Report</button>
+			<!--<button type="button" class="btn btn-warning pull-right">View Report</button>-->
+			<a href="printpdf07.php?date='.$date.'" class="btn btn-warning pull-right" >Export To PDF</a>
 			</div>
 			<div class="table-responsive col-md-offset-2 col-md-8 row spacer">
 			<table class="table table-striped table-bordered table-list" style="word-wrap: break-word;">
