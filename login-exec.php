@@ -6,6 +6,15 @@
 	con2db();
 
 
+
+ 
+	//Array to store validation errors
+	$errmsg_arr = array();
+	
+	//Validation error flag
+	$errflag = false;
+	
+
 	//Function to sanitize values received from the form. Prevents SQL injection
 	function clean($str) {
 		$str = @trim($str);
