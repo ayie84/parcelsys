@@ -8,7 +8,11 @@
 */
 session_start();
 	
-	
+	 // if session is not set this will redirect to login page
+ if( !isset($_SESSION['SESS_MEMBER_ID']) ) {
+  header("Location: index.php");
+  exit;
+ }
 
 include 'inc/function.php';
 //auth();

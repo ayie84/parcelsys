@@ -91,6 +91,14 @@ echo '
             <li><a href="tableresponsive.php">table</a></li>
           </ul>
         </li>
+
+		<li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="logout.php?logout">Logout</a></li>
+         </ul>
+        </li>
+
       </ul>
       <form class="navbar-form navbar-right" method="get" action="result.php">
         <div class="form-group">

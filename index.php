@@ -7,6 +7,7 @@
 
 */
 include 'inc/function.php';
+session_start();
 debugScript(); //comment this line for debug error msg
 $navbar = '0';
 con2db();
@@ -22,6 +23,30 @@ include 'inc/header.php';
 						<strong><center> Parcel Management System</center></strong>
 					</div>
 					<div class="panel-body">
+
+<!-- Error Message Print -->
+						 <?php
+   if ( isset($_SESSION['ERRMSG_ARR']) ) {
+    foreach ($_SESSION['ERRMSG_ARR'] as $error) {
+    ?>
+	    
+	        <div class="alert alert-danger">
+	    		<span class="glyphicon glyphicon-info-sign"></span> 
+			    <?php 
+
+					    
+					    	echo $error;
+					    
+					    //echo $_SESSION['ERRMSG_ARR']; 
+				?>
+	        </div>
+	    
+   
+    <?php
+   }}	?>
+
+   <!-- Error Message Print -->
+
 						<form role="form" action="login-exec.php" method="POST"> <!-- <form id="loginForm" name="loginForm" method="post" action="/aug/login-exec.php"> -->
 							<fieldset>
 								<div class="row">

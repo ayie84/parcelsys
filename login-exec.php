@@ -2,9 +2,10 @@
 	//Start session
 	session_start();
 	
-	//Include database connection details
-	require_once('config/logindatabase.php');
-	
+	include 'inc/function.php';
+	con2db();
+
+
 	//Array to store validation errors
 	$errmsg_arr = array();
 	
@@ -12,16 +13,16 @@
 	$errflag = false;
 	
 	//Connect to mysql server
-	$link = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD);
-	if(!$link) {
-		die('Failed to connect to server: ' . mysql_error());
-	}
+	//$link = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD);
+	//if(!$link) {
+	//	die('Failed to connect to server: ' . mysql_error());
+	//}
 	
 	//Select database
-	$db = mysql_select_db(DB_DATABASE);
-	if(!$db) {
-		die("Unable to select database");
-	}
+	//$db = mysql_select_db(DB_DATABASE);
+	//if(!$db) {
+	//	die("Unable to select database");
+	//}
 	
 	//Function to sanitize values received from the form. Prevents SQL injection
 	function clean($str) {
@@ -50,7 +51,8 @@
 	if($errflag) {
 		$_SESSION['ERRMSG_ARR'] = $errmsg_arr;
 		session_write_close();
-		header("location: /aug/index.php");
+		header("location: index.php");
+		//header("location: /aug/index.php");
 		exit();
 	}
 	
@@ -69,13 +71,13 @@
 			$_SESSION['SESS_LAST_NAME'] = $member['lastname'];
 			$_SESSION['SESS_LOGIN'] = $member['login'];
 			session_write_close();
-			//header("location: member-index.php");
-			//header("location: http://tasksms.ump.edu.my/aug/sms.php");
+			//redirect after login successful
 			header("location: parcel.php");
 			exit();
 		}else {
-			//Login failed
-			header("location: login-failed.php");
+			//redirect after login failed
+			header("location: index.php");
+			//header("location: login-failed.php");
 			exit();
 		}
 	}else {

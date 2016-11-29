@@ -6,10 +6,26 @@ class PDF_MC_Table extends FPDF
 var $widths;
 var $aligns;
 
+
+function SetTable($t){
+	
+	for($i=0;$i<count($t);$i++){
+
+
+			$this->Cell($t[0],10,$t[1],1,0,'C');
+
+
+	}
+
+	$this->Ln();
+
+}
+
+
 function SetHeaders($h){
 for($i=0;$i<count($h);$i++){
 
-$this->Cell($this->widths[$i],10,$h[$i],1,0,'C');
+	$this->Cell($this->widths[$i],10,$h[$i],1,0,'C');
 
 	/*	$this->Cell(50,10,'Title',1,0,'C');
 		$this->Cell(50,10,'Title',1,0,'C');
