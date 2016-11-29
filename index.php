@@ -8,6 +8,22 @@
 */
 include 'inc/function.php';
 session_start();
+
+ if( isset($_SESSION['SESS_MEMBER_ID']) ) {
+  header("Location: parcel.php");
+  exit;
+ }else{
+ /*
+ 	if( isset($_SESSION['ERRMSG_ARR'])) {
+ 		unset($_SESSION['ERRMSG_ARR']);
+  		session_unset();
+  	header("Location: index.php");
+ 
+  		exit;
+ 	}	*/
+ }
+
+
 debugScript(); //comment this line for debug error msg
 $navbar = '0';
 con2db();

@@ -5,8 +5,6 @@
 	include 'inc/function.php';
 	con2db();
 
-
-
  
 	//Array to store validation errors
 	$errmsg_arr = array();
@@ -66,12 +64,18 @@
 			header("location: parcel.php");
 			exit();
 		}else {
-			//redirect after login failed
+				//redirect after login failed
+		$errmsg_arr[] = 'The username do not exist or wrong password.';
+		$_SESSION['ERRMSG_ARR'] = $errmsg_arr;
+			session_write_close();			
 			header("location: index.php");
 			//header("location: login-failed.php");
 			exit();
 		}
 	}else {
+		//$errmsg_arr[] = 'The username do not exist or wrong password.';
+		//$_SESSION['ERRMSG_ARR'] = $errmsg_arr;
+		//	session_write_close();
 		die("Query failed");
 	}
 ?>
