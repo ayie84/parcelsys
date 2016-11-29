@@ -1,34 +1,34 @@
 <?php
 
+
 function con2db() //connection to db
 {
-	/*$user_name = "walimatu_postmel"; //username
-	$password = "Pusatmel2016";//password
-	$database = "walimatu_pusatmel";//dbname
-	$host_name = "localhost"; //server
-	*/
+
+
+	error_reporting( ~E_DEPRECATED & ~E_NOTICE );
+
+	//Configure Database
+	define('DB_HOST', 'localhost:8889');
+    define('DB_USER', 'root');
+    define('DB_PASSWORD', 'root');
+    define('DB_DATABASE', 'pusatmel');
 	
-	$user_name = "root"; //username
-	$password = "";//password
-	$database = "ump_pmail";//dbname
-	$host_name = "localhost"; //server
-
-	$connect_db=mysql_connect($host_name, $user_name, $password);
-
-	$find_db=mysql_select_db($database);
-
-	if ($find_db) {
-
-	//echo "Database exist";
-	$con_mysql = 1;
-	$_SESSION['mysql_con'] = $con_mysql;
-
+	//Connect to mysql server
+	$connect_db = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD);
+	if(!$connect_db) {
+		die('Failed to connect to server: ' . mysql_error());
 	}
-	else {
 
-	//echo "Database does not exist";
-	$con_mysql = 0;
-	$_SESSION['mysql_con'] = $con_mysql;
+	//Select database
+	$find_db = mysql_select_db(DB_DATABASE);
+	if(!$find_db) {
+		die("Unable to select database");
 	}
+
 }
+
+
+
+
+
 ?>
