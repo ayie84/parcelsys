@@ -3,7 +3,9 @@
 	session_start();
 	
 	//Include database connection details
-	require_once('config/logindatabase.php');
+	//require_once('config/logindatabase.php');
+	require_once('config/database.php');
+	con2db();
 	
 	//Array to store validation errors
 	$errmsg_arr = array();
@@ -12,7 +14,7 @@
 	$errflag = false;
 	
 	//Connect to mysql server
-	$link = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD);
+	/*$link = mysql_connect(user_name, DB_USER, DB_PASSWORD);
 	if(!$link) {
 		die('Failed to connect to server: ' . mysql_error());
 	}
@@ -22,7 +24,7 @@
 	if(!$db) {
 		die("Unable to select database");
 	}
-	
+	*/
 	//Function to sanitize values received from the form. Prevents SQL injection
 	function clean($str) {
 		$str = @trim($str);

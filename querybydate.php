@@ -15,9 +15,9 @@ pageTitle("Parcel Query Data");
 include 'inc/header.php';
 
 ?>
-	<div class="col-md-offset-4 col-md-4" id="box">
-	<h3>Add PTJ </h3><hr>
-	<form class="form-horizontal" name="form" method="post" action="result.php">
+	<div class="col-md-offset-4 col-md-4 row spacer">
+	<h3>Query By Date</h3><hr>
+	<form class="form-horizontal" name="form" method="post" action="resultbydate.php">
 	<input type="hidden" name="new" value="1" />
 	<!--<form class="form-horizontal" name="form" action="" method="post" id="contact_form">-->
         <fieldset>

@@ -3,6 +3,7 @@
 require('inc/fpdf/mc_table.php');
 include 'config/database.php';
 con2db();
+$date = $_REQUEST['date'];
 
 class PDF extends FPDF
 {
@@ -39,7 +40,8 @@ function Footer()
 }
 $cou = '';
 //$raw_results = mysql_query("SELECT * FROM parcel") or die(mysql_error());
-$raw_results = mysql_query("SELECT * FROM `parcel` ORDER BY `parcel_courier` ASC") or die(mysql_error());
+//$raw_results = mysql_query("SELECT * FROM `parcel` ORDER BY `parcel_courier` ASC") or die(mysql_error());
+$raw_results = mysql_query("SELECT  * FROM `parcel` WHERE `parcel_timestamp` LIKE '%".$date."%' ORDER BY `parcel`.`parcel_courier` ASC") or die(mysql_error());
 $data = array();
 if(mysql_num_rows($raw_results) > 0){ // if one or more rows are returned do following
 //while($results=mysql_fetch_assoc($raw_results)) 
@@ -92,7 +94,7 @@ $pdf->SetHeaders(array('C. Number','Courier','C. Number','Date','Time'));
 		$pdf->Row($data[$i]);
 	}
 
-/*
+$pdf->AddPage();
 $pdf->Ln(10);
 $pdf->SetFont('Arial', 'B', 6);
 $pdf->Cell(50,5,"__________________________",0,0);
@@ -123,6 +125,6 @@ $pdf->Cell(50,5,"",0,0);
 $pdf->Cell(90);
 $pdf->Cell(0,5,"Chop Syarikat :",0,1);
 $pdf->Ln(1);
-*/
+
 $pdf->Output();
 ?>
