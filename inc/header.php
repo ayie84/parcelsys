@@ -7,8 +7,11 @@
   
   <link rel="stylesheet" href="public/css/bootstrap.min.css">
   <link rel="stylesheet" href="public/css/style.min.css">
-  
-  
+    
+  <!-- Start Dashboard Theme CSS -->
+    <link rel="stylesheet" href="http://getbootstrap.com/examples/dashboard/dashboard.css">
+  <!-- End Dashboard Theme CSS -->
+
   <script src="public/js/jquery.min.js"></script>
   <script src="public/js/bootstrap.min.js"></script>
     <script src="public/js/jquery-1.8.3.js"></script>

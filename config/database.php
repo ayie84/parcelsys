@@ -12,6 +12,15 @@ function con2db() //connection to db
     define('DB_USER', 'root');
     define('DB_PASSWORD', 'root');
     define('DB_DATABASE', 'pusatmel');
+
+    /*
+
+	define('DB_HOST', 'localhost');
+    define('DB_USER', 'walimatu_postmel');
+    define('DB_PASSWORD', 'Pusatmel2016');
+    define('DB_DATABASE', 'walimatu_pusatmel');
+
+    */
 	
 	//Connect to mysql server
 	$connect_db = mysql_connect(DB_HOST, DB_USER, DB_PASSWORD);

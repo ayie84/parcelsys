@@ -71,19 +71,30 @@ echo '
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-envelope"></span> parcel@Mail</a>
+      <a class="navbar-brand" href="index.php"><span class="glyphicon glyphicon-envelope"></span> parcel@Mail</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home <span class="sr-only">(current)</span></a></li>
+       
+
+<!-- 
+
+<li class="active"><a href="dashboard.php">Home <span class="sr-only">(current)</span></a></li>
+
+
+-->
+
+        <li><a href="dashboard.php">Home <span class="sr-only">(current)</span></a></li>
+
+
         <li><a href="parcel.php">Parcel</a></li>
         <li><a href="courier.php">Courier</a></li>
         <li><a href="ptj.php">PTJ</a></li>
   
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Query <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Search Parcel<span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="querybydate.php">By Date</a></li>
             <li><a href="query.php">By Tracking Number</a></li>
@@ -395,7 +406,7 @@ function courierGetDropMenu()
 	echo "</select></div>";// Closing of list box 
 }
 
-function parcelView()
+function parcelViewOld()
 {
 
 	date_default_timezone_set("Asia/Kuala_Lumpur");
@@ -515,8 +526,168 @@ function parcelView()
 		}
 }
 
+function parcelView()
+{
 
-function courierView2(){
+	date_default_timezone_set("Asia/Kuala_Lumpur");
+    //echo date('d-m-Y H:i:s'); //Returns IST
+   // echo date('Y-m-d H:i:s'); //Returns IST
+	$tableTitle = 'Received Parcel Today';
+	$today = date('Y-m-d H:i:s');
+	//echo $today;
+	//$today='2016-11-13 15:28:10';
+	
+	$timestamp = $today;
+	$splitTimeStamp = explode(" ",$timestamp);
+	//$date= '2016'; //for testing purpose, to view all data to pages.
+	$date = $splitTimeStamp[0];
+	$time = $splitTimeStamp[1];
+	
+	con2db();//db connect
+	$value = mysql_query("SELECT COUNT( * ) AS Value FROM  `parcel` where `parcel_timestamp` LIKE '%".$date."%'") or die (mysql_query());
+	//$value = mysql_query("SELECT COUNT( * ) AS Value FROM  `parcel` where `parcel_timestamp` LIKE '%2016%'") or die (mysql_query());
+	$num_rows = mysql_fetch_array($value);
+	$val = $num_rows['Value'];
+
+
+	if($val>0)
+		{
+			$cnt = 1;
+			$limit = 10;  
+			if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; };  
+			$start_from = ($page-1) * $limit; 
+			$query =  mysql_query("SELECT  * FROM `parcel` WHERE `parcel_timestamp` LIKE '%".$date."%' ORDER BY id DESC LIMIT $start_from, $limit") or die (mysql_query());
+
+
+					echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';//Add row space
+					echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';//Add row space
+
+			// Start Title Row & Action Button Before Table 
+					
+
+					echo '<div class="row">';
+						echo '<div class="col-md-4""><h3 class="" style="margin-top:0;margin-bottom:0;">'.$tableTitle.'</h3></div>';
+			  			echo '<div class="col-md-4 col-md-offset-4" text-right><a href="printpdf07.php?date='.$date.'" class="btn btn-warning pull-right" >Export To PDF</a></div>';
+					echo '</div>';
+
+			// End Title Row & Action Button Before Table
+
+
+					echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';//Add row space
+
+
+
+					echo '
+
+					<table class="table table-striped table-bordered table-list" style="word-wrap: break-word;">
+			        <thead>
+						<tr>
+							<th class="text-center">Tracking Number</th>
+							<th class="text-center">Courier</th>
+							<th class="text-center">PTJ</th>
+							<th class="text-center">Taken By</th>
+							<th style="width:15%" class="text-center"><em class="glyphicon glyphicon-cog"></em></th>						</tr> 
+			        </thead>
+			        <tbody>
+					';
+
+		
+			//$query01 =  mysql_query("SELECT  * FROM `parcel` ORDER BY id ASC") or die (mysql_query());
+			while($test = mysql_fetch_array($query))//loop process
+				{
+					$id = $test['id'];
+					$_SESSION['id'] = $id;
+
+					echo '<tr><td>'. $test['parcel_cnumber'].'</td>';
+					echo '<td>'. $test['parcel_courier'].'</td>';
+					echo '<td>'. $test['parcel_ptj'].'</td>';
+					echo '<td>'. $test['parcel_takenby'].'</td>';
+					echo '<td align="center">
+					<a href="update_parcel.php?id='.$id.'" class="btn btn-default" onclick="javascript:return confirm(\'Are you sure to UPDATE '.$test['parcel_cnumber'].'?\')"><em class="glyphicon glyphicon-pencil"></em></a>
+					<a href="delete_parcel.php?id='.$id.'" class="btn btn-danger" onclick="javascript:return confirm(\'Are You Sure to REMOVE '.$test['parcel_cnumber'].'?\')"><em class="glyphicon glyphicon-trash"></em></a>
+					</td>';
+					echo '</tr>';
+					$cnt++;
+			
+				}
+			echo '</tbody></table>';
+			
+		
+
+			// Start PAGINATION//////////////////////////////
+
+			
+			
+
+
+				$sql = "SELECT COUNT(id) FROM courier";  
+					$rs_result = mysql_query($sql);  
+					$row = mysql_fetch_row($rs_result);  
+					$total_records = $row[0];  
+					$total_pages = ceil($total_records / $limit);
+
+
+			/*
+				echo '<div class="col-md-offset-3	 col-md-8 row spacer">
+					<ul class="pagination navbar-right margin-right=10px">';
+
+						for ($i=1; $i<=$total_pages; $i++) {
+								
+							echo '<li><a href="courier.php?page='.$i.'">'.$i.'</a></li>';
+							};
+
+				echo '</ul></div>';
+			*/
+
+
+			//echo '<div class="row"><div class="col-md-6 col-md-offset-10">';
+			echo'
+			<nav aria-label="Page navigation">
+			  <ul class="pagination">';
+
+			   for ($i=1; $i<=$total_pages; $i++) {
+								
+							echo '<li><a href="parcel.php?page='.$i.'">'.$i.'</a></li>';
+							};
+
+			 echo' </ul></nav>';
+			//echo '</div></div>';
+
+					
+		// End PAGINATION//////////////////////////////
+
+		
+		}
+		else
+		{ //jika tiada data pada table, echo this..
+			echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';
+			echo '<div class="col-md-offset-2 col-md-8 row spacer" >';
+			echo '<h3 class="sub-header">'.$tableTitle.' - '.$date.'</h3></div>';
+			
+			echo '
+			<div class="col col-xs-10 text-right">
+			<!--<button type="button" class="btn btn-warning pull-right">View Report</button>-->
+			</div>
+			<div class="table-responsive col-md-offset-2 col-md-8 row spacer">
+			<table class="table table-striped table-bordered table-list" style="word-wrap: break-word;">
+			<thead>
+			  <!--<tr>
+				<th class="text-center">Tracking Number</th>
+				<th class="text-center">Courier</th>
+				<th class="text-center">PTJ</th>
+				<th class="text-center">Taken By</th>
+				<th style="width:15%" class="text-center"><em class="glyphicon glyphicon-cog"></em></th>
+				</tr> -->
+			</thead>
+			<tbody><tr><td colspan=5>
+			';
+			echo '
+			<center>Sorry No Record found for Parcel Today.</center></td></tr></tbody></table></div>';
+		}
+}
+
+
+function courierView(){
 
 	con2db();//db connect
 	$tableTitle = 'Courier List';
@@ -531,13 +702,21 @@ function courierView2(){
 		$query =  mysql_query("SELECT  * FROM `courier` ORDER BY id DESC LIMIT $start_from, $limit") or die (mysql_query());
 		
 
-		echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';
-		echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';
+		echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';//Add row space
+		echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';//Add row space
+
+// Start Title Row & Action Button Before Table 
+		
 
 		echo '<div class="row">';
-			echo '<div class="col-xs-6"><h3 class="sub-header">'.$tableTitle.'</h3></div>';
-  			echo '<div class="col-xs-6" text-right><button type="button" class="btn btn-warning pull-right">View Report</button></div>';
+			echo '<div class="col-md-4""><h3 class="" style="margin-top:0;margin-bottom:0;">'.$tableTitle.'</h3></div>';
+  			echo '<div class="col-md-4 col-md-offset-4" text-right><button type="button" class="btn btn-warning pull-right">View Report</button></div>';
 		echo '</div>';
+
+// End Title Row & Action Button Before Table
+
+
+		echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';//Add row space
 
 		//echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';
 	//	echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';
@@ -582,29 +761,10 @@ function courierView2(){
 		
 		echo '</tbody></table>';
 		
-			//PAGINATION//////////////////////////////
+			// Start PAGINATION//////////////////////////////
 
-
-echo'
-<nav aria-label="Page navigation">
-  <ul class="pagination">
-    <li>
-      <a href="#" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-      </a>
-    </li>
-    <li><a href="#">1</a></li>
-    <li><a href="#">2</a></li>
-    <li><a href="#">3</a></li>
-    <li><a href="#">4</a></li>
-    <li><a href="#">5</a></li>
-    <li>
-      <a href="#" aria-label="Next">
-        <span aria-hidden="true">&raquo;</span>
-      </a>
-    </li>
-  </ul>
-</nav>';
+			
+			
 
 
 				$sql = "SELECT COUNT(id) FROM courier";  
@@ -614,28 +774,40 @@ echo'
 					$total_pages = ceil($total_records / $limit);
 
 
+			/*
 				echo '<div class="col-md-offset-3	 col-md-8 row spacer">
-					<ul class="pagination navbar-right margin-right=10px">
-				';
+					<ul class="pagination navbar-right margin-right=10px">';
 
-				for ($i=1; $i<=$total_pages; $i++) {
-						
-					echo '<li><a href="courier.php?page='.$i.'">'.$i.'</a></li>';
-					};
+						for ($i=1; $i<=$total_pages; $i++) {
+								
+							echo '<li><a href="courier.php?page='.$i.'">'.$i.'</a></li>';
+							};
 
-					 echo '</ul></div>';
+				echo '</ul></div>';
+			*/
 
 
+			//echo '<div class="row"><div class="col-md-6 col-md-offset-10">';
+			echo'
+			<nav aria-label="Page navigation">
+			  <ul class="pagination">';
 
+			   for ($i=1; $i<=$total_pages; $i++) {
+								
+							echo '<li><a href="courier.php?page='.$i.'">'.$i.'</a></li>';
+							};
+
+			 echo' </ul></nav>';
+			//echo '</div></div>';
 
 					
-		//PAGINATION//////////////////////////////
+		// End PAGINATION//////////////////////////////
 	}
 	else
 	{ //jika tiada data pada table, echo this..
 		echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';
 			echo '<div class="col-md-offset-2 col-md-8 row spacer" >';
-			echo '<h3 class="sub-header">'.$tableTitle.'</h3></div>';
+			echo '<h3 class="">'.$tableTitle.'</h3></div>';
 			
 			echo '
 			<div class="col col-xs-10 text-right">
@@ -663,7 +835,7 @@ echo'
 }//close courierView()
 
 
-function courierView()
+function courierViewOld()
 {
 	con2db();//db connect
 	$tableTitle = 'Courier List';
@@ -682,7 +854,7 @@ function courierView()
 		echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';
 
 		echo '<div class="row">';
-			echo '<div class="col-xs-6"><h3 class="sub-header">'.$tableTitle.'</h3></div>';
+			echo '<div class="col-xs-6"><h3>'.$tableTitle.'</h3></div>';
   			echo '<div class="col-xs-6" text-right><button type="button" class="btn btn-warning pull-right">View Report</button></div>';
 		echo '</div>';
 
@@ -787,7 +959,127 @@ function courierView()
 
 }//close courierView()
 
+
 function ptjView()
+{
+	con2db();//db connect
+	$tableTitle = "PTJ List";
+	$value = mysql_query("SELECT COUNT( * ) AS Value FROM  `ptj`") or die (mysql_query());
+	$num_rows = mysql_fetch_array($value);
+	$val = $num_rows['Value'];
+	if($val>0)
+		{
+			$cnt = 1;
+			$limit = 25;  
+			if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; };  
+			$start_from = ($page-1) * $limit; 
+			$query =  mysql_query("SELECT  * FROM `ptj` ORDER BY id DESC LIMIT $start_from, $limit") or die (mysql_query());
+
+
+
+
+		echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';//Add row space
+		echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';//Add row space
+				
+
+// Start Title Row & Action Button Before Table 
+		
+
+		echo '<div class="row">';
+			echo '<div class="col-md-4""><h3 class="" style="margin-top:0;margin-bottom:0;">'.$tableTitle.'</h3></div>';
+  			echo '<div class="col-md-4 col-md-offset-4" text-right><button type="button" class="btn btn-warning pull-right">View Report</button></div>';
+		echo '</div>';
+
+// End Title Row & Action Button Before Table
+
+		echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';//Add row space
+
+
+
+		echo '
+
+	<table class="table table-striped table-bordered table-list" style="word-wrap: break-word;">
+			<thead>
+			  <tr>
+				<th class="text-center">Courier</th>
+				<th class="text-center">Contact Number</th>
+				<th style="width:15%" class="text-center"><em class="glyphicon glyphicon-cog"></em></th>
+				</tr> 
+			</thead>
+			<tbody>
+		';
+
+
+
+			//$query01 =  mysql_query("SELECT  * FROM `parcel` ORDER BY id ASC") or die (mysql_query());
+			while($test = mysql_fetch_array($query))//loop process
+				{
+					$id = $test['id'];
+					$_SESSION['id'] = $id;
+
+					echo '<tr><td>'. $test['ptj_name'].'</td>';
+					echo '<td>'. $test['ptj_acro'].'</td>';
+					echo '<td align="center">
+					<a href="update_ptj.php?id='.$id.'" class="btn btn-default" onclick="javascript:return confirm(\'Are you sure to UPDATE '.$test['ptj_name'].'?\')"><em class="glyphicon glyphicon-pencil"></em></a>
+					<a href="delete_ptj.php?id='.$id.'" class="btn btn-danger" onclick="javascript:return confirm(\'Are You Sure to REMOVE '.$test['ptj_name'].'?\')"><em class="glyphicon glyphicon-trash"></em></a>
+					</td>';
+					echo '</tr>';
+					$cnt++;
+			
+				}
+		
+			echo '</tbody></table>';
+
+			//START PAGINATION//////////////////////////////			
+
+			$sql = "SELECT COUNT(id) FROM ptj";  
+			$rs_result = mysql_query($sql);  
+			$row = mysql_fetch_row($rs_result);  
+			$total_records = $row[0];  
+			$total_pages = ceil($total_records / $limit);
+			
+					echo'
+			<nav aria-label="Page navigation">
+			  <ul class="pagination">';
+
+			   for ($i=1; $i<=$total_pages; $i++) {
+								
+							echo '<li><a href="ptj.php?page='.$i.'">'.$i.'</a></li>';
+							};
+
+			 echo' </ul></nav>';
+
+			//END PAGINATION//////////////////////////////
+			
+		}
+		else
+		{ //jika tiada data pada table, echo this..
+			echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';
+			echo '<div class="col-md-offset-2 col-md-8 row spacer" >';
+			echo '<h3 class="sub-header">'.$tableTitle.'</h3></div>';
+			
+			echo '
+			<div class="col col-xs-10 text-right">
+			<button type="button" class="btn btn-warning pull-right">View Report</button>
+			</div>
+			<div class="table-responsive col-md-offset-2 col-md-8 row spacer">
+			<table class="table table-striped table-bordered table-list" style="word-wrap: break-word;">
+			<thead>
+			  <tr>
+				<th class="text-center">Courier</th>
+				<th class="text-center">Contact Number</th>
+				<th style="width:15%" class="text-center"><em class="glyphicon glyphicon-cog"></em></th>
+				</tr> 
+			</thead>
+			<tbody><tr><td colspan=3>
+			';
+			echo '
+			<center>Sorry No Record found for PTJ.</center></td></tr></tbody></table></div>';
+		}
+}
+
+
+function ptjViewOld()
 {
 	con2db();//db connect
 	$tableTitle = "PTJ List";
