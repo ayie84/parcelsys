@@ -523,114 +523,6 @@ function courierView2(){
 	$value = mysql_query("SELECT COUNT( * ) AS Value FROM  `courier`") or die (mysql_query());
 	$num_rows = mysql_fetch_array($value);
 	$val = $num_rows['Value'];
-if($val>0)
-	{
-		$limit = 10;  
-		if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; };  
-		$start_from = ($page-1) * $limit; 
-		$query =  mysql_query("SELECT  * FROM `courier` ORDER BY id DESC LIMIT $start_from, $limit") or die (mysql_query());
-
-		//PRINT TABLE//////////////////////////////
-
-
-		echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';
-				echo '<div class="col-md-offset-2 col-md-8 row spacer" >';
-				echo '<h3 class="sub-header">'.$tableTitle.'</h3></div>';
-		echo '<div class="table-responsive">
-		  <table class="table">
-		        <thead>
-					<tr>
-						<th class="text-center">Courier</th>
-						<th class="text-center">Contact Number</th>
-						<th class="text-center">Fax Number</th>
-						<th style="width:15%"><em class="glyphicon glyphicon-cog"></em></th>
-					</tr> 
-		        </thead>
-		         <tbody>';
-
-		         while($test = mysql_fetch_array($query)){
-
-
-					 echo '<tr><td>'. $test['courier_name'].'</td>';
-							echo '<td>'. $test['courier_contact_no'].'</td>';
-							echo '<td>'. $test['courier_fax_no'].'</td>';
-							echo '<td align="center">
-							<a href="update_courier.php?id='.$id.'" class="btn btn-default" onclick="javascript:return confirm(\'Are you sure to UPDATE '.$test['courier_name'].'?\')"><em class="glyphicon glyphicon-pencil"></em></a>
-							<a href="delete_courier.php?id='.$id.'" class="btn btn-danger" onclick="javascript:return confirm(\'Are You Sure to REMOVE '.$test['courier_name'].'?\')"><em class="glyphicon glyphicon-trash"></em></a>
-							</td>';
-							echo '</tr>';
-
-				}
-
-		 		echo '</tbody>
-		  		</table>
-		</div>'	;
-
-		//PAGINATION//////////////////////////////
-
-				$sql = "SELECT COUNT(id) FROM courier";  
-					$rs_result = mysql_query($sql);  
-					$row = mysql_fetch_row($rs_result);  
-					$total_records = $row[0];  
-					$total_pages = ceil($total_records / $limit);
-
-
-				echo '<div class="col-md-offset-3	 col-md-8 row spacer">
-					<ul class="pagination navbar-right margin-right=10px">
-				';
-
-				for ($i=1; $i<=$total_pages; $i++) {
-						
-					echo '<li><a href="courier.php?page='.$i.'">'.$i.'</a></li>';
-					};
-
-					 echo '</ul></div>';
-					
-		//PAGINATION//////////////////////////////
-}else{
-
-
-
-
-	echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';
-			echo '<div class="col-md-offset-2 col-md-8 row spacer" >';
-			echo '<h3 class="sub-header">'.$tableTitle.'</h3></div>';
-			
-			echo '
-			<div class="col col-xs-10 text-right">
-			<button type="button" class="btn btn-warning pull-right">View Report</button>
-			</div>
-			<div class="table-responsive col-md-offset-2 col-md-8 row spacer">
-			<table class="table table-striped table-bordered table-list" style="word-wrap: break-word;">
-			<thead>
-			  <tr>
-				<th class="text-center">Courier</th>
-				<th class="text-center">Contact Number</th>
-				<th class="text-center">Fax Number</th>
-				<th style="width:15%"><em class="glyphicon glyphicon-cog"></em></th>
-			</tr> 
-			</thead>
-			<tbody><tr><td colspan=4>
-			';
-			echo '
-			<center>Sorry No Record found for Courier.</center></td></tr></tbody></table></div>';
-
-
-
-}//close if val>0
-
-
-}//close courierView()
-
-
-function courierView()
-{
-	
-	con2db();//db connect
-	$tableTitle = 'Courier List';
-	$value = mysql_query("SELECT COUNT( * ) AS Value FROM  `courier`") or die (mysql_query());
-	$num_rows = mysql_fetch_array($value);
-	$val = $num_rows['Value'];
 	if($val>0)
 	{
 		$limit = 10;  
@@ -638,18 +530,26 @@ function courierView()
 		$start_from = ($page-1) * $limit; 
 		$query =  mysql_query("SELECT  * FROM `courier` ORDER BY id DESC LIMIT $start_from, $limit") or die (mysql_query());
 		
+
 		echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';
-		echo '<div class="col-md-offset-2 col-md-8 row spacer" >';
-		echo '<h3 class="sub-header">'.$tableTitle.'</h3></div>';
-		echo '
-		<div class="col-md-offset-2 col-md-8  text-right">
+		echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';
+
+		echo '<div class="row">';
+			echo '<div class="col-xs-6"><h3 class="sub-header">'.$tableTitle.'</h3></div>';
+  			echo '<div class="col-xs-6" text-right><button type="button" class="btn btn-warning pull-right">View Report</button></div>';
+		echo '</div>';
+
+		//echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';
+	//	echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';
+	//	echo '<h3 class="sub-header">'.$tableTitle.'</h3>';
+	/*	echo '
+		<div class="col col-xs-10 text-right">
 			<button type="button" class="btn btn-warning pull-right">View Report</button>
-			</div>';
+			</div>';*/
 
-	echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';
-	
-	echo'	
 
+
+		echo '
 
 		<table class="table table-striped table-bordered table-list" style="word-wrap: break-word;">
         <thead>
@@ -680,9 +580,32 @@ function courierView()
 			
 		}
 		
-		echo '</tbody></table></div>';
+		echo '</tbody></table>';
 		
 			//PAGINATION//////////////////////////////
+
+
+echo'
+<nav aria-label="Page navigation">
+  <ul class="pagination">
+    <li>
+      <a href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <li><a href="#">1</a></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="#">5</a></li>
+    <li>
+      <a href="#" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>';
+
 
 				$sql = "SELECT COUNT(id) FROM courier";  
 					$rs_result = mysql_query($sql);  
@@ -701,6 +624,10 @@ function courierView()
 					};
 
 					 echo '</ul></div>';
+
+
+
+
 					
 		//PAGINATION//////////////////////////////
 	}
@@ -728,8 +655,137 @@ function courierView()
 			';
 			echo '
 			<center>Sorry No Record found for Courier.</center></td></tr></tbody></table></div>';
+	
+
+	}//close if val>0
+
+
+}//close courierView()
+
+
+function courierView()
+{
+	con2db();//db connect
+	$tableTitle = 'Courier List';
+	$value = mysql_query("SELECT COUNT( * ) AS Value FROM  `courier`") or die (mysql_query());
+	$num_rows = mysql_fetch_array($value);
+	$val = $num_rows['Value'];
+	if($val>0)
+	{
+		$limit = 10;  
+		if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; };  
+		$start_from = ($page-1) * $limit; 
+		$query =  mysql_query("SELECT  * FROM `courier` ORDER BY id DESC LIMIT $start_from, $limit") or die (mysql_query());
+		
+
+		echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';
+		echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';
+
+		echo '<div class="row">';
+			echo '<div class="col-xs-6"><h3 class="sub-header">'.$tableTitle.'</h3></div>';
+  			echo '<div class="col-xs-6" text-right><button type="button" class="btn btn-warning pull-right">View Report</button></div>';
+		echo '</div>';
+
+		//echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';
+	//	echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';
+	//	echo '<h3 class="sub-header">'.$tableTitle.'</h3>';
+	/*	echo '
+		<div class="col col-xs-10 text-right">
+			<button type="button" class="btn btn-warning pull-right">View Report</button>
+			</div>';*/
+
+
+
+		echo '
+
+		<table class="table table-striped table-bordered table-list" style="word-wrap: break-word;">
+        <thead>
+			<tr>
+				<th class="text-center">Courier</th>
+				<th class="text-center">Contact Number</th>
+				<th class="text-center">Fax Number</th>
+				<th style="width:15%"><em class="glyphicon glyphicon-cog"></em></th>
+			</tr> 
+        </thead>
+        <tbody>
+		';
+
+
+		while($test = mysql_fetch_array($query))//loop process
+				{
+					$id = $test['id'];
+					$_SESSION['id'] = $id;
+					
+					echo '<tr><td>'. $test['courier_name'].'</td>';
+					echo '<td>'. $test['courier_contact_no'].'</td>';
+					echo '<td>'. $test['courier_fax_no'].'</td>';
+					echo '<td align="center">
+					<a href="update_courier.php?id='.$id.'" class="btn btn-default" onclick="javascript:return confirm(\'Are you sure to UPDATE '.$test['courier_name'].'?\')"><em class="glyphicon glyphicon-pencil"></em></a>
+					<a href="delete_courier.php?id='.$id.'" class="btn btn-danger" onclick="javascript:return confirm(\'Are You Sure to REMOVE '.$test['courier_name'].'?\')"><em class="glyphicon glyphicon-trash"></em></a>
+					</td>';
+					echo '</tr>';
+			
+		}
+		
+		echo '</tbody></table>';
+		
+			//PAGINATION//////////////////////////////
+
+				$sql = "SELECT COUNT(id) FROM courier";  
+					$rs_result = mysql_query($sql);  
+					$row = mysql_fetch_row($rs_result);  
+					$total_records = $row[0];  
+					$total_pages = ceil($total_records / $limit);
+
+
+				echo '<div class="col-md-offset-3	 col-md-8 row spacer">
+					<ul class="pagination navbar-right margin-right=10px">
+				';
+
+				for ($i=1; $i<=$total_pages; $i++) {
+						
+					echo '<li><a href="courier.php?page='.$i.'">'.$i.'</a></li>';
+					};
+
+					 echo '</ul></div>';
+
+
+
+
+					
+		//PAGINATION//////////////////////////////
 	}
-}
+	else
+	{ //jika tiada data pada table, echo this..
+		echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';
+			echo '<div class="col-md-offset-2 col-md-8 row spacer" >';
+			echo '<h3 class="sub-header">'.$tableTitle.'</h3></div>';
+			
+			echo '
+			<div class="col col-xs-10 text-right">
+			<button type="button" class="btn btn-warning pull-right">View Report</button>
+			</div>
+			<div class="table-responsive col-md-offset-2 col-md-8 row spacer">
+			<table class="table table-striped table-bordered table-list" style="word-wrap: break-word;">
+			<thead>
+			  <tr>
+				<th class="text-center">Courier</th>
+				<th class="text-center">Contact Number</th>
+				<th class="text-center">Fax Number</th>
+				<th style="width:15%"><em class="glyphicon glyphicon-cog"></em></th>
+			</tr> 
+			</thead>
+			<tbody><tr><td colspan=4>
+			';
+			echo '
+			<center>Sorry No Record found for Courier.</center></td></tr></tbody></table></div>';
+	
+
+	}//close if val>0
+
+
+
+}//close courierView()
 
 function ptjView()
 {
