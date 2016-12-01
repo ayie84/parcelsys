@@ -26,32 +26,24 @@ $result = courierUpdate();
 ?>
 
 <div class="col-md-offset-4 col-md-4" id="box">
-    <h3>Update Parcel</h3><hr>                  
+    <h3>Update Courier</h3><hr>                  
 	<form class="form-horizontal" name="form" method="post" action="">
 	<input type="hidden" name="new" value="1" />
     <fieldset>
 	<div class="form-group">
 	<div class="col-md-12">
 		<div class="input-group">
-            <span class="input-group-addon"><i class="glyphicon glyphicon-list-alt"></i></span>  
+            <span class="input-group-addon"><i class="fa fa-truck"></i></span>  
             <input name="courier_name" id="courier_name" value="<?php echo $courier_name; ?>" class="form-control" type="text" required>
         </div>
     </div>
     </div>
-    
-	<div class="form-group">
-	<div class="col-md-12">
-        <div class="input-group">
-            <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-            <input name="courier_address" value="<?php echo $courier_address; ?>" class="form-control" type="text">
-        </div>
-    </div>
-    </div>
+
 	
 	<div class="form-group">
 	<div class="col-md-12">
         <div class="input-group">
-            <span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
+            <span class="input-group-addon"><i class="fa fa-phone"></i></span>
             <input name="courier_contact_no" value="<?php echo $courier_contact_no; ?>" class="form-control" type="text">
         </div>
     </div>
@@ -60,8 +52,19 @@ $result = courierUpdate();
 	<div class="form-group">
 	<div class="col-md-12">
         <div class="input-group">
-            <span class="input-group-addon"><i class="glyphicon glyphicon-print"></i></span>
+            <span class="input-group-addon"><i class="fa fa-fax"></i></span>
             <input name="courier_fax_no" value="<?php echo $courier_fax_no; ?>" class="form-control" type="text">
+        </div>
+    </div>
+    </div>
+
+
+
+    <div class="form-group">
+    <div class="col-md-12">
+        <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-address-book"></i></span>
+            <input name="courier_address" value="<?php echo $courier_address; ?>" class="form-control" type="text">
         </div>
     </div>
     </div>

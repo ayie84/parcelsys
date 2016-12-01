@@ -37,7 +37,7 @@ $result = courierReg();
 			<div class="form-group">
 				<div class="col-md-12">
                     <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-list-alt"></i></span>                          
+                    <span class="input-group-addon"><i class="fa fa-truck"></i></span>                          
                     <input name="courier_name" id="courier_name" placeholder="Courier Name" class="form-control" type="text" required>
                     </div>                        
                 </div>
@@ -47,7 +47,7 @@ $result = courierReg();
 			<div class="form-group">
 				<div class="col-md-12">
                     <div class="input-group">                    
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>                        
+                    <span class="input-group-addon"><i class="fa fa-phone"></i></span>                        
                     <input name="courier_contact_no" placeholder="Phone Number" class="form-control" type="text">                          
                     </div>
                 </div>
@@ -56,7 +56,7 @@ $result = courierReg();
 			<div class="form-group">
 				<div class="col-md-12">
                     <div class="input-group">                    
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-print"></i></span>                        
+                    <span class="input-group-addon"><i class="fa fa-fax"></i></span>                        
                     <input name="courier_fax_no" placeholder="Fax Number" class="form-control" type="text">                          
                     </div>
                 </div>
@@ -65,7 +65,7 @@ $result = courierReg();
 			<div class="form-group">
 				<div class="col-md-12">
                     <div class="input-group">                    
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span> 
+                    <span class="input-group-addon"><i class="fa fa-address-book"></i></span> 
                     <textarea class="form-control" rows="3" name="courier_address" placeholder="Address" ></textarea>                       
                     </div>
                 </div>

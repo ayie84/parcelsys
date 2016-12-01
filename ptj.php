@@ -40,7 +40,7 @@ $result = ptjReg();
 			<div class="form-group">
 				<div class="col-md-12">
                     <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-list-alt"></i></span>                          
+                    <span class="input-group-addon"><i class="fa fa-building"></i></span>                          
                     <input name="ptj_name" id="ptj_name" placeholder="PTJ Name" class="form-control" type="text" required>
                     </div>                        
                 </div>

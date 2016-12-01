@@ -162,7 +162,7 @@ function courierDropMenu()
 	con2db();
 	$query="SELECT * FROM courier"; 
 	$result = mysql_query ($query);
-	echo '<div class="form-group"><div class="col-md-12"><div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>';
+	echo '<div class="form-group"><div class="col-md-12"><div class="input-group"><span class="input-group-addon"><i class="fa fa-truck"></i></span>';
 	
 	echo "<select name='courier' id='courier' class='form-control'>";
 	echo '<option value=".." selected>Please Select Courier</option>';
