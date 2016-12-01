@@ -6,6 +6,19 @@
 @date		: 13-11-16
 
 */
+
+// Start Session
+// Comment this line to off the authentication session	
+	session_start();
+		
+		// if session is not set this will redirect to login page
+		 if( !isset($_SESSION['SESS_MEMBER_ID']) ) {
+		  header("Location: index.php");
+		  exit;
+		 }
+ // End Session
+
+
 include 'inc/function.php';
 //auth();
 debugScript();//comment this line to debug
@@ -30,14 +43,6 @@ $result = courierReg();
                 </div>
             </div>
 
-			<div class="form-group">
-				<div class="col-md-12">
-                    <div class="input-group">                    
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>                        
-                    <input name="courier_address" placeholder="Address" class="form-control" type="text">                          
-                    </div>
-                </div>
-            </div>
 			
 			<div class="form-group">
 				<div class="col-md-12">
@@ -57,6 +62,16 @@ $result = courierReg();
                 </div>
             </div>
 			
+			<div class="form-group">
+				<div class="col-md-12">
+                    <div class="input-group">                    
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span> 
+                    <textarea class="form-control" rows="3" name="courier_address" placeholder="Address" ></textarea>                       
+                   <!-- <input name="courier_address" placeholder="Address" class="form-control" type="text">                -->          
+                    </div>
+                </div>
+            </div>
+
 			<div class="form-group">                       
 				<div class="col-md-12">
 				

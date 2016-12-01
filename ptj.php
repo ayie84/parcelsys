@@ -6,6 +6,22 @@
 @date		: 13-11-16
 
 */
+
+// Start Session
+// Comment this line to off the authentication session	
+	session_start();
+		
+		// if session is not set this will redirect to login page
+		 if( !isset($_SESSION['SESS_MEMBER_ID']) ) {
+		  header("Location: index.php");
+		  exit;
+		 }
+ // End Session
+
+
+
+
+
 include 'inc/function.php';
 //auth();
 debugScript(); //comment this line for debug error msg
@@ -33,7 +49,7 @@ $result = ptjReg();
 			<div class="form-group">
 				<div class="col-md-12">
                     <div class="input-group">
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-list-alt"></i></span>                          
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-compressed"></i></span>                          
                     <input name="ptj_acro" id="ptj_acro" placeholder="PTJ Acro" class="form-control" type="text" required>
                     </div>                        
                 </div>

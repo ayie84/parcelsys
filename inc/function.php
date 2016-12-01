@@ -27,6 +27,8 @@ function auth()
 	}
 }
 
+
+
 function pageTitle($title)
 {
 	if(!empty($title)){
@@ -699,6 +701,7 @@ function courierView(){
 		$limit = 10;  
 		if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; };  
 		$start_from = ($page-1) * $limit; 
+		
 		$query =  mysql_query("SELECT  * FROM `courier` ORDER BY id DESC LIMIT $start_from, $limit") or die (mysql_query());
 		
 
@@ -707,9 +710,11 @@ function courierView(){
 
 // Start Title Row & Action Button Before Table 
 		
+		$totalList =  mysql_query("SELECT  count(*) as total FROM `courier`") or die (mysql_query());
 
 		echo '<div class="row">';
-			echo '<div class="col-md-4""><h3 class="" style="margin-top:0;margin-bottom:0;">'.$tableTitle.'</h3></div>';
+			echo '<div class="col-md-4""><h3 class="" style="margin-top:0;margin-bottom:0;"> '.$tableTitle.' ('.mysql_result($totalList, 0).') </h3></div>';
+
   			echo '<div class="col-md-4 col-md-offset-4" text-right><button type="button" class="btn btn-warning pull-right">View Report</button></div>';
 		echo '</div>';
 
@@ -733,30 +738,37 @@ function courierView(){
 		<table class="table table-striped table-bordered table-list" style="word-wrap: break-word;">
         <thead>
 			<tr>
+				
 				<th class="text-center">Courier</th>
-				<th class="text-center">Contact Number</th>
+				<th class="text-center">Contact Number</th>				
 				<th class="text-center">Fax Number</th>
+				<th class="text-center">Address</th>
 				<th style="width:15%"><em class="glyphicon glyphicon-cog"></em></th>
 			</tr> 
         </thead>
         <tbody>
 		';
 
+	//$i = 1;
 
 		while($test = mysql_fetch_array($query))//loop process
 				{
 					$id = $test['id'];
 					$_SESSION['id'] = $id;
 					
-					echo '<tr><td>'. $test['courier_name'].'</td>';
+
+					echo '<tr>';
+					//echo '<td>'. $i.'</td>';
+					echo '<td>'. $test['courier_name'].'</td>';
 					echo '<td>'. $test['courier_contact_no'].'</td>';
 					echo '<td>'. $test['courier_fax_no'].'</td>';
+					echo '<td>'. $test['courier_address'].'</td>';
 					echo '<td align="center">
 					<a href="update_courier.php?id='.$id.'" class="btn btn-default" onclick="javascript:return confirm(\'Are you sure to UPDATE '.$test['courier_name'].'?\')"><em class="glyphicon glyphicon-pencil"></em></a>
 					<a href="delete_courier.php?id='.$id.'" class="btn btn-danger" onclick="javascript:return confirm(\'Are You Sure to REMOVE '.$test['courier_name'].'?\')"><em class="glyphicon glyphicon-trash"></em></a>
 					</td>';
 					echo '</tr>';
-			
+		$i++;	
 		}
 		
 		echo '</tbody></table>';
@@ -985,8 +997,11 @@ function ptjView()
 // Start Title Row & Action Button Before Table 
 		
 
+		$totalList =  mysql_query("SELECT  count(*) as total FROM `courier`") or die (mysql_query());
+
 		echo '<div class="row">';
-			echo '<div class="col-md-4""><h3 class="" style="margin-top:0;margin-bottom:0;">'.$tableTitle.'</h3></div>';
+			echo '<div class="col-md-4""><h3 class="" style="margin-top:0;margin-bottom:0;"> '.$tableTitle.' ('.mysql_result($totalList, 0).') </h3></div>';
+
   			echo '<div class="col-md-4 col-md-offset-4" text-right><button type="button" class="btn btn-warning pull-right">View Report</button></div>';
 		echo '</div>';
 
@@ -1001,8 +1016,8 @@ function ptjView()
 	<table class="table table-striped table-bordered table-list" style="word-wrap: break-word;">
 			<thead>
 			  <tr>
-				<th class="text-center">Courier</th>
-				<th class="text-center">Contact Number</th>
+				<th class="text-center">PTJ</th>
+				<th class="text-center">Acronym</th>
 				<th style="width:15%" class="text-center"><em class="glyphicon glyphicon-cog"></em></th>
 				</tr> 
 			</thead>
