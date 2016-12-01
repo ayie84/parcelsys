@@ -581,7 +581,8 @@ function parcelView()
 
 					echo '<div class="row">';
 						echo '<div class="col-md-4""><h3 class="" style="margin-top:0;margin-bottom:0;">'.$tableTitle.'</h3></div>';
-			  			echo '<div class="col-md-4 col-md-offset-4" text-right><a href="printpdf07.php?date='.$date.'" class="btn btn-warning pull-right" >Export To PDF</a></div>';
+			  			echo '<div class="col-md-4 col-md-offset-4" text-right><a target = "_blank" href="printpdf07.php?date='.$date.'" class="btn btn-warning pull-right" >Export To PDF</a></div>';
+						
 					echo '</div>';
 
 			// End Title Row & Action Button Before Table
