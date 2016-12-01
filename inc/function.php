@@ -556,8 +556,16 @@ function parcelView()
 		{
 			$cnt = 1;
 			$limit = 10;  
-			if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; };  
+
+			if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { 
+				$page=1; 
+			};  
+			
 			$start_from = ($page-1) * $limit; 
+
+			//echo $start_from;
+
+			
 			$query =  mysql_query("SELECT  * FROM `parcel` WHERE `parcel_timestamp` LIKE '%".$date."%' ORDER BY id DESC LIMIT $start_from, $limit") or die (mysql_query());
 
 
@@ -622,11 +630,17 @@ function parcelView()
 			
 
 
-				$sql = "SELECT COUNT(id) FROM courier";  
+				$sql = "SELECT count(*) FROM parcel WHERE DAY(parcel_timestamp) = ".date('d')." AND MONTH(parcel_timestamp) = ".date('m')." AND YEAR(parcel_timestamp) = ".date('Y')."";  
+
+				//echo $sql;
+
 					$rs_result = mysql_query($sql);  
 					$row = mysql_fetch_row($rs_result);  
 					$total_records = $row[0];  
 					$total_pages = ceil($total_records / $limit);
+
+						//echo $total_records;
+					// echo $total_pages;
 
 
 			/*
@@ -998,7 +1012,7 @@ function ptjView()
 // Start Title Row & Action Button Before Table 
 		
 
-		$totalList =  mysql_query("SELECT  count(*) as total FROM `courier`") or die (mysql_query());
+		$totalList =  mysql_query("SELECT  count(*) as total FROM `ptj`") or die (mysql_query());
 
 		echo '<div class="row">';
 			echo '<div class="col-md-4""><h3 class="" style="margin-top:0;margin-bottom:0;"> '.$tableTitle.' ('.mysql_result($totalList, 0).') </h3></div>';
