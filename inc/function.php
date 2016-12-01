@@ -1039,6 +1039,8 @@ function ptjView()
 				<th class="text-center">#</th>
 				<th class="text-center">PTJ</th>
 				<th class="text-center">Acronym</th>
+				<th class="text-center">PIC</th>
+				<th class="text-center">PIC Mobile</th>
 				<th style="width:15%" class="text-center"><em class="glyphicon glyphicon-cog"></em></th>
 				</tr> 
 			</thead>
@@ -1060,6 +1062,8 @@ function ptjView()
 					echo '<td class="text-center">'. $i.'</td>';
 					echo '<td>'. $test['ptj_name'].'</td>';
 					echo '<td>'. $test['ptj_acro'].'</td>';
+					echo '<td>'. $test['ptj_pic'].'</td>';
+					echo '<td>'. $test['ptj_pic_contact'].'</td>';
 					echo '<td align="center">
 					<a href="update_ptj.php?id='.$id.'" class="btn btn-default" onclick="javascript:return confirm(\'Are you sure to UPDATE '.$test['ptj_name'].'?\')"><em class="glyphicon glyphicon-pencil"></em></a>
 					<a href="delete_ptj.php?id='.$id.'" class="btn btn-danger" onclick="javascript:return confirm(\'Are You Sure to REMOVE '.$test['ptj_name'].'?\')"><em class="glyphicon glyphicon-trash"></em></a>
