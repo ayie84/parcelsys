@@ -67,7 +67,6 @@ $result = courierReg();
                     <div class="input-group">                    
                     <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span> 
                     <textarea class="form-control" rows="3" name="courier_address" placeholder="Address" ></textarea>                       
-                   <!-- <input name="courier_address" placeholder="Address" class="form-control" type="text">                -->          
                     </div>
                 </div>
             </div>
