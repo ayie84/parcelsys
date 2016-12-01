@@ -6,8 +6,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
   <link rel="stylesheet" href="public/css/bootstrap.min.css">
+  
+<!--
   <link rel="stylesheet" href="public/css/style.min.css">
-    
+-->
+
+ <link rel="stylesheet" href="public/css/style.css">
+-
+
+
   <!-- Start Dashboard Theme CSS -->
     <link rel="stylesheet" href="http://getbootstrap.com/examples/dashboard/dashboard.css">
   <!-- End Dashboard Theme CSS -->

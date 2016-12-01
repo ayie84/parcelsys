@@ -382,7 +382,7 @@ function courierGetDropMenu()
 {
 	con2db();
 
-	echo '<div class="form-group"><div class="col-md-12"><div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>';
+	echo '<div class="form-group"><div class="col-md-12"><div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>';
 	$id = $_REQUEST['id'];
 	$query =  mysql_query("SELECT  * FROM `parcel` WHERE id=$id") or die (mysql_query());
 	$test = mysql_fetch_array($query);//will show 1st data only
@@ -739,17 +739,18 @@ function courierView(){
         <thead>
 			<tr>
 				
+				<th class="text-center">#</th>
 				<th class="text-center">Courier</th>
 				<th class="text-center">Contact Number</th>				
 				<th class="text-center">Fax Number</th>
 				<th class="text-center">Address</th>
-				<th style="width:15%"><em class="glyphicon glyphicon-cog"></em></th>
+				<th class="text-center"style="width:15%"><em class="glyphicon glyphicon-cog"></em> Action </th>
 			</tr> 
         </thead>
         <tbody>
 		';
 
-	//$i = 1;
+	$i = 1;
 
 		while($test = mysql_fetch_array($query))//loop process
 				{
@@ -758,7 +759,7 @@ function courierView(){
 					
 
 					echo '<tr>';
-					//echo '<td>'. $i.'</td>';
+					echo '<td class="text-center">'. $i.'</td>';
 					echo '<td>'. $test['courier_name'].'</td>';
 					echo '<td>'. $test['courier_contact_no'].'</td>';
 					echo '<td>'. $test['courier_fax_no'].'</td>';
@@ -1016,6 +1017,7 @@ function ptjView()
 	<table class="table table-striped table-bordered table-list" style="word-wrap: break-word;">
 			<thead>
 			  <tr>
+				<th class="text-center">#</th>
 				<th class="text-center">PTJ</th>
 				<th class="text-center">Acronym</th>
 				<th style="width:15%" class="text-center"><em class="glyphicon glyphicon-cog"></em></th>
@@ -1027,12 +1029,17 @@ function ptjView()
 
 
 			//$query01 =  mysql_query("SELECT  * FROM `parcel` ORDER BY id ASC") or die (mysql_query());
+			
+			
+			$i=1;
+
 			while($test = mysql_fetch_array($query))//loop process
 				{
 					$id = $test['id'];
 					$_SESSION['id'] = $id;
-
-					echo '<tr><td>'. $test['ptj_name'].'</td>';
+					echo '<tr>';
+					echo '<td class="text-center">'. $i.'</td>';
+					echo '<td>'. $test['ptj_name'].'</td>';
 					echo '<td>'. $test['ptj_acro'].'</td>';
 					echo '<td align="center">
 					<a href="update_ptj.php?id='.$id.'" class="btn btn-default" onclick="javascript:return confirm(\'Are you sure to UPDATE '.$test['ptj_name'].'?\')"><em class="glyphicon glyphicon-pencil"></em></a>
@@ -1040,7 +1047,7 @@ function ptjView()
 					</td>';
 					echo '</tr>';
 					$cnt++;
-			
+			$i++;
 				}
 		
 			echo '</tbody></table>';

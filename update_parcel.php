@@ -61,7 +61,7 @@ $result = parcelUpdate();
 	<div class="form-group">
 	<div class="col-md-12">
         <div class="input-group">
-            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+            <span class="input-group-addon"><i class="glyphicon glyphicon-saved"></i></span>
             <input name="parcel_takenby" placeholder="Taken By" value="<?php echo $parcel_takenby; ?>" class="form-control" type="text">
         </div>
     </div>
@@ -82,6 +82,13 @@ $result = parcelUpdate();
 	</fieldset>
 	</form> 
 	</div>
+
+<div class="row spacer"></div>
+<div class="row spacer"></div>
+<div class="row spacer"></div>
+
+
+
 <?php
 include 'inc/footer.php';
 ?>
