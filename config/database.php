@@ -27,17 +27,17 @@ function con2db() //connection to db
 	error_reporting( ~E_DEPRECATED & ~E_NOTICE );
 
 	//Configure Database on My PC
-	define('DB_HOST', 'localhost');
+	/*define('DB_HOST', 'localhost');
     define('DB_USER', 'root');
     define('DB_PASSWORD', '4dm1n');
-    define('DB_DATABASE', 'pms');
+    define('DB_DATABASE', 'pms');*/
 	
 	//Configure Database
-	/*define('DB_HOST', 'localhost:8889');
+	define('DB_HOST', 'localhost:8889');
     define('DB_USER', 'root');
     define('DB_PASSWORD', 'root');
     define('DB_DATABASE', 'pusatmel');
-	*/
+	
     /*
 
 	define('DB_HOST', 'localhost');
