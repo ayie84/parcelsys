@@ -55,6 +55,24 @@ $result = ptjUpdate();
                 </div>
             </div>
 			
+			<div class="form-group">
+				<div class="col-md-12">
+                    <div class="input-group">                    
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>                        
+                    <input name="ptj_pic" id="ptj_pic" placeholder="PTJ Person In Charge" class="form-control" type="text">                          
+                    </div>
+                </div>
+            </div>
+			
+			<div class="form-group">
+				<div class="col-md-12">
+                    <div class="input-group">                    
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
+                    <input name="ptj_pic_contact" id="ptj_pic_contact" placeholder="Person In Charge Mobile" class="form-control" type="text">                          
+                    </div>
+                </div>
+            </div>
+			
 			<div class="form-group">                       
 				<div class="col-md-12">
 				
