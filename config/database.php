@@ -1,5 +1,24 @@
 <?php
 
+/*START SQL COLLECTION 
+
+- Total Parcel Tahun Ini
+SELECT count(*) FROM parcel WHERE YEAR(parcel_timestamp)
+
+- Total Parcel Bulan Ini
+SELECT count(*) FROM parcel WHERE MONTH(parcel_timestamp) = 1 AND YEAR(parcel_timestamp) = 2016
+
+- Total Parcel Hari Ini
+SELECT count(*) FROM parcel WHERE DAY(parcel_timestamp) = 1 AND MONTH(parcel_timestamp) = 12 AND YEAR(parcel_timestamp) = 2016
+
+- Total Parcel Hari Ini Not Taken Today
+SELECT count(*) FROM parcel WHERE DAY(parcel_timestamp) = 1 AND MONTH(parcel_timestamp) = 12 AND YEAR(parcel_timestamp) = 2016 AND NULLIF(parcel_takenby, ' ') IS NULL
+
+- Total Parcel Hari Ini Is Taken
+SELECT count(*) FROM parcel WHERE DAY(parcel_timestamp) = 1 AND MONTH(parcel_timestamp) = 12 AND YEAR(parcel_timestamp) = 2016 AND parcel_takenby <> '' 
+
+END SQL COLLECTION*/
+
 
 function con2db() //connection to db
 {
