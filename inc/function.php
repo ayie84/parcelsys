@@ -73,7 +73,7 @@ echo '
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.php"><span class="glyphicon glyphicon-envelope"></span> parcel@Mail</a>
+      <a class="navbar-brand" href="index.php"><span class="glyphicon glyphicon-envelope"></span> Pusat Mel UMP</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->

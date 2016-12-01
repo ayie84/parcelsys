@@ -15,7 +15,11 @@ pageTitle("Parcel Query Data");
 include 'inc/header.php';
 
 ?>
-	<div class="col-md-offset-4 col-md-4 row spacer">
+
+
+<div class="row spacer"></div>
+
+	<div class="col-md-offset-4 col-md-4 row spacer" id="box">
 	<h3>Query By Date</h3><hr>
 	<form class="form-horizontal" name="form" method="post" action="resultbydate.php">
 	<input type="hidden" name="new" value="1" />
@@ -45,6 +49,12 @@ include 'inc/header.php';
             </fieldset>
 			</form>
 	</div>
+
+<div class="row spacer"></div>
+<div class="row spacer"></div>
+<div class="row spacer"></div>
+
+
 <?php
 	include 'inc/footer.php';
 ?>
