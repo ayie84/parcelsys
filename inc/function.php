@@ -303,7 +303,9 @@ function ptjReg()
 	$ptj_name =$_REQUEST['ptj_name'];
 	$ptj_acro = $_REQUEST['ptj_acro'];
 	$ptj_code = $_REQUEST['ptj_code'];
-	$ins_query="insert into ptj(`ptj_name`,`ptj_acro`,`ptj_code`)values('$ptj_name','$ptj_acro','$ptj_code')";
+	$ptj_pic = $_REQUEST['ptj_pic'];
+	$ptj_pic_contact = $_REQUEST['ptj_pic_contact'];
+	$ins_query="insert into ptj(`ptj_name`,`ptj_acro`,`ptj_code`,`ptj_pic`,`ptj_pic_contact`)values('$ptj_name','$ptj_acro','$ptj_code','$ptj_pic','$ptj_pic_contact')";
 	mysql_query($ins_query) or die(mysql_error());
 	if ($error == false) {
 		$result='<div class="alert alert-success vertical-center">'.$ptj_name.' Successful!!</div>';
@@ -326,10 +328,12 @@ function ptjUpdate()
 	$ptj_name = $_REQUEST['ptj_name'];
 	$ptj_acro = $_REQUEST['ptj_acro'];
 	$ptj_code = $_REQUEST['ptj_code'];
+	$ptj_pic = $_REQUEST['ptj_pic'];
+	$ptj_pic_contact = $_REQUEST['ptj_pic_contact'];
 	
 				
 				
-	mysql_query("UPDATE ptj SET ptj_name = '$ptj_name', ptj_acro = '$ptj_acro', ptj_code='$ptj_code' WHERE id = '$id'")or die(mysql_error());
+	mysql_query("UPDATE ptj SET ptj_name = '$ptj_name', ptj_acro = '$ptj_acro', ptj_code='$ptj_code', ptj_pic='$ptj_pic', ptj_pic_contact='$ptj_pic_contact' WHERE id = '$id'")or die(mysql_error());
 
 	if ($error == false) {
 		$result='<div class="alert alert-success vertical-center">'.$ptj_name.' UPDATE Successful!!</div> <meta http-equiv=Refresh content=1;url=ptj.php>';

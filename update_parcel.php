@@ -58,12 +58,30 @@ $result = parcelUpdate();
     </div>
     </div>
 	
-	<div class="form-group">
+	<!--<div class="form-group">
 	<div class="col-md-12">
         <div class="input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-saved"></i></span>
             <input name="parcel_takenby" placeholder="Taken By" value="<?php echo $parcel_takenby; ?>" class="form-control" type="text">
         </div>
+    </div>
+    </div>-->
+	
+	<?php
+	$query =  mysql_query("SELECT  * FROM `ptj` ") or die (mysql_query());
+	?>
+	<div class="form-group">
+	<div class="col-md-12">
+    <div class="input-group">                    
+        <span class="input-group-addon"><i class="glyphicon glyphicon-saved"></i></span>                        
+        <!--<input name="parcel_takenby" placeholder="Taken By" class="form-control" type="text">-->
+		<input name="parcel_takenby" placeholder="Taken By" type="text" list="categoryname" autocomplete="off" id="pcategory" class="form-control">
+			<datalist id="categoryname">
+			<?php while($row = mysql_fetch_array($query)) { ?>
+				<option value="<?php echo $row['ptj_pic']; ?>"><?php echo $row['ptj_pic'].'-'.$row['ptj_acro']; ?></option>
+			<?php } ?>
+			</datalist>                    
+    </div>
     </div>
     </div>
 
