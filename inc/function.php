@@ -1421,7 +1421,7 @@ function parcelViewByDate()
 	if($val>0)
 		{
 			$cnt = 1;
-			$limit = 10;  
+			$limit = 50;  
 			if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; };  
 			$start_from = ($page-1) * $limit; 
 			$query =  mysql_query("SELECT  * FROM `parcel` WHERE `parcel_timestamp` LIKE '%".$date."%' ORDER BY id DESC LIMIT $start_from, $limit") or die (mysql_query());

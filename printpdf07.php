@@ -74,7 +74,7 @@ while($results=mysql_fetch_array($raw_results))
 		
 		
 		//$data[]=array($results['parcel_courier'],$results['parcel_cnumber'],$results['parcel_cnumber'],$results['parcel_takenby'],$date.' '.$time);
-		$data[]=array('',$results['parcel_cnumber'],$results['parcel_cnumber'],$results['parcel_takenby'],$date.' '.$time);
+		$data[]=array('',$results['parcel_rcpt_name'],$results['parcel_cnumber'],$results['parcel_takenby'],$date.' '.$time);
 	}
 	
 }
@@ -88,7 +88,7 @@ $pdf->AddPage();
 $pdf->SetFont('Arial','',10);
 
 $pdf->SetWidths(array(40,50,30,30,30));
-$pdf->SetHeaders(array('C. Number','Courier','C. Number','Date','Time'));
+$pdf->SetHeaders(array('Courier','Penerima','Tracking','Taken By','Time Receive'));
 
 	for($i = 0; $i < count($data); $i++) {
 		$pdf->Row($data[$i]);
