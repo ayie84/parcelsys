@@ -576,12 +576,17 @@ function parcelView()
 
 					echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';//Add row space
 					echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';//Add row space
+					
+			
 
 			// Start Title Row & Action Button Before Table 
+			
+			$totalList =  mysql_query("SELECT COUNT(parcel_courier) AS parceltotal FROM parcel WHERE parcel_timestamp LIKE '%".$date." %'") or die (mysql_query());
 					
 
 					echo '<div class="row">';
-						echo '<div class="col-md-4""><h3 class="" style="margin-top:0;margin-bottom:0;">'.$tableTitle.'</h3></div>';
+						echo '<div class="col-md-4""><h3 class="" style="margin-top:0;margin-bottom:0;"> '.$tableTitle.' ('.mysql_result($totalList, 0).') </h3></div>';
+						
 			  			echo '<div class="col-md-4 col-md-offset-4" text-right><a target = "_blank" href="printpdf07.php?date='.$date.'" class="btn btn-warning pull-right" >Export To PDF</a></div>';
 						
 					echo '</div>';
