@@ -11,6 +11,18 @@
  // End Session
 		$conn = mysql_connect("localhost", "root", "");
 		mysql_select_db("pms");
+		
+		
+		/* Timce Function */
+				date_default_timezone_set("Asia/Kuala_Lumpur");
+				$tableTitle = 'Received Parcel Today';
+				$today = date("Y-m-d H:i:s");
+				$timestamp = $today;
+				$splitTimeStamp = explode(" ",$timestamp);
+				//$date= '2016'; //for testing purpose, to view all data to pages.
+				$date = $splitTimeStamp[0];
+				$time = $splitTimeStamp[1];
+				/* Timce Function End Here */
 ?>
 
 <html>
@@ -36,7 +48,7 @@ $(function () {
         },
         subtitle: {
             //text: 'Source: <a href="http://en.wikipedia.org/wiki/List_of_cities_proper_by_population">Wikipedia</a>'
-            text: 'Jumlah Parcel Pada 2016-12-02'
+            text: '<?php echo 'Jumlah Parcel Pada  '.$date; ?>'
         },
         xAxis: {
             type: 'category',
@@ -65,12 +77,13 @@ $(function () {
             data: [
 			
 				<?php	
+				
 				$query =  mysql_query("SELECT  * FROM `courier` ") or die (mysql_query());
 				while($row = mysql_fetch_array($query))//loop process
 					{
 					echo "['".$row['courier_name']."',";	
 					//SELECT count(parcel_courier) from parcel where parcel_timestamp like '%2016-12-02%' and parcel_courier like 'POS LAJU'
-					$querys =  mysql_query("SELECT count(parcel_courier) AS courier_val from parcel where parcel_timestamp like '%2016-12-02%' and parcel_courier like '".$row['courier_name']."'") or die (mysql_query());
+					$querys =  mysql_query("SELECT count(parcel_courier) AS courier_val from parcel where parcel_timestamp like '%".$date."%' and parcel_courier like '".$row['courier_name']."'") or die (mysql_query());
 					while($rows = mysql_fetch_array($querys))//loop process
 						{
 							echo $rows['courier_val'];
