@@ -559,7 +559,7 @@ function parcelView()
 	if($val>0)
 		{
 			$cnt = 1;
-			$limit = 10;  
+			$limit = 50;  
 
 			if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { 
 				$page=1; 
