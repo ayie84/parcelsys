@@ -1432,7 +1432,7 @@ function parcelViewByDate()
 			echo '
 			<div class="col col-xs-10 text-right">
 			<!--<button type="button" class="btn btn-warning pull-right">View Report</button>-->
-			<a href="printpdf07.php?date='.$date.'" class="btn btn-warning pull-right" >Export To PDF</a>
+			<a target = "_blank" href="printpdf07.php?date='.$date.'" class="btn btn-warning pull-right" >Export To PDF</a>
 			</div>
 			<div class="table-responsive col-md-offset-2 col-md-8 row spacer">
 			<table class="table table-striped table-bordered table-list" style="word-wrap: break-word;">
