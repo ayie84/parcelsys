@@ -83,12 +83,13 @@ echo '
 
 <!-- 
 
-<li class="active"><a href="dashboard.php">Home <span class="sr-only">(current)</span></a></li>
+<li class="active"><a href="dashboard_chart.php">Home <span class="sr-only">(current)</span></a></li>
 
 
 -->
 
-        <li><a href="dashboard.php">Home <span class="sr-only">(current)</span></a></li>
+        <!--<li><a href="dashboard.php">Home <span class="sr-only">(current)</span></a></li>-->
+        <li><a href="dashboard_chart.php">Home <span class="sr-only">(current)</span></a></li>
 
 
         <li><a href="parcel.php">Parcel</a></li>
@@ -1515,5 +1516,35 @@ function parcelViewByDate()
 			echo '
 			<center>Sorry No Record found for Parcel Today.</center></td></tr></tbody></table></div>';
 		}
+}
+function parcelCalc()
+{
+	con2db();//make connection to database
+	/* Time Function */
+	date_default_timezone_set("Asia/Kuala_Lumpur");
+	$tableTitle = 'Received Parcel Today';
+	$today = date("Y-m-d H:i:s");
+	$timestamp = $today;
+	$splitTimeStamp = explode(" ",$timestamp);
+	//$date= '2016'; //for testing purpose, to view all data to pages.
+	$date = $splitTimeStamp[0];
+	$time = $splitTimeStamp[1];
+	/* Time Function End Here */
+	
+	$query =  mysql_query("SELECT COUNT(parcel_courier) AS parceltotal FROM parcel WHERE parcel_timestamp LIKE '%".$date." %'") or die (mysql_query());
+	while($row = mysql_fetch_array($query))//loop process
+	{
+		$total=$row['parceltotal'];
+	}
+	
+	$query =  mysql_query("SELECT COUNT(parcel_courier) AS parcelTaken FROM parcel WHERE parcel_timestamp LIKE '%".$date." %' AND parcel_takenby LIKE '' ") or die (mysql_query());
+	while($row = mysql_fetch_array($query))//loop process
+	{
+		$nottaken=$row['parcelTaken'];
+	}
+	$taken = $total - $nottaken;
+	
+	
+	return array($total,$nottaken,$taken);
 }
 ?>

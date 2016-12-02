@@ -18,6 +18,10 @@
 	
 	 <link rel="stylesheet" href="public/css/bootstrap-datepicker3.min.css">
     <script type='text/javascript' src="public/js/bootstrap-datepicker.min.js"></script>
+	
+	<!-- High Chart-->
+	<script src="https://code.highcharts.com/highcharts.js"></script>
+	
 <script type='text/javascript'>
 $(function(){
 $('.input-group.date').datepicker({

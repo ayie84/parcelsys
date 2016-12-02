@@ -10,7 +10,8 @@ include 'inc/function.php';
 session_start();
 
  if( isset($_SESSION['SESS_MEMBER_ID']) ) {
-  header("Location: dashboard.php");
+  //header("Location: dashboard.php");
+  header("Location: dashboard_chart.php");
   exit;
  }else{
  /*
