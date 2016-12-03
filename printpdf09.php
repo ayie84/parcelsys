@@ -6,6 +6,7 @@ require('inc/function.php');
 con2db();
 $date = $_REQUEST['date'];
 list($ptjTotal,$courierTotal)=pmsInfo();
+
 class PDF extends FPDF
 {
 // Page header
@@ -38,48 +39,28 @@ function Footer()
     // Page number
     $this->Cell(0,10,'Page '.$this->PageNo().'/{nb}',0,0,'C');
 }
-
 }
-
-
 $cou = '';
 //$raw_results = mysql_query("SELECT * FROM parcel") or die(mysql_error());
 //$raw_results = mysql_query("SELECT * FROM `parcel` ORDER BY `parcel_courier` ASC") or die(mysql_error());
-$raw_results = mysql_query("SELECT  * FROM `parcel` WHERE `parcel_timestamp` LIKE '%".$date."%' ORDER BY `parcel`.`parcel_courier` ASC") or die(mysql_error());
+$raw_results = mysql_query("SELECT  * FROM `courier` ORDER BY courier_name ASC") or die(mysql_error());
 $data = array();
 if(mysql_num_rows($raw_results) > 0){ // if one or more rows are returned do following
 //while($results=mysql_fetch_assoc($raw_results)) 
 while($results=mysql_fetch_array($raw_results)) 
 {
 
-	$timestamp = $results['parcel_timestamp'];
-	$splitTimeStamp = explode(" ",$timestamp);
-	$date = $splitTimeStamp[0];
-	$time = $splitTimeStamp[1];
-	$courier = $results['parcel_courier'];
-	{
-		//$data[]=array('','','','','');
-		/*$courier = $results['parcel_courier'];
-		if (!in_array($courier,$data))
-		{
-		$abc = $data[] = $courier;
-		$data[]=array('$abc');
-		}*/
-		if ($cou==$courier) {
-      //duplicate
-	  //echo $dbdate.'</br>';
-    } else {
-      //first or unique
-	  //echo $courier.'</br>';
-	  $data[]=array($results['parcel_courier'],'','','',''.' '.'');
-    }
-
-    $cou = $courier;
-		
-		
-		//$data[]=array($results['parcel_courier'],$results['parcel_cnumber'],$results['parcel_cnumber'],$results['parcel_takenby'],$date.' '.$time);
-		$data[]=array('',$results['parcel_rcpt_name'],$results['parcel_cnumber'],$results['parcel_takenby'],$date.' '.$time);
-	}
+	//loop proses start
+	
+	$courier = $results['courier_name'];
+	$address = $results['courier_address'];
+	$phone = $results['courier_contact_no'];
+	$fax = $results['courier_fax_no'];
+	$courier_staff = $results['courier_pic_staff'];
+	
+	$data[]=array($courier,$address,$phone,$fax,$courier_staff);
+	
+	//loop proses end
 	
 }
 
@@ -91,8 +72,20 @@ $pdf->AliasNbPages();
 $pdf->AddPage();
 $pdf->SetFont('Arial','',10);
 
+//Display Total Count start
+$pdf->Cell(40,5,"JUMLAH Courier",0,0);
+$pdf->Cell(5,5,":",0,0);
+$pdf->Cell(30,5,$courierTotal,0,1); //new rows
+$pdf->Cell(40,5,"Print On ",0,0);
+$pdf->Cell(5,5,":",0,0);
+$pdf->Cell(30,5,''.date('d-m-Y').'',0,1);//new rows
+$pdf->Ln(10);//10 line space
+
+//Display Total Count end
+
+
 $pdf->SetWidths(array(40,50,30,30,30));
-$pdf->SetHeaders(array('Courier','Penerima','Tracking','Taken By','Time Receive'));
+$pdf->SetHeaders(array('Courier','Address','Office Number','Fax Number','Courier Staff'));
 
 	for($i = 0; $i < count($data); $i++) {
 		$pdf->Row($data[$i]);
@@ -100,21 +93,6 @@ $pdf->SetHeaders(array('Courier','Penerima','Tracking','Taken By','Time Receive'
 
 $pdf->AddPage();
 $pdf->Ln(10);
-//Display Total Count start
-
-$pdf->Cell(40,5,"JUMLAH PTJ/Fakulti",0,0);
-$pdf->Cell(5,5,":",0,0);
-$pdf->Cell(30,5,'Jeng kreng die xmo kuo value',0,1); //new rows
-//$pdf->Cell(30,5,$date,0,1); //new rows
-$pdf->Cell(40,5,"Result Print For ",0,0);
-$pdf->Cell(5,5,":",0,0);
-$pdf->Cell(30,5,$date,0,1);//new rows
-$pdf->Cell(40,5,"Print On ",0,0);
-$pdf->Cell(5,5,":",0,0);
-$pdf->Cell(30,5,''.date('d-m-Y').'',0,1);//new rows
-$pdf->Ln(10);//10 line space
-
-//Display Total Count end
 $pdf->SetFont('Arial', 'B', 6);
 $pdf->Cell(50,5,"__________________________",0,0);
 $pdf->Cell(90);

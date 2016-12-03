@@ -70,6 +70,15 @@ $result = courierReg();
                     </div>
                 </div>
             </div>
+			
+			<div class="form-group">
+				<div class="col-md-12">
+                    <div class="input-group">                    
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>                        
+                    <input name="courier_pic_staff" placeholder="Courier Staff" class="form-control" type="text" required>                          
+                    </div>
+                </div>
+            </div>
 
 			<div class="form-group">                       
 				<div class="col-md-12">

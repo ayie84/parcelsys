@@ -92,18 +92,34 @@ echo '
         <li><a href="dashboard_chart.php">Home <span class="sr-only">(current)</span></a></li>
 
 
-        <li><a href="parcel.php">Parcel</a></li>
-        <li><a href="courier.php">Courier</a></li>
+       <!-- <li><a href="parcel.php">Parcel</a></li>-->
+	   <!-- DropDown Menu For Parcel Start -->
+		<li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Parcel<span class="caret"></span></a>
+			<ul class="dropdown-menu">
+				<li><a href="parcel.php">Today</a></li>
+				<li><a href="querybydate.php">By Date</a></li>
+			</ul>
+		</li>
+		 <!-- DropDown Menu For Parcel End -->
+
+
+	   <li><a href="courier.php">Courier</a></li>
         <li><a href="ptj.php">PTJ</a></li>
   
-        <li class="dropdown">
+        <!--<li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Search Parcel<span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="querybydate.php">By Date</a></li>
             <li><a href="query.php">By Tracking Number</a></li>
           </ul>
-        </li>
-
+        </li>-->
+		
+		<!-- Search Parcel start -->
+		<li><a href="query.php">Search Parcel</a></li>
+		<!-- Search Parcel End -->
+		
+		
 		<li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User <span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -249,8 +265,9 @@ function courierReg()
 	$courier_address = $_REQUEST['courier_address'];
 	$courier_contact_no = $_REQUEST['courier_contact_no'];
 	$courier_fax_no = $_REQUEST['courier_fax_no'];
+	$courier_pic_staff = $_REQUEST['courier_pic_staff'];
 	//$class_ses = $_REQUEST['cses'];
-	$ins_query="insert into courier(`courier_name`,`courier_address`,`courier_contact_no`,`courier_fax_no`)values('$courier_name','$courier_address','$courier_contact_no','$courier_fax_no')";
+	$ins_query="insert into courier(`courier_name`,`courier_address`,`courier_contact_no`,`courier_fax_no`,`courier_pic_staff`)values('$courier_name','$courier_address','$courier_contact_no','$courier_fax_no','$courier_pic_staff')";
 	mysql_query($ins_query) or die(mysql_error());
 	if ($error == false) {
 		$result='<div class="alert alert-success vertical-center">'.$courier_name.' Successful!!</div>';
@@ -274,9 +291,10 @@ function courierUpdate()
 	$courier_address = $_REQUEST['courier_address'];
 	$courier_contact_no = $_REQUEST['courier_contact_no'];
 	$courier_fax_no = $_REQUEST['courier_fax_no'];
+	$courier_pic_staff = $_REQUEST['courier_pic_staff'];
 				
 				
-	mysql_query("UPDATE courier SET courier_name = '$courier_name', courier_address='$courier_address', courier_contact_no='$courier_contact_no', courier_fax_no='$courier_fax_no' WHERE id = '$id'")or die(mysql_error());
+	mysql_query("UPDATE courier SET courier_name = '$courier_name', courier_address='$courier_address', courier_contact_no='$courier_contact_no', courier_fax_no='$courier_fax_no', courier_pic_staff='$courier_pic_staff' WHERE id = '$id'")or die(mysql_error());
 
 	if ($error == false) {
 		$result='<div class="alert alert-success vertical-center">'.$courier_name.' UPDATE Successful!!</div> <meta http-equiv=Refresh content=1;url=courier.php>';
@@ -740,7 +758,9 @@ function courierView(){
 		echo '<div class="row">';
 			echo '<div class="col-md-4""><h3 class="" style="margin-top:0;margin-bottom:0;"> '.$tableTitle.' ('.mysql_result($totalList, 0).') </h3></div>';
 
-  			echo '<div class="col-md-4 col-md-offset-4" text-right><button type="button" class="btn btn-warning pull-right">View Report</button></div>';
+  			//echo '<div class="col-md-4 col-md-offset-4" text-right><button type="button" class="btn btn-warning pull-right">View Report</button></div>';
+			
+			echo '<div class="col-md-4 col-md-offset-4" text-right><a target = "_blank" href="printpdf09.php" class="btn btn-warning pull-right" >Export To PDF</a></div>';
 		echo '</div>';
 
 // End Title Row & Action Button Before Table
@@ -1245,9 +1265,9 @@ function track()
 			echo '<h3 class="sub-header">Received Parcel Today</h3></div>';
 			
 			echo '
-			<div class="col col-xs-10 text-right">
+			<!--<div class="col col-xs-10 text-right">
 			<button type="button" class="btn btn-warning pull-right">View Report</button>
-			</div>
+			</div>-->
 			<div class="table-responsive col-md-offset-2 col-md-8 row spacer">
 			<table class="table table-striped table-bordered table-list" style="word-wrap: break-word;">
 			<thead>
@@ -1280,7 +1300,7 @@ function track()
 			<tr>
 				<td>'.$results['parcel_cnumber'].'</td>
 				<td>'.$results['parcel_courier'].'</td>
-				<td>'.$results['parcel_cnumber'].'</td>
+				<td>'.$results['parcel_takenby'].'</td>
 				<td>'.$date.'</td>
 				<td>'.$time.'</td>
 			</tr>
@@ -1551,5 +1571,26 @@ function parcelCalc()
 	
 	
 	return array($total,$nottaken,$taken);
+}
+
+function pmsInfo()
+{
+	
+	con2db();//make connection to database
+	$query =  mysql_query("SELECT COUNT(ptj_name) AS ptjTotal FROM ptj ") or die (mysql_query());
+	while($row = mysql_fetch_array($query))//loop process
+	{
+		$ptjTotal=$row['ptjTotal'];
+	}
+	
+	$query =  mysql_query("SELECT COUNT(courier_name) AS courierTotal FROM courier") or die (mysql_query());
+	while($row = mysql_fetch_array($query))//loop process
+	{
+		$courierTotal=$row['courierTotal'];
+	}
+	
+	
+	
+	return array($ptjTotal,$courierTotal);
 }
 ?>

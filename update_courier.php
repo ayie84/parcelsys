@@ -22,6 +22,7 @@ $courier_name = $test['courier_name'];
 $courier_address = $test['courier_address'];
 $courier_contact_no = $test['courier_contact_no'];
 $courier_fax_no = $test['courier_fax_no'];
+$courier_pic = $test['courier_pic'];
 $result = courierUpdate();
 ?>
 
@@ -34,7 +35,7 @@ $result = courierUpdate();
 	<div class="col-md-12">
 		<div class="input-group">
             <span class="input-group-addon"><i class="fa fa-truck"></i></span>  
-            <input name="courier_name" id="courier_name" value="<?php echo $courier_name; ?>" class="form-control" type="text" required>
+            <input name="courier_name" id="courier_name" placeholder="Courier Name" value="<?php echo $courier_name; ?>" class="form-control" type="text" required>
         </div>
     </div>
     </div>
@@ -44,7 +45,7 @@ $result = courierUpdate();
 	<div class="col-md-12">
         <div class="input-group">
             <span class="input-group-addon"><i class="fa fa-phone"></i></span>
-            <input name="courier_contact_no" value="<?php echo $courier_contact_no; ?>" class="form-control" type="text">
+            <input name="courier_contact_no" placeholder="Contact Number" value="<?php echo $courier_contact_no; ?>" class="form-control" type="text">
         </div>
     </div>
     </div>
@@ -53,7 +54,7 @@ $result = courierUpdate();
 	<div class="col-md-12">
         <div class="input-group">
             <span class="input-group-addon"><i class="fa fa-fax"></i></span>
-            <input name="courier_fax_no" value="<?php echo $courier_fax_no; ?>" class="form-control" type="text">
+            <input name="courier_fax_no" placeholder="Fax Number" value="<?php echo $courier_fax_no; ?>" class="form-control" type="text">
         </div>
     </div>
     </div>
@@ -61,10 +62,19 @@ $result = courierUpdate();
 
 
     <div class="form-group">
-    <div class="col-md-12">
-        <div class="input-group">
-            <span class="input-group-addon"><i class="fa fa-address-book"></i></span>
-            <input name="courier_address" value="<?php echo $courier_address; ?>" class="form-control" type="text">
+	<div class="col-md-12">
+        <div class="input-group">                    
+            <span class="input-group-addon"><i class="fa fa-address-book"></i></span> 
+            <textarea class="form-control" rows="3" name="courier_address" placeholder="Address" ><?php echo $courier_address; ?></textarea>                       
+        </div>
+    </div>
+    </div>
+	
+	<div class="form-group">
+	<div class="col-md-12">
+        <div class="input-group">                    
+            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>                        
+            <input name="courier_pic_staff" placeholder="Courier Staff" value="<?php echo $courier_pic_staff; ?>" class="form-control" type="text" required>                          
         </div>
     </div>
     </div>
