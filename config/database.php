@@ -17,6 +17,7 @@ SELECT count(*) FROM parcel WHERE DAY(parcel_timestamp) = 1 AND MONTH(parcel_tim
 - Total Parcel Hari Ini Is Taken
 SELECT count(*) FROM parcel WHERE DAY(parcel_timestamp) = 1 AND MONTH(parcel_timestamp) = 12 AND YEAR(parcel_timestamp) = 2016 AND parcel_takenby <> '' 
 
+
 END SQL COLLECTION*/
 
 
