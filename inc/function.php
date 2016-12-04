@@ -1048,7 +1048,8 @@ function ptjView()
 		echo '<div class="row">';
 			echo '<div class="col-md-4""><h3 class="" style="margin-top:0;margin-bottom:0;"> '.$tableTitle.' ('.mysql_result($totalList, 0).') </h3></div>';
 
-  			echo '<div class="col-md-4 col-md-offset-4" text-right><button type="button" class="btn btn-warning pull-right">View Report</button></div>';
+  			//echo '<div class="col-md-4 col-md-offset-4" text-right><button type="button" class="btn btn-warning pull-right">View Report</button></div>';
+			echo '<div class="col-md-4 col-md-offset-4" text-right><a target = "_blank" href="printpdf10.php" class="btn btn-warning pull-right" >Export To PDF</a></div>';
 		echo '</div>';
 
 // End Title Row & Action Button Before Table
