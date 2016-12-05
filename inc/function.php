@@ -98,6 +98,7 @@ echo '
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Parcel<span class="caret"></span></a>
 			<ul class="dropdown-menu">
 				<li><a href="parcel.php">Today</a></li>
+				<li><a href="parcel_vall.php">By All</a></li>
 				<li><a href="querybydate.php">By Date</a></li>
 			</ul>
 		</li>
@@ -737,19 +738,19 @@ function parcelViewALL()
 	date_default_timezone_set("Asia/Kuala_Lumpur");
     //echo date('d-m-Y H:i:s'); //Returns IST
    // echo date('Y-m-d H:i:s'); //Returns IST
-	$tableTitle = 'Received Parcel Today';
+	$tableTitle = 'View All Received Parcel';
 	$today = date('Y-m-d H:i:s');
 	//echo $today;
 	//$today='2016-11-13 15:28:10';
 	
 	$timestamp = $today;
 	$splitTimeStamp = explode(" ",$timestamp);
-	//$date= '2016'; //for testing purpose, to view all data to pages.
-	$date = $splitTimeStamp[0];
+	$date= '2016-'; //for testing purpose, to view all data to pages.
+	//$date = $splitTimeStamp[0];
 	$time = $splitTimeStamp[1];
 	
 	con2db();//db connect
-	$value = mysql_query("SELECT COUNT( * ) AS Value FROM  `parcel` where `parcel_timestamp` LIKE '%2016-%'") or die (mysql_query());
+	$value = mysql_query("SELECT COUNT( * ) AS Value FROM  `parcel` where `parcel_timestamp` LIKE '%".$date."%'") or die (mysql_query());
 	//$value = mysql_query("SELECT COUNT( * ) AS Value FROM  `parcel` where `parcel_timestamp` LIKE '%2016%'") or die (mysql_query());
 	$num_rows = mysql_fetch_array($value);
 	$val = $num_rows['Value'];
@@ -758,7 +759,7 @@ function parcelViewALL()
 	if($val>0)
 		{
 			$cnt = 1;
-			$limit = 50;  
+			$limit = 1000;  
 
 			if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { 
 				$page=1; 
@@ -772,18 +773,19 @@ function parcelViewALL()
 			$query =  mysql_query("SELECT  * FROM `parcel` WHERE `parcel_timestamp` LIKE '%".$date."%' ORDER BY id DESC LIMIT $start_from, $limit") or die (mysql_query());
 
 
-					echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';//Add row space
-					echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';//Add row space
+					//echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';//Add row space
+					//echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';//Add row space
 					
 			
 
 			// Start Title Row & Action Button Before Table 
 			
-			$totalList =  mysql_query("SELECT COUNT(parcel_courier) AS parceltotal FROM parcel WHERE parcel_timestamp LIKE '%2016-%'") or die (mysql_query());
+			$totalList =  mysql_query("SELECT COUNT(parcel_courier) AS parceltotal FROM parcel WHERE parcel_timestamp LIKE '%".$date."%'") or die (mysql_query());
 					
 
 					echo '<div class="row">';
 						echo '<div class="col-md-4""><h3 class="" style="margin-top:0;margin-bottom:0;"> '.$tableTitle.' ('.mysql_result($totalList, 0).') </h3></div>';
+						//echo $date;
 						
 			  			echo '<div class="col-md-4 col-md-offset-4" text-right><a target = "_blank" href="printParcelByDatePtj.php?date='.$date.'&ptj=" class="btn btn-warning pull-right" >Export To PDF</a></div>';
 						
@@ -839,7 +841,8 @@ function parcelViewALL()
 			
 
 
-				$sql = "SELECT count(*) FROM parcel WHERE DAY(parcel_timestamp) = ".date('d')." AND MONTH(parcel_timestamp) = ".date('m')." AND YEAR(parcel_timestamp) = ".date('Y')."";  
+				//$sql = "SELECT count(*) FROM parcel WHERE DAY(parcel_timestamp) = ".date('d')." AND MONTH(parcel_timestamp) = ".date('m')." AND YEAR(parcel_timestamp) = ".date('Y')."";  
+				$sql = "SELECT COUNT( * ) AS Value FROM  `parcel` where `parcel_timestamp` LIKE '%".$date."%'";  
 
 				//echo $sql;
 
@@ -872,7 +875,7 @@ function parcelViewALL()
 
 			   for ($i=1; $i<=$total_pages; $i++) {
 								
-							echo '<li><a href="parcel.php?page='.$i.'">'.$i.'</a></li>';
+							echo '<li><a href="parcel_vall.php?page='.$i.'">'.$i.'</a></li>';
 							};
 
 			 echo' </ul></nav>';

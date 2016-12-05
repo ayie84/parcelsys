@@ -28,11 +28,7 @@ pageTitle("Parcel Management System");
 include 'inc/header.php';
 
 ?>
-<div class="col-md-offset-4 col-md-4" id="box">
-	   <h3>Parcel </h3><hr>
-	
-		
-	</div>
+
 <?php
 parcelViewALL();
 include 'inc/footer.php';
