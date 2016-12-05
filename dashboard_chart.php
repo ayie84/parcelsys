@@ -76,9 +76,9 @@ list($total,$nottaken,$taken)=parcelCalc();
 						
 
 
-          <h2 class="sub-header">Chart</h2>
+          <!--<h2 class="sub-header">Chart</h2>-->
           <div class="table-responsive">
-            <?php include 'chartParcelByPtj.php'; ?>
+            <?php //include 'chartParcelByPtj.php'; ?>
           </div>
         </div>
       </div>
