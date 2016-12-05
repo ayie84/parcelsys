@@ -9,8 +9,8 @@
 		  exit;
 		 }
  // End Session
-		$conn = mysql_connect("localhost", "root", "");
-		mysql_select_db("pms");
+		//$conn = mysql_connect("localhost", "root", "");
+	//	mysql_select_db("pms");
 		
 		
 		/* Timce Function */

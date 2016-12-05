@@ -20,11 +20,9 @@ list($total,$nottaken,$taken)=parcelCalc();
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
             <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
-            <li><a href="#">Reports</a></li>
-            <li><a href="#">Analytics</a></li>
-            <li><a href="#">Export</a></li>
+            <li class=""><a href="parcel.php">New Parcel</li>
           </ul>
-          <ul class="nav nav-sidebar">
+        <!--  <ul class="nav nav-sidebar">
             <li><a href="">Nav item</a></li>
             <li><a href="">Nav item again</a></li>
             <li><a href="">One more nav</a></li>
@@ -35,7 +33,7 @@ list($total,$nottaken,$taken)=parcelCalc();
             <li><a href="">Nav item again</a></li>
             <li><a href="">One more nav</a></li>
             <li><a href="">Another nav item</a></li>
-          </ul>
+          </ul> -->
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
           <h1 class="page-header">Dashboard</h1>
@@ -80,7 +78,7 @@ list($total,$nottaken,$taken)=parcelCalc();
 
           <h2 class="sub-header">Chart</h2>
           <div class="table-responsive">
-            <?php include 'chart.php'; ?>
+            <?php include 'chartParcelByPtj.php'; ?>
           </div>
         </div>
       </div>

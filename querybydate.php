@@ -29,10 +29,18 @@ include 'inc/header.php';
 			<div class="form-group">
 				<div class="col-md-12">
                     <div class="input-group date">
-					<input name="date_picker" type="text" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+					<!-- <input name="date_picker" type="text" class="form-control" required>
+					-->
+					<input name="date_picker" id="datepicker" type="text" class="form-control" required value="">
+
+					<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
 					</div>                        
                 </div>
             </div>
+
+            <?php 
+            	ptjDropMenu(); 
+            ?>
 			
 			<div class="form-group">                       
 				<div class="col-md-12">

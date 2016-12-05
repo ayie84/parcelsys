@@ -11,11 +11,20 @@ SELECT count(*) FROM parcel WHERE MONTH(parcel_timestamp) = 1 AND YEAR(parcel_ti
 - Total Parcel Hari Ini
 SELECT count(*) FROM parcel WHERE DAY(parcel_timestamp) = 1 AND MONTH(parcel_timestamp) = 12 AND YEAR(parcel_timestamp) = 2016
 
+- 
+SELECT count(ptj.ptj_name) FROM ptj INNER JOIN parcel ON ptj.ptj_name=parcel.parcel_ptj WHERE DAY(parcel.parcel_timestamp) = 5 AND MONTH(parcel.parcel_timestamp) = 12 AND YEAR(parcel.parcel_timestamp) = 2016
+
+- All Parcel Hari Ini Selected PTJ
+SELECT * FROM parcel WHERE DAY(parcel_timestamp) = 1 AND MONTH(parcel_timestamp) = 12 AND YEAR(parcel_timestamp) = 2016 AND parcel_ptj='AUDIT DALAM'
+
 - Total Parcel Hari Ini Not Taken Today
 SELECT count(*) FROM parcel WHERE DAY(parcel_timestamp) = 1 AND MONTH(parcel_timestamp) = 12 AND YEAR(parcel_timestamp) = 2016 AND NULLIF(parcel_takenby, ' ') IS NULL
 
 - Total Parcel Hari Ini Is Taken
 SELECT count(*) FROM parcel WHERE DAY(parcel_timestamp) = 1 AND MONTH(parcel_timestamp) = 12 AND YEAR(parcel_timestamp) = 2016 AND parcel_takenby <> '' 
+
+- Total PTJ yang Mempunyai Parcel Hari Ini 
+SELECT count(distinct parcel_ptj) FROM parcel WHERE DAY(parcel_timestamp) = 1 AND MONTH(parcel_timestamp) = 12 AND YEAR(parcel_timestamp) = 2016
 
 
 END SQL COLLECTION*/
@@ -28,17 +37,17 @@ function con2db() //connection to db
 	error_reporting( ~E_DEPRECATED & ~E_NOTICE );
 
 	//Configure Database on My PC
-	define('DB_HOST', 'localhost');
+	/*define('DB_HOST', 'localhost');
     define('DB_USER', 'root');
     define('DB_PASSWORD', '');
-    define('DB_DATABASE', 'pms');
+    define('DB_DATABASE', 'pms');*/
 	
 	//Configure Database
-	/*define('DB_HOST', 'localhost:8889');
+	define('DB_HOST', 'localhost:8889');
     define('DB_USER', 'root');
     define('DB_PASSWORD', 'root');
     define('DB_DATABASE', 'pusatmel');
-	*/
+	
     /*
 
 	define('DB_HOST', 'localhost');

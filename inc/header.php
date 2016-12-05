@@ -23,15 +23,12 @@
 	<script src="https://code.highcharts.com/highcharts.js"></script>
 	
 <script type='text/javascript'>
-$(function(){
-$('.input-group.date').datepicker({
-	
-    calendarWeeks: true,
-    todayHighlight: true,
-    autoclose: true,
-	dateFormat: "yyyy-mm-dd"
-});  
-});
+
+ $( function() {
+    $("#datepicker" ).datepicker("setDate", new Date());
+      //datepicker( "setDate", new Date())
+       $("input[name=parcel_cnumber]").focus();
+  } );
 
 </script>
 </head>

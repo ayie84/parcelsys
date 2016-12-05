@@ -116,7 +116,7 @@ echo '
         </li>-->
 		
 		<!-- Search Parcel start -->
-		<li><a href="query.php">Search Parcel</a></li>
+		<!-- <li><a href="query.php">Search Parcel</a></li> -->
 		<!-- Search Parcel End -->
 		
 		
@@ -165,7 +165,7 @@ function ptjDropMenu()
 	$result = mysql_query ($query);
 	echo '<div class="form-group"><div class="col-md-12"><div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>';
 	echo "<select name='ptj' id='ptj' class='form-control'>";
-	echo '<option value=".." selected>Please Select PTJ</option>';
+	echo '<option value="" selected>Please Select PTJ</option>';
    		while($nt=mysql_fetch_array($result))
 	#
 	{//Array or records stored in $nt
@@ -182,7 +182,7 @@ function courierDropMenu()
 	echo '<div class="form-group"><div class="col-md-12"><div class="input-group"><span class="input-group-addon"><i class="fa fa-truck"></i></span>';
 	
 	echo "<select name='courier' id='courier' class='form-control'>";
-	echo '<option value=".." selected>Please Select Courier</option>';
+	echo '<option value="" selected>Please Select Courier</option>';
    		while($nt=mysql_fetch_array($result))
 	#
 	{//Array or records stored in $nt
@@ -405,7 +405,7 @@ function courierGetDropMenu()
 {
 	con2db();
 
-	echo '<div class="form-group"><div class="col-md-12"><div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>';
+	echo '<div class="form-group"><div class="col-md-12"><div class="input-group"><span class="input-group-addon"><i class="fa fa-truck"></i></span>';
 	$id = $_REQUEST['id'];
 	$query =  mysql_query("SELECT  * FROM `parcel` WHERE id=$id") or die (mysql_query());
 	$test = mysql_fetch_array($query);//will show 1st data only
@@ -605,7 +605,7 @@ function parcelView()
 					echo '<div class="row">';
 						echo '<div class="col-md-4""><h3 class="" style="margin-top:0;margin-bottom:0;"> '.$tableTitle.' ('.mysql_result($totalList, 0).') </h3></div>';
 						
-			  			echo '<div class="col-md-4 col-md-offset-4" text-right><a target = "_blank" href="printpdf07.php?date='.$date.'" class="btn btn-warning pull-right" >Export To PDF</a></div>';
+			  			echo '<div class="col-md-4 col-md-offset-4" text-right><a target = "_blank" href="printParcelByDatePtj.php?date='.$date.'&ptj=" class="btn btn-warning pull-right" >Export To PDF</a></div>';
 						
 					echo '</div>';
 
@@ -1427,6 +1427,149 @@ function parcelViewByDate()
 {
 
 	date_default_timezone_set("Asia/Kuala_Lumpur");
+ 
+	$tableTitle = 'Received Parcel On';
+	$today = date("Y-m-d H:i:s");
+	
+	$date = $_REQUEST['date_picker'];
+	$ptj = $_REQUEST['ptj'];
+
+	$splitTimeStamp = explode(" ",$timestamp);
+
+	
+	con2db();//db connect
+
+
+	if(!empty($ptj)){
+	$value = mysql_query("SELECT COUNT( * ) AS Value FROM  `parcel` where `parcel_timestamp` LIKE '%".$date."%' AND parcel_ptj='".$ptj."'") or die (mysql_query());
+
+	}else{
+	$value = mysql_query("SELECT COUNT( * ) AS Value FROM  `parcel` where `parcel_timestamp` LIKE '%".$date."%'") or die (mysql_query());
+	echo 'test'.$value;
+	}
+
+
+
+	$num_rows = mysql_fetch_array($value);
+	$val = $num_rows['Value'];
+
+	//echo $val;
+	if($val>0)
+		{
+			$cnt = 1;
+			$limit = 50;  
+			if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; };  
+			$start_from = ($page-1) * $limit; 
+			
+
+				if(!empty($ptj)){
+				$query = mysql_query("SELECT * FROM  `parcel` where `parcel_timestamp` LIKE '%".$date."%' AND parcel_ptj='".$ptj."' ORDER BY id DESC LIMIT $start_from, $limit") or die (mysql_query());
+				
+				}else{
+				$query = mysql_query("SELECT * FROM  `parcel` where `parcel_timestamp` LIKE '%".$date."%' ORDER BY id DESC LIMIT $start_from, $limit") or die (mysql_query());
+				
+				}
+
+
+
+
+
+			echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';
+			echo '<div class="col-md-offset-2 col-md-8 row spacer" >';
+			echo '<h3 class="sub-header">'.$tableTitle.' - '.$date.'</h3></div>';
+			
+			echo '
+			<div class="col col-xs-10 text-right">
+			<!--<button type="button" class="btn btn-warning pull-right">View Report</button>-->
+			<a target = "_blank" href="printParcelByDatePtj.php?date='.$date.'&ptj='.$ptj.'" class="btn btn-warning pull-right" >Export To PDF</a>
+			</div>
+			<div class="table-responsive col-md-offset-2 col-md-8 row spacer">
+			<table class="table table-striped table-bordered table-list" style="word-wrap: break-word;">
+			<thead>
+			  <tr>
+				<th class="text-center">Tracking Number</th>
+				<th class="text-center">Courier</th>
+				<th class="text-center">PTJ</th>
+				<th class="text-center">Taken By</th>
+				<th style="width:15%" class="text-center"><em class="glyphicon glyphicon-cog"></em></th>
+				</tr> 
+			</thead>
+			<tbody>
+			';
+			//$query01 =  mysql_query("SELECT  * FROM `parcel` ORDER BY id ASC") or die (mysql_query());
+			while($test = mysql_fetch_array($query))//loop process
+				{
+					$id = $test['id'];
+					$_SESSION['id'] = $id;
+
+					echo '<tr><td>'. $test['parcel_cnumber'].'</td>';
+					echo '<td>'. $test['parcel_courier'].'</td>';
+					echo '<td>'. $test['parcel_ptj'].'</td>';
+					echo '<td>'. $test['parcel_takenby'].'</td>';
+					echo '<td align="center">
+					<a href="update_parcel.php?id='.$id.'" class="btn btn-default" onclick="javascript:return confirm(\'Are you sure to UPDATE '.$test['parcel_cnumber'].'?\')"><em class="glyphicon glyphicon-pencil"></em></a>
+					<a href="delete_parcel.php?id='.$id.'" class="btn btn-danger" onclick="javascript:return confirm(\'Are You Sure to REMOVE '.$test['parcel_cnumber'].'?\')"><em class="glyphicon glyphicon-trash"></em></a>
+					</td>';
+					echo '</tr>';
+					$cnt++;
+			
+				}
+			echo '</tbody></table></div>';
+			
+			$sql = "SELECT COUNT(id) FROM parcel WHERE `parcel_timestamp` LIKE '%".$date."%'";  
+			$rs_result = mysql_query($sql);  
+			$row = mysql_fetch_row($rs_result);  
+			$total_records = $row[0];  
+			$total_pages = ceil($total_records / $limit);
+			?>
+			<div class="col-md-offset-3	 col-md-8 row spacer">
+			<ul class="pagination navbar-right margin-right=10px">
+
+			<?php 
+			
+			
+			for ($i=1; $i<=$total_pages; $i++) {
+				
+			echo '<li><a href="parcel.php?page='.$i.'">'.$i.'</a></li>';
+			};
+			?>
+
+		  </ul></div>
+
+		<?php	
+		}
+		else
+		{ //jika tiada data pada table, echo this..
+			echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';
+			echo '<div class="col-md-offset-2 col-md-8 row spacer" >';
+			echo '<h3 class="sub-header">'.$tableTitle.' - '.$date.'</h3></div>';
+			
+			echo '
+			<div class="col col-xs-10 text-right">
+			<!--<button type="button" class="btn btn-warning pull-right">View Report</button>-->
+			</div>
+			<div class="table-responsive col-md-offset-2 col-md-8 row spacer">
+			<table class="table table-striped table-bordered table-list" style="word-wrap: break-word;">
+			<thead>
+			  <!--<tr>
+				<th class="text-center">Tracking Number</th>
+				<th class="text-center">Courier</th>
+				<th class="text-center">PTJ</th>
+				<th class="text-center">Taken By</th>
+				<th style="width:15%" class="text-center"><em class="glyphicon glyphicon-cog"></em></th>
+				</tr> -->
+			</thead>
+			<tbody><tr><td colspan=5>
+			';
+			echo '
+			<center>Sorry No Record found for Parcel '.$date.'.</center></td></tr></tbody></table></div>';
+		}
+}
+
+function parcelViewByDateOld()
+{
+
+	date_default_timezone_set("Asia/Kuala_Lumpur");
     //echo date('d-m-Y H:i:s'); //Returns IST
    // echo date('Y-m-d H:i:s'); //Returns IST
 	$tableTitle = 'Received Parcel On';
@@ -1459,7 +1602,7 @@ function parcelViewByDate()
 			echo '
 			<div class="col col-xs-10 text-right">
 			<!--<button type="button" class="btn btn-warning pull-right">View Report</button>-->
-			<a target = "_blank" href="printpdf07.php?date='.$date.'" class="btn btn-warning pull-right" >Export To PDF</a>
+			<a target = "_blank" href="printpdfparcel.php?date='.$date.'" class="btn btn-warning pull-right" >Export To PDF</a>
 			</div>
 			<div class="table-responsive col-md-offset-2 col-md-8 row spacer">
 			<table class="table table-striped table-bordered table-list" style="word-wrap: break-word;">
@@ -1543,6 +1686,7 @@ function parcelViewByDate()
 			<center>Sorry No Record found for Parcel Today.</center></td></tr></tbody></table></div>';
 		}
 }
+
 function parcelCalc()
 {
 	con2db();//make connection to database
