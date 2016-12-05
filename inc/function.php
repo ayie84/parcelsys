@@ -779,7 +779,7 @@ function parcelViewALL()
 
 			// Start Title Row & Action Button Before Table 
 			
-			$totalList =  mysql_query("SELECT COUNT(parcel_courier) AS parceltotal FROM parcel WHERE parcel_timestamp LIKE '%".$date." %'") or die (mysql_query());
+			$totalList =  mysql_query("SELECT COUNT(parcel_courier) AS parceltotal FROM parcel WHERE parcel_timestamp LIKE '%2016- %'") or die (mysql_query());
 					
 
 					echo '<div class="row">';
