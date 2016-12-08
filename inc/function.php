@@ -229,13 +229,15 @@ function parcelUpdate()
 	$parcel_rcpt_name = $_REQUEST['parcel_rcpt_name'];
 	$parcel_ptj = $_REQUEST['parcel_ptj'];
 	$parcel_takenby = $_REQUEST['parcel_takenby'];
-				
+	$parcel_remark = $_REQUEST['parcel_remark'];
+
 	mysql_query("UPDATE parcel SET 
 	parcel_courier = '$parcel_courier', 
 	parcel_cnumber='$parcel_cnumber',
 	parcel_rcpt_name='$parcel_rcpt_name', 
 	parcel_ptj = '$parcel_ptj', 
-	parcel_takenby = '$parcel_takenby' 
+	parcel_takenby = '$parcel_takenby',
+	parcel_remark = '$parcel_remark' 
 	WHERE id = '$id'")or die(mysql_error());
 	if ($error == false) {
 		
@@ -626,6 +628,7 @@ function parcelView()
 							<th class="text-center">Courier</th>
 							<th class="text-center">PTJ</th>
 							<th class="text-center">Taken By</th>
+							<th class="text-center">Remark</th>
 							<th style="width:15%" class="text-center"><em class="glyphicon glyphicon-cog"></em></th>						</tr> 
 			        </thead>
 			        <tbody>
@@ -642,6 +645,7 @@ function parcelView()
 					echo '<td>'. $test['parcel_courier'].'</td>';
 					echo '<td>'. $test['parcel_ptj'].'</td>';
 					echo '<td>'. $test['parcel_takenby'].'</td>';
+					echo '<td>'. $test['parcel_remark'].'</td>';
 					echo '<td align="center">
 					<a href="update_parcel.php?id='.$id.'" class="btn btn-default" onclick="javascript:return confirm(\'Are you sure to UPDATE '.$test['parcel_cnumber'].'?\')"><em class="glyphicon glyphicon-pencil"></em></a>
 					<a href="delete_parcel.php?id='.$id.'" class="btn btn-danger" onclick="javascript:return confirm(\'Are You Sure to REMOVE '.$test['parcel_cnumber'].'?\')"><em class="glyphicon glyphicon-trash"></em></a>
@@ -722,6 +726,7 @@ function parcelView()
 				<th class="text-center">Courier</th>
 				<th class="text-center">PTJ</th>
 				<th class="text-center">Taken By</th>
+
 				<th style="width:15%" class="text-center"><em class="glyphicon glyphicon-cog"></em></th>
 				</tr> -->
 			</thead>
@@ -807,6 +812,7 @@ function parcelViewALL()
 							<th class="text-center">Courier</th>
 							<th class="text-center">PTJ</th>
 							<th class="text-center">Taken By</th>
+							<th class="text-center">Remark</th>
 							<th style="width:15%" class="text-center"><em class="glyphicon glyphicon-cog"></em></th>						</tr> 
 			        </thead>
 			        <tbody>
@@ -823,6 +829,7 @@ function parcelViewALL()
 					echo '<td>'. $test['parcel_courier'].'</td>';
 					echo '<td>'. $test['parcel_ptj'].'</td>';
 					echo '<td>'. $test['parcel_takenby'].'</td>';
+					echo '<td>'. $test['parcel_remark'].'</td>';
 					echo '<td align="center">
 					<a href="update_parcel.php?id='.$id.'" class="btn btn-default" onclick="javascript:return confirm(\'Are you sure to UPDATE '.$test['parcel_cnumber'].'?\')"><em class="glyphicon glyphicon-pencil"></em></a>
 					<a href="delete_parcel.php?id='.$id.'" class="btn btn-danger" onclick="javascript:return confirm(\'Are You Sure to REMOVE '.$test['parcel_cnumber'].'?\')"><em class="glyphicon glyphicon-trash"></em></a>

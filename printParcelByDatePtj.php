@@ -51,7 +51,8 @@ $cou = '';
 
 //$raw_results = mysql_query("SELECT  * FROM `parcel` WHERE `parcel_timestamp` LIKE '%".$date."%' ORDER BY `parcel`.`parcel_courier` ASC") or die(mysql_error());
 
-
+				
+				//Dapatkan rekod daripada PTJ sahaja
 
 				if(!empty($ptj)){
 				$raw_results = mysql_query("SELECT * FROM  `parcel` where `parcel_timestamp` LIKE '%".$date."%' AND parcel_ptj='".$ptj."' ORDER BY `parcel`.`parcel_courier` ASC") or die (mysql_query());
@@ -59,6 +60,7 @@ $cou = '';
 				
 				}else{
 				$raw_results = mysql_query("SELECT * FROM  `parcel` where `parcel_timestamp` LIKE '%".$date."%' ORDER BY `parcel`.`parcel_courier` ASC") or die (mysql_query());
+
 				
 				}
 
@@ -85,13 +87,13 @@ while($results=mysql_fetch_array($raw_results))
     } else {
       //first or unique
 	  //echo $courier.'</br>';
-	  $data[]=array($results['parcel_courier'],'','','',''.' '.'');
+	  $data[]=array($results['parcel_courier'],'','','','',''.' '.'');
     }
 
     $cou = $courier;
 		
 		
-		$data[]=array('',$results['parcel_rcpt_name'],$results['parcel_cnumber'],$results['parcel_takenby'],$date.' '.$time);
+		$data[]=array('',$results['parcel_cnumber'],$results['parcel_rcpt_name'],$results['parcel_takenby'],$date.'  '.$time,$results['parcel_remark']);
 	
 	
 }
@@ -120,8 +122,8 @@ $pdf->SetFont('Arial','',10);
 						$pdf->Ln(10);
 		}
 
-$pdf->SetWidths(array(40,50,30,30,30));
-$pdf->SetHeaders(array('Courier','Penerima','Tracking','Taken By','Time Receive'));
+$pdf->SetWidths(array(30,35,35,35,25,30));
+$pdf->SetHeaders(array('Courier','Tracking','Penerima','Taken By','Date','Remark'));
 
 	for($i = 0; $i < count($data); $i++) {
 		$pdf->Row($data[$i]);
@@ -131,22 +133,40 @@ $pdf->AddPage();
 $pdf->Ln(10);
 //Display Total Count start
 
-$result=mysql_query('SELECT count(*) FROM parcel WHERE DAY(parcel_timestamp) = '.date("j", strtotime($date)).' AND MONTH(parcel_timestamp) = '.date("n", strtotime($date)).' AND YEAR(parcel_timestamp) = '.date("Y", strtotime($date)).'');
+//Count $totalParcel, $parcelAvailable, $parcelTaken, $parcelPtj
+if (!empty($ptj)){
 
-$totalParcel=mysql_result($result, 0);
+	$result=mysql_query('SELECT count(*) FROM parcel WHERE DAY(parcel_timestamp) = '.date("j", strtotime($date)).' AND MONTH(parcel_timestamp) = '.date("n", strtotime($date)).' AND YEAR(parcel_timestamp) = '.date("Y", strtotime($date)).' AND parcel_ptj="'.$ptj.'"');
 
-$result=mysql_query('SELECT count(*) FROM parcel WHERE DAY(parcel_timestamp) = '.date("j", strtotime($date)).' AND MONTH(parcel_timestamp) = '.date("n", strtotime($date)).' AND YEAR(parcel_timestamp) = '.date("Y", strtotime($date)).' AND NULLIF(parcel_takenby, " ") IS NULL');
-$parcelAvailable=mysql_result($result, 0);
+	$totalParcel=mysql_result($result, 0);
 
-$result=mysql_query('SELECT count(*) FROM parcel WHERE DAY(parcel_timestamp) = '.date("j", strtotime($date)).' AND MONTH(parcel_timestamp) = '.date("n", strtotime($date)).' AND YEAR(parcel_timestamp) = '.date("Y", strtotime($date)).' AND parcel_takenby <> "" ');
-$parcelTaken=mysql_result($result, 0);
+	$result=mysql_query('SELECT count(*) FROM parcel WHERE DAY(parcel_timestamp) = '.date("j", strtotime($date)).' AND MONTH(parcel_timestamp) = '.date("n", strtotime($date)).' AND YEAR(parcel_timestamp) = '.date("Y", strtotime($date)).' AND NULLIF(parcel_takenby, " ") IS NULL AND parcel_ptj="'.$ptj.'"');
+	$parcelAvailable=mysql_result($result, 0);
 
-$result=mysql_query('SELECT count(distinct parcel_ptj) FROM parcel WHERE DAY(parcel_timestamp) = '.date("j", strtotime($date)).' AND MONTH(parcel_timestamp) = '.date("n", strtotime($date)).' AND YEAR(parcel_timestamp) = '.date("Y", strtotime($date)).'');
-$parcelPtj=mysql_result($result, 0);
+	$result=mysql_query('SELECT count(*) FROM parcel WHERE DAY(parcel_timestamp) = '.date("j", strtotime($date)).' AND MONTH(parcel_timestamp) = '.date("n", strtotime($date)).' AND YEAR(parcel_timestamp) = '.date("Y", strtotime($date)).' AND parcel_takenby <> "" AND parcel_ptj="'.$ptj.'"');
+	$parcelTaken=mysql_result($result, 0);
 
+	$result=mysql_query('SELECT count(distinct parcel_ptj) FROM parcel WHERE DAY(parcel_timestamp) = '.date("j", strtotime($date)).' AND MONTH(parcel_timestamp) = '.date("n", strtotime($date)).' AND YEAR(parcel_timestamp) = '.date("Y", strtotime($date)).' AND parcel_ptj="'.$ptj.'"');
+	$parcelPtj=mysql_result($result, 0);
 
+}else{
 
-$pdf->Cell(40,5,"Total Parcel Today",0,0);
+	$result=mysql_query('SELECT count(*) FROM parcel WHERE DAY(parcel_timestamp) = '.date("j", strtotime($date)).' AND MONTH(parcel_timestamp) = '.date("n", strtotime($date)).' AND YEAR(parcel_timestamp) = '.date("Y", strtotime($date)).'');
+
+	$totalParcel=mysql_result($result, 0);
+
+	$result=mysql_query('SELECT count(*) FROM parcel WHERE DAY(parcel_timestamp) = '.date("j", strtotime($date)).' AND MONTH(parcel_timestamp) = '.date("n", strtotime($date)).' AND YEAR(parcel_timestamp) = '.date("Y", strtotime($date)).' AND NULLIF(parcel_takenby, " ") IS NULL');
+	$parcelAvailable=mysql_result($result, 0);
+
+	$result=mysql_query('SELECT count(*) FROM parcel WHERE DAY(parcel_timestamp) = '.date("j", strtotime($date)).' AND MONTH(parcel_timestamp) = '.date("n", strtotime($date)).' AND YEAR(parcel_timestamp) = '.date("Y", strtotime($date)).' AND parcel_takenby <> " " ');
+	$parcelTaken=mysql_result($result, 0);
+
+	$result=mysql_query('SELECT count(distinct parcel_ptj) FROM parcel WHERE DAY(parcel_timestamp) = '.date("j", strtotime($date)).' AND MONTH(parcel_timestamp) = '.date("n", strtotime($date)).' AND YEAR(parcel_timestamp) = '.date("Y", strtotime($date)).'');
+	$parcelPtj=mysql_result($result, 0);
+
+}
+
+$pdf->Cell(40,5,"Total Parcel",0,0);
 $pdf->Cell(5,5,":",0,0);
 $pdf->Cell(30,5,$totalParcel,0,1); //new rows
 
@@ -177,37 +197,46 @@ $pdf->Cell(30,5,''.date('d-m-Y').'',0,1);//new rows
 $pdf->Ln(10);//10 line space
 */
 
+if(!empty($ptj)){
+
+//dapatkan $ptj_pic
+$result = mysql_query("SELECT ptj_pic FROM  `ptj` where `ptj_name`='".$ptj."'") or die (mysql_query());
+
+
 $pdf->Ln(10);//10 line space
 //Display Total Count end
-$pdf->SetFont('Arial', 'B', 6);
+$pdf->SetFont('Arial', '', 10);
 $pdf->Cell(50,5,"__________________________",0,0);
-$pdf->Cell(90);
+$pdf->Cell(70);
 $pdf->Cell(0,5,"Diterima Oleh,",0,1);
 $pdf->Ln(1);
-$pdf->Cell(50,5,"Tandatangan Courier",0,0);
-$pdf->Cell(90);
-$pdf->Cell(0,5,"Nama :",0,1);
-$pdf->Ln(1);
+
 $pdf->Cell(50,5,"Disemak dan disahkan",0,0);
-$pdf->Cell(90);
-$pdf->Cell(0,5,"No IC :",0,1);
+$pdf->Cell(70);
+$pdf->Cell(0,5,"Nama : ".mysql_result($result, 0),0,1);
 $pdf->Ln(1);
-$pdf->Cell(50,5,"Nama :",0,0);
-$pdf->Cell(90);
+
+
+$pdf->Cell(50,5,"PUSAT MEL KAMPUS GAMBANG",0,0);
+$pdf->Cell(70);
 $pdf->Cell(0,5,"Tarikh :",0,1);
 $pdf->Ln(1);
-$pdf->Cell(50,5,"Tandatangan :",0,0);
-$pdf->Cell(90);
+
+
+$pdf->Cell(50,5," ",0,0);
+$pdf->Cell(70);
 $pdf->Cell(0,5,"Masa :",0,1);
 $pdf->Ln(1);
 $pdf->Cell(50,5,"",0,0);
-$pdf->Cell(90);
+$pdf->Cell(70);
 $pdf->Cell(0,5,"Tandatangan :",0,1);
 $pdf->Ln(1);
 $pdf->Cell(50,5,"",0,0);
-$pdf->Cell(90);
-$pdf->Cell(0,5,"Chop Syarikat :",0,1);
+$pdf->Cell(70);
+$pdf->Cell(0,5,"Cop :",0,1);
 $pdf->Ln(1);
+
+}
 
 $pdf->Output();
 ?>

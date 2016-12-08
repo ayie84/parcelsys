@@ -48,7 +48,7 @@ include 'inc/header.php';
 				<div class="col-md-12">
                     <div class="input-group">                    
                     <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>                        
-                    <input name="parcel_rcpt_name" placeholder="Receipent Name" class="form-control" type="text" required>                          
+                    <input name="parcel_rcpt_name" placeholder="Receipent Name" class="form-control" type="text">                          
                     </div>
                 </div>
             </div>
@@ -82,6 +82,16 @@ include 'inc/header.php';
 						<option value="<?php echo $row['ptj_pic']; ?>"><?php echo $row['ptj_pic'].'-'.$row['ptj_acro']; ?></option>
 					<?php } ?>
 					</datalist>                    
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+				<div class="col-md-12">
+                    <div class="input-group">                    
+                    <span class="input-group-addon"><i class="fa fa-sticky-note-o"></i></span>
+					<textarea name="parcel_remark" placeholder="Remark" class="form-control"></textarea>
                     </div>
                 </div>
             </div>
