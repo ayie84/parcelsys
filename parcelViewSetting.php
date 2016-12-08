@@ -11,7 +11,7 @@ include 'inc/function.php';
 debugScript();//comment this line to debug
 //auth();
 con2db();
-pageTitle("Parcel Query Data");
+pageTitle("Parcel View Setting");
 include 'inc/header.php';
 
 ?>
@@ -20,7 +20,7 @@ include 'inc/header.php';
 <div class="row spacer"></div>
 
 	<div class="col-md-offset-4 col-md-4 row spacer" id="box">
-	<h3>Query By Date</h3><hr>
+	<h3>Set Your Parcel View</h3><hr>
 	<form class="form-horizontal" name="form" method="post" action="resultbydate.php">
 	<input type="hidden" name="new" value="1" />
 	<!--<form class="form-horizontal" name="form" action="" method="post" id="contact_form">-->

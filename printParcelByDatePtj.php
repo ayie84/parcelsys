@@ -4,7 +4,10 @@ require('inc/fpdf/mc_table.php');
 require('inc/function.php');
 //include 'config/database.php';
 con2db();
-$date = $_REQUEST['date'];
+$dateGlobal = $_REQUEST['date'];
+
+//echo $date;
+
 $ptj=$_REQUEST['ptj'];
 list($ptjTotal,$courierTotal)=pmsInfo();
 
@@ -55,17 +58,17 @@ $cou = '';
 				//Dapatkan rekod daripada PTJ sahaja
 
 				if(!empty($ptj)){
-				$raw_results = mysql_query("SELECT * FROM  `parcel` where `parcel_timestamp` LIKE '%".$date."%' AND parcel_ptj='".$ptj."' ORDER BY `parcel`.`parcel_courier` ASC") or die (mysql_query());
+				$raw_results = mysql_query("SELECT * FROM  `parcel` where `parcel_timestamp` LIKE '%".$dateGlobal."%' AND parcel_ptj='".$ptj."' ORDER BY `parcel`.`parcel_courier` ASC") or die (mysql_query());
 
 				
 				}else{
-				$raw_results = mysql_query("SELECT * FROM  `parcel` where `parcel_timestamp` LIKE '%".$date."%' ORDER BY `parcel`.`parcel_courier` ASC") or die (mysql_query());
+				$raw_results = mysql_query("SELECT * FROM  `parcel` where `parcel_timestamp` LIKE '%".$dateGlobal."%' ORDER BY `parcel`.`parcel_courier` ASC") or die (mysql_query());
 
 				
 				}
 
 
-
+//echo $date;
 
 
 $data = array();
@@ -97,6 +100,8 @@ while($results=mysql_fetch_array($raw_results))
 	
 	
 }
+
+//echo $date;
 
 }
 
@@ -133,35 +138,69 @@ $pdf->AddPage();
 $pdf->Ln(10);
 //Display Total Count start
 
+
+//echo $date;
+
 //Count $totalParcel, $parcelAvailable, $parcelTaken, $parcelPtj
 if (!empty($ptj)){
 
-	$result=mysql_query('SELECT count(*) FROM parcel WHERE DAY(parcel_timestamp) = '.date("j", strtotime($date)).' AND MONTH(parcel_timestamp) = '.date("n", strtotime($date)).' AND YEAR(parcel_timestamp) = '.date("Y", strtotime($date)).' AND parcel_ptj="'.$ptj.'"');
+	//$result=mysql_query('SELECT count(*) FROM parcel WHERE DAY(parcel_timestamp) = '.date("j", strtotime($date)).' AND MONTH(parcel_timestamp) = '.date("n", strtotime($date)).' AND YEAR(parcel_timestamp) = '.date("Y", strtotime($date)).' AND parcel_ptj="'.$ptj.'"');
+
+	$result=mysql_query('SELECT count(*) FROM parcel WHERE `parcel_timestamp` LIKE "%'.$dateGlobal.'%" AND parcel_ptj="'.$ptj.'"');
+	 
 
 	$totalParcel=mysql_result($result, 0);
 
-	$result=mysql_query('SELECT count(*) FROM parcel WHERE DAY(parcel_timestamp) = '.date("j", strtotime($date)).' AND MONTH(parcel_timestamp) = '.date("n", strtotime($date)).' AND YEAR(parcel_timestamp) = '.date("Y", strtotime($date)).' AND NULLIF(parcel_takenby, " ") IS NULL AND parcel_ptj="'.$ptj.'"');
+	//$result=mysql_query('SELECT count(*) FROM parcel WHERE DAY(parcel_timestamp) = '.date("j", strtotime($date)).' AND MONTH(parcel_timestamp) = '.date("n", strtotime($date)).' AND YEAR(parcel_timestamp) = '.date("Y", strtotime($date)).' AND NULLIF(parcel_takenby, " ") IS NULL AND parcel_ptj="'.$ptj.'"');
+	
+	$result=mysql_query('SELECT count(*) FROM parcel WHERE `parcel_timestamp` LIKE "%'.$dateGlobal.'%" AND NULLIF(parcel_takenby, " ") IS NULL AND parcel_ptj="'.$ptj.'"');
+	
+
 	$parcelAvailable=mysql_result($result, 0);
 
-	$result=mysql_query('SELECT count(*) FROM parcel WHERE DAY(parcel_timestamp) = '.date("j", strtotime($date)).' AND MONTH(parcel_timestamp) = '.date("n", strtotime($date)).' AND YEAR(parcel_timestamp) = '.date("Y", strtotime($date)).' AND parcel_takenby <> "" AND parcel_ptj="'.$ptj.'"');
+	//$result=mysql_query('SELECT count(*) FROM parcel WHERE DAY(parcel_timestamp) = '.date("j", strtotime($date)).' AND MONTH(parcel_timestamp) = '.date("n", strtotime($date)).' AND YEAR(parcel_timestamp) = '.date("Y", strtotime($date)).' AND parcel_takenby <> "" AND parcel_ptj="'.$ptj.'"');
+	
+	$result=mysql_query('SELECT count(*) FROM parcel WHERE `parcel_timestamp` LIKE "%'.$dateGlobal.'%" AND parcel_takenby <> "" AND parcel_ptj="'.$ptj.'"');
+
 	$parcelTaken=mysql_result($result, 0);
 
-	$result=mysql_query('SELECT count(distinct parcel_ptj) FROM parcel WHERE DAY(parcel_timestamp) = '.date("j", strtotime($date)).' AND MONTH(parcel_timestamp) = '.date("n", strtotime($date)).' AND YEAR(parcel_timestamp) = '.date("Y", strtotime($date)).' AND parcel_ptj="'.$ptj.'"');
+	//$result=mysql_query('SELECT count(distinct parcel_ptj) FROM parcel WHERE DAY(parcel_timestamp) = '.date("j", strtotime($date)).' AND MONTH(parcel_timestamp) = '.date("n", strtotime($date)).' AND YEAR(parcel_timestamp) = '.date("Y", strtotime($date)).' AND parcel_ptj="'.$ptj.'"');
+	
+	$result=mysql_query('SELECT count(*) FROM parcel WHERE `parcel_timestamp` LIKE "%'.$dateGlobal.'%" AND parcel_ptj="'.$ptj.'"');
+
 	$parcelPtj=mysql_result($result, 0);
 
 }else{
 
-	$result=mysql_query('SELECT count(*) FROM parcel WHERE DAY(parcel_timestamp) = '.date("j", strtotime($date)).' AND MONTH(parcel_timestamp) = '.date("n", strtotime($date)).' AND YEAR(parcel_timestamp) = '.date("Y", strtotime($date)).'');
+	//echo $dateGlobal;
+
+	//$result=mysql_query('SELECT count(*) FROM parcel WHERE DAY(parcel_timestamp) = '.date("j", strtotime($date)).' AND MONTH(parcel_timestamp) = '.date("n", strtotime($date)).' AND YEAR(parcel_timestamp) = '.date("Y", strtotime($date)).'');
+
+	$result=mysql_query('SELECT count(*) FROM parcel WHERE `parcel_timestamp` LIKE "%'.$dateGlobal.'%"');
+
+	//echo 'SELECT count(*) FROM parcel WHERE `parcel_timestamp` LIKE "%'.$dateGlobal.'%"';
+
+	//echo 'SELECT count(*) FROM parcel WHERE DAY(parcel_timestamp) = '.date("j", strtotime($date)).' AND MONTH(parcel_timestamp) = '.date("n", strtotime($date)).' AND YEAR(parcel_timestamp) = '.date("Y", strtotime($date)).'';
 
 	$totalParcel=mysql_result($result, 0);
 
-	$result=mysql_query('SELECT count(*) FROM parcel WHERE DAY(parcel_timestamp) = '.date("j", strtotime($date)).' AND MONTH(parcel_timestamp) = '.date("n", strtotime($date)).' AND YEAR(parcel_timestamp) = '.date("Y", strtotime($date)).' AND NULLIF(parcel_takenby, " ") IS NULL');
+	//$result=mysql_query('SELECT count(*) FROM parcel WHERE DAY(parcel_timestamp) = '.date("j", strtotime($date)).' AND MONTH(parcel_timestamp) = '.date("n", strtotime($date)).' AND YEAR(parcel_timestamp) = '.date("Y", strtotime($date)).' AND NULLIF(parcel_takenby, "") IS NULL');
+	
+	$result=mysql_query('SELECT count(*) FROM parcel WHERE `parcel_timestamp` LIKE "%'.$dateGlobal.'%" AND NULLIF(parcel_takenby, "") IS NULL');
+	
+
 	$parcelAvailable=mysql_result($result, 0);
 
-	$result=mysql_query('SELECT count(*) FROM parcel WHERE DAY(parcel_timestamp) = '.date("j", strtotime($date)).' AND MONTH(parcel_timestamp) = '.date("n", strtotime($date)).' AND YEAR(parcel_timestamp) = '.date("Y", strtotime($date)).' AND parcel_takenby <> " " ');
+	//$result=mysql_query('SELECT count(*) FROM parcel WHERE DAY(parcel_timestamp) = '.date("j", strtotime($date)).' AND MONTH(parcel_timestamp) = '.date("n", strtotime($date)).' AND YEAR(parcel_timestamp) = '.date("Y", strtotime($date)).' AND parcel_takenby <> " " ');
+
+	$result=mysql_query('SELECT count(*) FROM parcel WHERE `parcel_timestamp` LIKE "%'.$dateGlobal.'%" AND parcel_takenby <> " " ');
+
 	$parcelTaken=mysql_result($result, 0);
 
-	$result=mysql_query('SELECT count(distinct parcel_ptj) FROM parcel WHERE DAY(parcel_timestamp) = '.date("j", strtotime($date)).' AND MONTH(parcel_timestamp) = '.date("n", strtotime($date)).' AND YEAR(parcel_timestamp) = '.date("Y", strtotime($date)).'');
+	//$result=mysql_query('SELECT count(distinct parcel_ptj) FROM parcel WHERE DAY(parcel_timestamp) = '.date("j", strtotime($date)).' AND MONTH(parcel_timestamp) = '.date("n", strtotime($date)).' AND YEAR(parcel_timestamp) = '.date("Y", strtotime($date)).'');
+
+	$result=mysql_query('SELECT count(distinct parcel_ptj) FROM parcel WHERE  `parcel_timestamp` LIKE "%'.$dateGlobal.'%"');
+
 	$parcelPtj=mysql_result($result, 0);
 
 }

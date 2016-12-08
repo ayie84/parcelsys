@@ -97,9 +97,9 @@ echo '
 		<li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Parcel<span class="caret"></span></a>
 			<ul class="dropdown-menu">
-				<li><a href="parcel.php">Today</a></li>
-				<li><a href="parcel_vall.php">By All</a></li>
-				<li><a href="querybydate.php">By Date</a></li>
+				<li><a href="parcelViewToday.php">View Today ( '.date('d-m-Y').' )</a></li>
+				<li><a href="parcelViewYear.php">View Year ( '.date('Y').' )</a></li>
+				<li><a href="parcelViewSetting.php">View Setting</a></li>
 			</ul>
 		</li>
 		 <!-- DropDown Menu For Parcel End -->
@@ -599,6 +599,7 @@ function parcelView()
 	$time = $splitTimeStamp[1];
 	
 	con2db();//db connect
+	
 	$value = mysql_query("SELECT COUNT( * ) AS Value FROM  `parcel` where `parcel_timestamp` LIKE '%".$date."%'") or die (mysql_query());
 	//$value = mysql_query("SELECT COUNT( * ) AS Value FROM  `parcel` where `parcel_timestamp` LIKE '%2016%'") or die (mysql_query());
 	$num_rows = mysql_fetch_array($value);
@@ -634,8 +635,17 @@ function parcelView()
 
 					echo '<div class="row">';
 						echo '<div class="col-md-4""><h3 class="" style="margin-top:0;margin-bottom:0;"> '.$tableTitle.' ('.mysql_result($totalList, 0).') </h3></div>';
+
 						
-			  			echo '<div class="col-md-4 col-md-offset-4" text-right><a target = "_blank" href="printParcelByDatePtj.php?date='.$date.'&ptj=" class="btn btn-warning pull-right" >Export To PDF</a></div>';
+			  	
+
+			  			echo '<div class="col-md-3 col-md-offset-5" text-right>
+
+			  			<p><a href="parcel.php" class="btn btn-info">New Parcel</a> 
+
+			  			<a target = "_blank" href="printParcelByDatePtj.php?date='.$date.'&ptj=" class="btn btn-warning" >Export To PDF</a></p>
+
+			  			 </div>';
 						
 					echo '</div>';
 
@@ -770,14 +780,14 @@ function parcelViewALL()
 	date_default_timezone_set("Asia/Kuala_Lumpur");
     //echo date('d-m-Y H:i:s'); //Returns IST
    // echo date('Y-m-d H:i:s'); //Returns IST
-	$tableTitle = 'View All Received Parcel';
+	$tableTitle = 'Received Parcel '.date('Y');
 	$today = date('Y-m-d H:i:s');
 	//echo $today;
 	//$today='2016-11-13 15:28:10';
 	
 	$timestamp = $today;
 	$splitTimeStamp = explode(" ",$timestamp);
-	$date= '2016-'; //for testing purpose, to view all data to pages.
+	$date= '2016'; //for testing purpose, to view all data to pages.
 	//$date = $splitTimeStamp[0];
 	$time = $splitTimeStamp[1];
 	
@@ -805,8 +815,8 @@ function parcelViewALL()
 			$query =  mysql_query("SELECT  * FROM `parcel` WHERE `parcel_timestamp` LIKE '%".$date."%' ORDER BY id DESC LIMIT $start_from, $limit") or die (mysql_query());
 
 
-					//echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';//Add row space
-					//echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';//Add row space
+					echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';//Add row space
+					echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';//Add row space
 					
 			
 
@@ -818,8 +828,16 @@ function parcelViewALL()
 					echo '<div class="row">';
 						echo '<div class="col-md-4""><h3 class="" style="margin-top:0;margin-bottom:0;"> '.$tableTitle.' ('.mysql_result($totalList, 0).') </h3></div>';
 						//echo $date;
+
+						echo '<div class="col-md-3 col-md-offset-5" text-right>
+
+			  			<p><a href="parcel.php" class="btn btn-info">New Parcel</a> 
+
+			  			<a target = "_blank" href="printParcelByDatePtj.php?date='.$date.'&ptj=" class="btn btn-warning" >Export To PDF</a></p>
+
+			  			 </div>';
 						
-			  			echo '<div class="col-md-4 col-md-offset-4" text-right><a target = "_blank" href="printParcelByDatePtj.php?date='.$date.'&ptj=" class="btn btn-warning pull-right" >Export To PDF</a></div>';
+			  			//echo '<div class="col-md-4 col-md-offset-4" text-right><a target = "_blank" href="printParcelByDatePtj.php?date='.$date.'&ptj=" class="btn btn-warning pull-right" >Export To PDF</a></div>';
 						
 					echo '</div>';
 
@@ -838,6 +856,7 @@ function parcelViewALL()
 							<th class="text-center">Tracking Number</th>
 							<th class="text-center">Courier</th>
 							<th class="text-center">PTJ</th>
+							<th class="text-center">Date</th>
 							<th class="text-center">Taken By</th>
 							<th class="text-center">Remark</th>
 							<th style="width:15%" class="text-center"><em class="glyphicon glyphicon-cog"></em></th>						</tr> 
@@ -855,6 +874,7 @@ function parcelViewALL()
 					echo '<tr><td>'. $test['parcel_cnumber'].'</td>';
 					echo '<td>'. $test['parcel_courier'].'</td>';
 					echo '<td>'. $test['parcel_ptj'].'</td>';
+					echo '<td>'. $test['parcel_timestamp'].'</td>';					
 					echo '<td>'. $test['parcel_takenby'].'</td>';
 					echo '<td>'. $test['parcel_remark'].'</td>';
 					echo '<td align="center">
@@ -1284,7 +1304,8 @@ function ptjView()
 				<th class="text-center">PTJ</th>
 				<th class="text-center">Acronym</th>
 				<th class="text-center">PIC</th>
-				<th class="text-center">PIC Mobile</th>
+				<th class="text-center">H/P</th>
+				<th class="text-center">Email</th>
 				<th style="width:15%" class="text-center"><em class="glyphicon glyphicon-cog"></em></th>
 				</tr> 
 			</thead>
@@ -1308,6 +1329,7 @@ function ptjView()
 					echo '<td>'. $test['ptj_acro'].'</td>';
 					echo '<td>'. $test['ptj_pic'].'</td>';
 					echo '<td>'. $test['ptj_pic_contact'].'</td>';
+					echo '<td>'. $test['ptj_pic_email'].'</td>';
 					echo '<td align="center">
 					<a href="update_ptj.php?id='.$id.'" class="btn btn-default" onclick="javascript:return confirm(\'Are you sure to UPDATE '.$test['ptj_name'].'?\')"><em class="glyphicon glyphicon-pencil"></em></a>
 					<a href="delete_ptj.php?id='.$id.'" class="btn btn-danger" onclick="javascript:return confirm(\'Are You Sure to REMOVE '.$test['ptj_name'].'?\')"><em class="glyphicon glyphicon-trash"></em></a>
@@ -1645,11 +1667,13 @@ function parcelViewByDate()
 
 	date_default_timezone_set("Asia/Kuala_Lumpur");
  
-	$tableTitle = 'Received Parcel On';
-	$today = date("Y-m-d H:i:s");
-	
 	$date = $_REQUEST['date_picker'];
 	$ptj = $_REQUEST['ptj'];
+
+	$tableTitle = 'Received Parcel On '.date("d-m-Y", strtotime($date));
+	$today = date("Y-m-d H:i:s");
+	
+
 
 	$splitTimeStamp = explode(" ",$timestamp);
 
@@ -1662,7 +1686,7 @@ function parcelViewByDate()
 
 	}else{
 	$value = mysql_query("SELECT COUNT( * ) AS Value FROM  `parcel` where `parcel_timestamp` LIKE '%".$date."%'") or die (mysql_query());
-	echo 'test'.$value;
+	//echo 'test'.$value;
 	}
 
 
@@ -1687,28 +1711,48 @@ function parcelViewByDate()
 				
 				}
 
+					echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';//Add row space
+					echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';//Add row space			
 
-
-
-
-			echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';
-			echo '<div class="col-md-offset-2 col-md-8 row spacer" >';
-			echo '<h3 class="sub-header">'.$tableTitle.' - '.$date.'</h3></div>';
+			// Start Title Row & Action Button Before Table 
 			
-			echo '
-			<div class="col col-xs-10 text-right">
-			<!--<button type="button" class="btn btn-warning pull-right">View Report</button>-->
-			<a target = "_blank" href="printParcelByDatePtj.php?date='.$date.'&ptj='.$ptj.'" class="btn btn-warning pull-right" >Export To PDF</a>
-			</div>
-			<div class="table-responsive col-md-offset-2 col-md-8 row spacer">
-			<table class="table table-striped table-bordered table-list" style="word-wrap: break-word;">
+			$totalList =  mysql_query("SELECT COUNT(parcel_courier) AS parceltotal FROM parcel WHERE parcel_timestamp LIKE '%".$date."%'") or die (mysql_query());
+					
+
+					echo '<div class="row">';
+						echo '<div class="col-md-4""><h3 class="" style="margin-top:0;margin-bottom:0;"> '.$tableTitle.' ('.mysql_result($totalList, 0).') </h3></div>';
+						//echo $date;
+
+echo '<div class="col-md-3 col-md-offset-5" text-right>
+
+			  			<p><a href="parcel.php" class="btn btn-info">New Parcel</a> 
+
+			  			<a target = "_blank" href="printParcelByDatePtj.php?date='.$date.'&ptj='.$ptj.'" class="btn btn-warning" >Export To PDF</a></p>
+
+			  			 </div>';
+
+
+			  			//echo '<div class="col-md-4 col-md-offset-4" text-right><a target = "_blank" href="printParcelByDatePtj.php?date='.$date.'&ptj=" class="btn btn-warning pull-right" >Export To PDF</a></div>';
+						
+					echo '</div>';
+
+			// End Title Row & Action Button Before Table
+
+
+					echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';//Add row space
+
+			
+			echo'<table class="table table-striped table-bordered table-list" style="word-wrap: break-word;">
 			<thead>
 			  <tr>
-				<th class="text-center">Tracking Number</th>
-				<th class="text-center">Courier</th>
-				<th class="text-center">PTJ</th>
-				<th class="text-center">Taken By</th>
-				<th style="width:15%" class="text-center"><em class="glyphicon glyphicon-cog"></em></th>
+							<th class="text-center">Tracking Number</th>
+							<th class="text-center">Courier</th>
+							<th class="text-center">PTJ</th>
+							<th class="text-center">Date</th>
+							<th class="text-center">Taken By</th>
+							<th class="text-center">Remark</th>
+
+											<th style="width:15%" class="text-center"><em class="glyphicon glyphicon-cog"></em></th>
 				</tr> 
 			</thead>
 			<tbody>
@@ -1722,7 +1766,9 @@ function parcelViewByDate()
 					echo '<tr><td>'. $test['parcel_cnumber'].'</td>';
 					echo '<td>'. $test['parcel_courier'].'</td>';
 					echo '<td>'. $test['parcel_ptj'].'</td>';
+					echo '<td>'. $test['parcel_timestamp'].'</td>';					
 					echo '<td>'. $test['parcel_takenby'].'</td>';
+					echo '<td>'. $test['parcel_remark'].'</td>';
 					echo '<td align="center">
 					<a href="update_parcel.php?id='.$id.'" class="btn btn-default" onclick="javascript:return confirm(\'Are you sure to UPDATE '.$test['parcel_cnumber'].'?\')"><em class="glyphicon glyphicon-pencil"></em></a>
 					<a href="delete_parcel.php?id='.$id.'" class="btn btn-danger" onclick="javascript:return confirm(\'Are You Sure to REMOVE '.$test['parcel_cnumber'].'?\')"><em class="glyphicon glyphicon-trash"></em></a>
@@ -1781,6 +1827,21 @@ function parcelViewByDate()
 			echo '
 			<center>Sorry No Record found for Parcel '.$date.'.</center></td></tr></tbody></table></div>';
 		}
+}
+
+function parcelViewGlobal($date="",$ptj=""){
+
+	if(!empty($date)){
+
+		$thedate = $date;
+
+
+	}else{
+
+		$thedate = date("Y-m-d H:i:s");
+		
+	}
+
 }
 
 function parcelViewByDateOld()
