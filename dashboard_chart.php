@@ -20,7 +20,8 @@ list($total,$nottaken,$taken)=parcelCalc();
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
             <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
-            <li class=""><a href="parcel.php">New Parcel</li>
+            <li class=""><a href="parcel.php">New Parcel</a></li>
+             <li class=""><a href="parcelByPtj.php">New Parcel By PTJ</a></li>
           </ul>
         <!--  <ul class="nav nav-sidebar">
             <li><a href="">Nav item</a></li>

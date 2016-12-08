@@ -28,13 +28,30 @@ pageTitle("Parcel Management System");
 include 'inc/header.php';
 
 ?>
+
+
+
 <div class="col-md-offset-4 col-md-4" id="box">
-	   <h3>Parcel</h3><p>Register new parcel.</p><hr>
+	   <h3>Parcel By PTJ</h3><p>Register new parcel by selecting PTJ once.</p><hr>
 	<form class="form-horizontal" name="form" method="post" action="">
 	<input type="hidden" name="new" value="1" />
 	<!--<form class="form-horizontal" name="form" action="" method="post" id="contact_form">-->
         <fieldset>
         <!-- Text input-->
+
+               
+
+              	<?php 	
+				//DROP DOWN MENU PTJ
+				
+              	//GET FIRST PTJ VALUE
+				$ptj = $_REQUEST['ptj'];
+
+					ptjDropMenu($ptj,"required"); 
+					
+				?>
+
+
 			<div class="form-group">
 				<div class="col-md-12">
                     <div class="input-group">
@@ -44,11 +61,11 @@ include 'inc/header.php';
                 </div>
             </div>
 
+			<?php 
+			//DROP DOWN MENU COURIER
+			courierDropMenu(); 
+			?>
 
-                <?php 	
-					ptjDropMenu(); 
-					courierDropMenu();
-				?>
 
 			<div class="form-group">
 				<div class="col-md-12">
@@ -57,7 +74,10 @@ include 'inc/header.php';
                     <input name="parcel_rcpt_name" placeholder="Receipent Name" class="form-control" type="text">                          
                     </div>
                 </div>
-            </div>				
+            </div>
+
+
+				
 			<!--<div class="form-group">
 				<div class="col-md-12">
                     <div class="input-group">                    
@@ -82,16 +102,6 @@ include 'inc/header.php';
 						<option value="<?php echo $row['ptj_pic']; ?>"><?php echo $row['ptj_pic'].'-'.$row['ptj_acro']; ?></option>
 					<?php } ?>
 					</datalist>                    
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="form-group">
-				<div class="col-md-12">
-                    <div class="input-group">                    
-                    <span class="input-group-addon"><i class="fa fa-sticky-note-o"></i></span>
-					<textarea name="parcel_remark" placeholder="Remark" class="form-control"></textarea>
                     </div>
                 </div>
             </div>

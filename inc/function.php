@@ -159,7 +159,7 @@ echo '
 	
 }
 
-function ptjDropMenu()
+function ptjDropMenu2()
 {
 	con2db();
 	$query="SELECT * FROM ptj"; 
@@ -169,6 +169,32 @@ function ptjDropMenu()
 	echo '<option value="" selected>Please Select PTJ</option>';
    		while($nt=mysql_fetch_array($result))
 	#
+	{//Array or records stored in $nt
+		echo "<option value='$nt[ptj_name]'>$nt[ptj_name]</option>";
+	}
+    echo '</select></div></div></div>';
+}
+
+function ptjDropMenu($ptj = "",$r = "")
+{
+	con2db();
+
+
+	$query="SELECT * FROM ptj"; 
+	$result = mysql_query ($query);
+	echo '<div class="form-group"><div class="col-md-12"><div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>';
+	echo "<select name='ptj' id='ptj' class='form-control' ".$r.">";
+
+	
+			// SET DEFAULT OPTION VALUE	
+			if(!empty($ptj)){
+			echo '<option value="'.$ptj.'" selected>'.$ptj.'</option>';
+			}else{
+			echo '<option value="" selected>Please Select PTJ</option>';
+		   	}
+   	
+   		while($nt=mysql_fetch_array($result))
+	
 	{//Array or records stored in $nt
 		echo "<option value='$nt[ptj_name]'>$nt[ptj_name]</option>";
 	}
@@ -205,7 +231,8 @@ function parcelReg()
 	$parcel_ptj = $_REQUEST['ptj'];
 	$parcel_courier = $_REQUEST['courier'];
 	$parcel_takenby = $_REQUEST['parcel_takenby'];
-	$ins_query="insert into parcel(`parcel_cnumber`,`parcel_rcpt_name`,`parcel_ptj`,`parcel_courier`,`parcel_takenby`)values('$parcel_cnumber','$parcel_rcpt_name','$parcel_ptj','$parcel_courier','$parcel_takenby')";
+	$parcel_remark = $_REQUEST['parcel_remark'];
+	$ins_query="insert into parcel(`parcel_cnumber`,`parcel_rcpt_name`,`parcel_ptj`,`parcel_courier`,`parcel_takenby`,`parcel_remark`)values('$parcel_cnumber','$parcel_rcpt_name','$parcel_ptj','$parcel_courier','$parcel_takenby','$parcel_remark')";
 	mysql_query($ins_query) or die(mysql_error());
 	if ($error == false) {
 		$result='<div class="alert alert-success vertical-center">'.$parcel_cnumber.' Successful!!</div>';
