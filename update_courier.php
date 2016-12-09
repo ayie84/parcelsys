@@ -74,7 +74,7 @@ $result = courierUpdate();
 	<div class="col-md-12">
         <div class="input-group">                    
             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>                        
-            <input name="courier_pic_staff" placeholder="Courier Staff" value="<?php echo $courier_pic_staff; ?>" class="form-control" type="text" required>                          
+            <input name="courier_pic_staff" placeholder="Courier Staff" value="<?php echo $courier_pic_staff; ?>" class="form-control" type="text">                          
         </div>
     </div>
     </div>

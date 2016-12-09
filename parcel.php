@@ -78,9 +78,11 @@ include 'inc/header.php';
                     <!--<input name="parcel_takenby" placeholder="Taken By" class="form-control" type="text">-->
 					<input name="parcel_takenby" placeholder="Taken By" type="text" list="categoryname" autocomplete="off" id="pcategory" class="form-control">
 					<datalist id="categoryname">
+					 <div style="width:400px;height:500px; overflow:scroll;">
 					<?php while($row = mysql_fetch_array($query)) { ?>
 						<option value="<?php echo $row['ptj_pic']; ?>"><?php echo $row['ptj_pic'].'-'.$row['ptj_acro']; ?></option>
 					<?php } ?>
+					 </div>
 					</datalist>                    
                     </div>
                 </div>
