@@ -290,7 +290,7 @@ function parcelUpdate()
 		$to = "pmsump2016@gmail.com";
 		$subject = "Parcel Has Been Arrive";
 		$txt = "Your Parcel Has Been Arrive, Tracking number = ".$package."";
-		$headers = "From: parcelmanagementsystem@parcel.com";
+		$headers = "From: parcelmanagementsystem@parcel.com". "\r\n";
 		/*
 		$headers = "From: parcelmanagementsystem@parcel.com" . "\r\n" .
 		"CC: somebodyelse@example.com";
