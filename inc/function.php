@@ -272,6 +272,40 @@ function parcelUpdate()
 		}else {
 		$result='<div class="alert alert-danger">OOPPSSS Something Wrong there, Please Try Again. TQ</div>';
 	}
+	/*Track My Parcel Start */
+	$package = $parcel_courier;
+	$tracker = array("123456","abcd1234"); //my tracking number
+	$arrlength = count($tracker);
+
+	for($x = 0; $x < $arrlength; $x++) {
+    /*echo $tracker[$x];
+    echo "<br>";
+    echo $package;
+	echo "<br>";*/
+	$mypackage = $tracker[$x];
+	if($mypackage == $package)
+	{
+		echo 'you got package '.$package.'</br>';
+		
+		$to = "pmsump2016@gmail.com";
+		$subject = "Parcel Has Been Arrive";
+		$txt = "Your Parcel Has Been Arrive, Tracking number = ".$package."";
+		$headers = "From: parcelmanagementsystem@parcel.com";
+		/*
+		$headers = "From: parcelmanagementsystem@parcel.com" . "\r\n" .
+		"CC: somebodyelse@example.com";
+		*/
+
+		mail($to,$subject,$txt,$headers);
+	}else
+	{
+		//echo 'You Got Nuting</br>';
+	}
+	
+	}
+	/*Track My Parcel End */
+	
+	
 	return $result;
 	}
 }
