@@ -278,23 +278,15 @@ function parcelUpdate()
 	$arrlength = count($tracker);
 
 	for($x = 0; $x < $arrlength; $x++) {
-    /*echo $tracker[$x];
-    echo "<br>";
-    echo $package;
-	echo "<br>";*/
 	$mypackage = $tracker[$x];
-	if($mypackage == $package)
+	if($mypackage == $parcel_courier)
 	{
-		echo 'you got package '.$package.'</br>';
+		//echo 'you got package '.$package.'</br>';
 		
 		$to = "pmsump2016@gmail.com";
 		$subject = "Parcel Has Been Arrive";
 		$txt = "Your Parcel Has Been Arrive, Tracking number = ".$package."";
 		$headers = "From: parcelmanagementsystem@parcel.com". "\r\n";
-		/*
-		$headers = "From: parcelmanagementsystem@parcel.com" . "\r\n" .
-		"CC: somebodyelse@example.com";
-		*/
 
 		mail($to,$subject,$txt,$headers);
 	}else
