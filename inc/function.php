@@ -273,7 +273,7 @@ function parcelUpdate()
 		$result='<div class="alert alert-danger">OOPPSSS Something Wrong there, Please Try Again. TQ</div>';
 	}
 	/*Track My Parcel Start */
-	$package = $parcel_courier;
+	/*$package = $parcel_courier;
 	$tracker = array("123456","abcd1234"); //my tracking number
 	$arrlength = count($tracker);
 
@@ -294,7 +294,7 @@ function parcelUpdate()
 		//echo 'You Got Nuting</br>';
 	}
 	
-	}
+	*/
 	/*Track My Parcel End */
 	
 	
