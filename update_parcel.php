@@ -109,7 +109,12 @@ $result = parcelUpdate();
 
     <div class="form-group">
 	<div class="col-md-12">
-		<input class="btn btn-warning pull-right" name="submit" type="submit" value="UPDATE">
+
+    <p>
+                    <input class="btn btn-warning" name="submit" type="submit" value="Update">              <input type="button" class="btn btn-danger" name="Cancel" value="Cancel"  onclick="window.location='parcel.php'" />    </p>
+
+
+		<!--<input class="btn btn-warning pull-right" name="submit" type="submit" value="UPDATE">-->
 	</div>
     </div>
 

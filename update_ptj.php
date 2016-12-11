@@ -79,8 +79,12 @@ $result = ptjUpdate();
 
 				<div class="col-md-12">
 
-				<button type="button" class="btn btn-danger" ><a href="/ptj.php">CANCEL</button>
-					<input class="btn btn-warning pull-right" name="submit" type="submit" value="UPDATE">
+				<!--<button type="button" class="btn btn-danger" ><a href="/ptj.php" onclick="window.location='ptj.php'">CANCEL</button>-->
+					<p>
+					<input class="btn btn-warning" name="submit" type="submit" value="Update"> 				<input type="button" class="btn btn-danger" name="Cancel" value="Cancel"  onclick="window.location='ptj.php'" />	</p>
+
+
+
 				</div>
             </div>
 			

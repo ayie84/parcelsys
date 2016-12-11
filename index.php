@@ -32,6 +32,10 @@ pageTitle("Parcel Management System");
 include 'inc/header.php';
 
 ?>
+
+
+
+
  <div class="container" style="margin-top:40px">
 		<div class="row spacer">
 			<div class="col-sm-6 col-md-4 col-md-offset-4">
