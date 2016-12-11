@@ -28,7 +28,7 @@ include 'inc/header.php';
 $result = courierReg();
 ?>
 <div class="col-md-offset-4 col-md-4" id="box">
-	<h3>Add Courier </h3><hr>
+	<h3>Add Courier </h3><p>Register new courier.</p><hr>
 	<form class="form-horizontal" name="form" method="post" action="">
 	<input type="hidden" name="new" value="1" />
 	<!--<form class="form-horizontal" name="form" action="" method="post" id="contact_form">-->

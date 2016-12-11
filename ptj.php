@@ -31,7 +31,7 @@ include 'inc/header.php';
 $result = ptjReg();
 ?>
 <div class="col-md-offset-4 col-md-4" id="box">
-	<h3>Add PTJ </h3><hr>
+	<h3>Add PTJ </h3><p>Register new PTJ.</p><hr>
 	<form class="form-horizontal" name="form" method="post" action="">
 	<input type="hidden" name="new" value="1" />
 	<!--<form class="form-horizontal" name="form" action="" method="post" id="contact_form">-->
