@@ -89,7 +89,7 @@ echo '
 -->
 
         <!--<li><a href="dashboard.php">Home <span class="sr-only">(current)</span></a></li>-->
-        <li><a href="dashboard_chart.php">Home <span class="sr-only">(current)</span></a></li>
+        <li><a href="dashboard_chart.php">Dashboard<span class="sr-only">(current)</span></a></li>
 
 
        <!-- <li><a href="parcel.php">Parcel</a></li>-->
@@ -97,6 +97,9 @@ echo '
 		<li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Parcel<span class="caret"></span></a>
 			<ul class="dropdown-menu">
+				<li><a href="parcel.php">Register</a></li>
+				<li><a href="parcelByPtj.php">Register By PTJ</a></li>
+				 <li role="separator" class="divider"></li>
 				<li><a href="parcelViewToday.php">View Today ( '.date('d-m-Y').' )</a></li>
 				<li><a href="parcelViewYear.php">View Year ( '.date('Y').' )</a></li>
 				<li><a href="parcelViewSetting.php">View Setting</a></li>
