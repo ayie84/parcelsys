@@ -275,6 +275,32 @@ function parcelUpdate()
 		}else {
 		$result='<div class="alert alert-danger">OOPPSSS Something Wrong there, Please Try Again. TQ</div>';
 	}
+	/*Track My Parcel Start */
+	/*$package = $parcel_courier;
+	$tracker = array("123456","abcd1234"); //my tracking number
+	$arrlength = count($tracker);
+
+	for($x = 0; $x < $arrlength; $x++) {
+	$mypackage = $tracker[$x];
+	if($mypackage == $parcel_courier)
+	{
+		//echo 'you got package '.$package.'</br>';
+		
+		$to = "pmsump2016@gmail.com";
+		$subject = "Parcel Has Been Arrive";
+		$txt = "Your Parcel Has Been Arrive, Tracking number = ".$package."";
+		$headers = "From: parcelmanagementsystem@parcel.com". "\r\n";
+
+		mail($to,$subject,$txt,$headers);
+	}else
+	{
+		//echo 'You Got Nuting</br>';
+	}
+	
+	*/
+	/*Track My Parcel End */
+	
+	
 	return $result;
 	}
 }
@@ -354,10 +380,12 @@ function ptjReg()
 	{
 	$ptj_name =$_REQUEST['ptj_name'];
 	$ptj_acro = $_REQUEST['ptj_acro'];
-	$ptj_code = $_REQUEST['ptj_code'];
+	//$ptj_code = $_REQUEST['ptj_code'];
 	$ptj_pic = $_REQUEST['ptj_pic'];
-	$ptj_pic_contact = $_REQUEST['ptj_pic_contact'];
-	$ins_query="insert into ptj(`ptj_name`,`ptj_acro`,`ptj_code`,`ptj_pic`,`ptj_pic_contact`)values('$ptj_name','$ptj_acro','$ptj_code','$ptj_pic','$ptj_pic_contact')";
+	$ptj_pic_email = $_REQUEST['ptj_pic_email'];
+	//$ptj_pic_contact = $_REQUEST['ptj_pic_contact'];
+	//$ins_query="insert into ptj(`ptj_name`,`ptj_acro`,`ptj_code`,`ptj_pic`,`ptj_pic_contact`)values('$ptj_name','$ptj_acro','$ptj_code','$ptj_pic','$ptj_pic_contact')";
+	$ins_query="insert into ptj(`ptj_name`,`ptj_acro`,`ptj_pic`,`ptj_pic_email`)values('$ptj_name','$ptj_acro','$ptj_pic','$ptj_pic_email')";
 	mysql_query($ins_query) or die(mysql_error());
 	if ($error == false) {
 		$result='<div class="alert alert-success vertical-center">'.$ptj_name.' Successful!!</div>';
@@ -379,13 +407,15 @@ function ptjUpdate()
 	$id = $_REQUEST['id'];
 	$ptj_name = $_REQUEST['ptj_name'];
 	$ptj_acro = $_REQUEST['ptj_acro'];
-	$ptj_code = $_REQUEST['ptj_code'];
+	//$ptj_code = $_REQUEST['ptj_code'];
 	$ptj_pic = $_REQUEST['ptj_pic'];
-	$ptj_pic_contact = $_REQUEST['ptj_pic_contact'];
+	$ptj_pic_email = $_REQUEST['ptj_pic_email'];
+	//$ptj_pic_contact = $_REQUEST['ptj_pic_contact'];
 	
 				
 				
-	mysql_query("UPDATE ptj SET ptj_name = '$ptj_name', ptj_acro = '$ptj_acro', ptj_code='$ptj_code', ptj_pic='$ptj_pic', ptj_pic_contact='$ptj_pic_contact' WHERE id = '$id'")or die(mysql_error());
+	//mysql_query("UPDATE ptj SET ptj_name = '$ptj_name', ptj_acro = '$ptj_acro', ptj_code='$ptj_code', ptj_pic='$ptj_pic', ptj_pic_contact='$ptj_pic_contact' WHERE id = '$id'")or die(mysql_error());
+	mysql_query("UPDATE ptj SET ptj_name = '$ptj_name', ptj_acro = '$ptj_acro', ptj_pic='$ptj_pic', ptj_pic_email='$ptj_pic_email' WHERE id = '$id'")or die(mysql_error());
 
 	if ($error == false) {
 		$result='<div class="alert alert-success vertical-center">'.$ptj_name.' UPDATE Successful!!</div> <meta http-equiv=Refresh content=1;url=ptj.php>';
@@ -413,7 +443,7 @@ function ptjGetDropMenu()
 	$query =  mysql_query("SELECT  * FROM `parcel` WHERE id=$id") or die (mysql_query());
 	$test = mysql_fetch_array($query);//will show 1st data only
 	$ptj_db = $test['parcel_ptj'];
-	echo "<select name='parcel_ptj' id='parcel_ptj' class='form-control'>";
+	echo "<select name='parcel_ptj' placeholder='PTJ' id='parcel_ptj' class='form-control'>";
 	echo '<option><center>'.$ptj_db.'</center></option>';
 	$query="SELECT * FROM ptj"; 
 	$result = mysql_query ($query);
@@ -443,7 +473,7 @@ function courierGetDropMenu()
 	$query =  mysql_query("SELECT  * FROM `parcel` WHERE id=$id") or die (mysql_query());
 	$test = mysql_fetch_array($query);//will show 1st data only
 	$courier_db = $test['parcel_courier'];
-	echo "<select name='parcel_courier' id='parcel_courier' class='form-control'>";
+	echo "<select name='parcel_courier' placeholder='Courier Name' id='parcel_courier' class='form-control'>";
 	echo '<option><center>'.$courier_db.'</center></option>';
 	$query="SELECT * FROM courier"; 
 	$result = mysql_query ($query);
@@ -981,11 +1011,11 @@ function courierView(){
 	$val = $num_rows['Value'];
 	if($val>0)
 	{
-		$limit = 10;  
+		$limit = 50;  
 		if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; };  
 		$start_from = ($page-1) * $limit; 
 		
-		$query =  mysql_query("SELECT  * FROM `courier` ORDER BY id DESC LIMIT $start_from, $limit") or die (mysql_query());
+		$query =  mysql_query("SELECT  * FROM `courier` ORDER BY courier_name ASC LIMIT $start_from, $limit") or die (mysql_query());
 		
 
 		echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';//Add row space
@@ -1268,7 +1298,7 @@ function ptjView()
 	if($val>0)
 		{
 			$cnt = 1;
-			$limit = 25;  
+			$limit = 50;  
 			if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { $page=1; };  
 			$start_from = ($page-1) * $limit; 
 			$query =  mysql_query("SELECT  * FROM `ptj` ORDER BY id DESC LIMIT $start_from, $limit") or die (mysql_query());
@@ -1307,7 +1337,7 @@ function ptjView()
 				<th class="text-center">PTJ</th>
 				<th class="text-center">Acronym</th>
 				<th class="text-center">PIC</th>
-				<th class="text-center">H/P</th>
+				<!--<th class="text-center">H/P</th>-->
 				<th class="text-center">Email</th>
 				<th style="width:15%" class="text-center"><em class="glyphicon glyphicon-cog"></em></th>
 				</tr> 
@@ -1331,7 +1361,7 @@ function ptjView()
 					echo '<td>'. $test['ptj_name'].'</td>';
 					echo '<td>'. $test['ptj_acro'].'</td>';
 					echo '<td>'. $test['ptj_pic'].'</td>';
-					echo '<td>'. $test['ptj_pic_contact'].'</td>';
+					//echo '<td>'. $test['ptj_pic_contact'].'</td>';
 					echo '<td>'. $test['ptj_pic_email'].'</td>';
 					echo '<td align="center">
 					<a href="update_ptj.php?id='.$id.'" class="btn btn-default" onclick="javascript:return confirm(\'Are you sure to UPDATE '.$test['ptj_name'].'?\')"><em class="glyphicon glyphicon-pencil"></em></a>

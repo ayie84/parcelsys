@@ -54,11 +54,12 @@ while($results=mysql_fetch_array($raw_results))
 	
 	$ptj = $results['ptj_name'];
 	$acro = $results['ptj_acro'];
-	$code = $results['ptj_code'];
+	//$code = $results['ptj_code'];
 	$pic = $results['ptj_pic'];
-	$contact = $results['ptj_pic_contact'];
+	$contact = $results['ptj_pic_email'];
 	
-	$data[]=array($ptj,$acro,$code,$pic,$contact);
+	//$data[]=array($ptj,$acro,$code,$pic,$contact);
+	$data[]=array($ptj,$acro,$pic,$contact);
 	
 	//loop proses end
 	
@@ -84,8 +85,9 @@ $pdf->Ln(10);//10 line space
 //Display Total Count end
 
 
-$pdf->SetWidths(array(60,30,30,45,30));
-$pdf->SetHeaders(array('PTJ/Fakulti','Acronym','CODE','Staff','Contact Number'));
+//$pdf->SetWidths(array(60,30,30,45,30));
+$pdf->SetWidths(array(80,30,45,40));
+$pdf->SetHeaders(array('PTJ/Fakulti','Acronym','Staff','E-Mail'));
 
 	for($i = 0; $i < count($data); $i++) {
 		$pdf->Row($data[$i]);
@@ -98,29 +100,21 @@ $pdf->Cell(50,5,"__________________________",0,0);
 $pdf->Cell(90);
 $pdf->Cell(0,5,"Diterima Oleh,",0,1);
 $pdf->Ln(1);
-$pdf->Cell(50,5,"Tandatangan Courier",0,0);
+$pdf->Cell(50,5,"Disemak dan disahkan",0,0);
 $pdf->Cell(90);
 $pdf->Cell(0,5,"Nama :",0,1);
 $pdf->Ln(1);
-$pdf->Cell(50,5,"Disemak dan disahkan",0,0);
-$pdf->Cell(90);
-$pdf->Cell(0,5,"No IC :",0,1);
-$pdf->Ln(1);
-$pdf->Cell(50,5,"Nama :",0,0);
+$pdf->Cell(50,5,"Pusat Mel Kampus Gambang",0,0);
 $pdf->Cell(90);
 $pdf->Cell(0,5,"Tarikh :",0,1);
 $pdf->Ln(1);
-$pdf->Cell(50,5,"Tandatangan :",0,0);
+$pdf->Cell(50,5,"",0,0);
 $pdf->Cell(90);
 $pdf->Cell(0,5,"Masa :",0,1);
 $pdf->Ln(1);
 $pdf->Cell(50,5,"",0,0);
 $pdf->Cell(90);
-$pdf->Cell(0,5,"Tandatangan :",0,1);
-$pdf->Ln(1);
-$pdf->Cell(50,5,"",0,0);
-$pdf->Cell(90);
-$pdf->Cell(0,5,"Chop Syarikat :",0,1);
+$pdf->Cell(0,5,"Cop :",0,1);
 $pdf->Ln(1);
 
 $pdf->Output();
