@@ -272,6 +272,17 @@ function parcelUpdate()
 	if ($error == false) {
 		
 		$result='<div class="alert alert-success vertical-center">'.$parcel_cnumber.' UPDATE Successful!!</div> <meta http-equiv=Refresh content=1;url=parcel.php>';
+
+//$result='<div class="alert alert-success vertical-center">'.$parcel_cnumber.' UPDATE Successful!!</div>';
+//echo $_SERVER['HTTP_REFERER'];
+//echo '<script>window.history.back();</script>';
+
+//sleep(5);
+//echo "<meta http-equiv=\"refresh\" content=\"1;url=".$_SERVER['HTTP_REFERER']."\"/>";
+
+
+
+
 		}else {
 		$result='<div class="alert alert-danger">OOPPSSS Something Wrong there, Please Try Again. TQ</div>';
 	}
@@ -350,10 +361,12 @@ function courierUpdate()
 	$courier_address = $_REQUEST['courier_address'];
 	$courier_contact_no = $_REQUEST['courier_contact_no'];
 	$courier_fax_no = $_REQUEST['courier_fax_no'];
-	$courier_pic_staff = $_REQUEST['courier_pic_staff'];
+	//$courier_pic_staff = $_REQUEST['courier_pic_staff'];
 				
 				
-	mysql_query("UPDATE courier SET courier_name = '$courier_name', courier_address='$courier_address', courier_contact_no='$courier_contact_no', courier_fax_no='$courier_fax_no', courier_pic_staff='$courier_pic_staff' WHERE id = '$id'")or die(mysql_error());
+	//mysql_query("UPDATE courier SET courier_name = '$courier_name', courier_address='$courier_address', courier_contact_no='$courier_contact_no', courier_fax_no='$courier_fax_no', courier_pic_staff='$courier_pic_staff' WHERE id = '$id'")or die(mysql_error());
+
+	mysql_query("UPDATE courier SET courier_name = '$courier_name', courier_address='$courier_address', courier_contact_no='$courier_contact_no', courier_fax_no='$courier_fax_no' WHERE id = '$id'")or die(mysql_error());
 
 	if ($error == false) {
 		$result='<div class="alert alert-success vertical-center">'.$courier_name.' UPDATE Successful!!</div> <meta http-equiv=Refresh content=1;url=courier.php>';

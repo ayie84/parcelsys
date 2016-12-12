@@ -2,11 +2,20 @@
 /*
 @Title 		: Parcel Management System
 @Filename 	: update_ptj.php
-@Author		: Fit3
+@Author		: Restu Lestari Resources
 @date		: 13-11-16
 
 */
-session_start();
+// Start Session
+// Comment this line to off the authentication session	
+	session_start();
+		
+		// if session is not set this will redirect to login page
+		 if( !isset($_SESSION['SESS_MEMBER_ID']) ) {
+		  header("Location: index.php");
+		  exit;
+		 }
+ // End Session
 
 include 'inc/function.php';
 //auth();
@@ -81,7 +90,9 @@ $result = ptjUpdate();
 
 				<!--<button type="button" class="btn btn-danger" ><a href="/ptj.php" onclick="window.location='ptj.php'">CANCEL</button>-->
 					<p>
-					<input class="btn btn-warning" name="submit" type="submit" value="Update"> 				<input type="button" class="btn btn-danger" name="Cancel" value="Cancel"  onclick="window.location='ptj.php'" />	</p>
+
+					<input type="button" class="btn btn-danger" name="Cancel" value="Cancel"  onclick="javascript:history.back()" />
+					<input class="btn btn-warning" name="submit" type="submit" value="Update"> 					</p>
 
 
 

@@ -2,11 +2,20 @@
 /*
 @Title 		: Parcel Management System
 @Filename 	: update_courier.php
-@Author		: Fit3
+@Author		: Restu Lestari Resources
 @date		: 13-11-16
 
 */
-session_start();
+// Start Session
+// Comment this line to off the authentication session  
+    session_start();
+        
+        // if session is not set this will redirect to login page
+         if( !isset($_SESSION['SESS_MEMBER_ID']) ) {
+          header("Location: index.php");
+          exit;
+         }
+ // End Session
 
 include 'inc/function.php';
 //auth();
@@ -70,6 +79,8 @@ $result = courierUpdate();
     </div>
     </div>
 	
+
+    <!--
 	<div class="form-group">
 	<div class="col-md-12">
         <div class="input-group">                    
@@ -78,6 +89,7 @@ $result = courierUpdate();
         </div>
     </div>
     </div>
+    -->
 
 	<div class="form-group">
 		<div class="col-sm-10 col-sm-offset-2">
@@ -88,8 +100,8 @@ $result = courierUpdate();
     <div class="form-group">
 	<div class="col-md-12">
 
-<p>
-                    <input class="btn btn-warning" name="submit" type="submit" value="Update">              <input type="button" class="btn btn-danger" name="Cancel" value="Cancel"  onclick="window.location='courier.php'" />    </p>
+<p><input type="button" class="btn btn-danger" name="Cancel" value="Cancel"  onclick="javascript:history.back()" /> 
+                    <input class="btn btn-warning" name="submit" type="submit" value="Update">                 </p>
     <!--
 		<input class="btn btn-warning pull-right" name="submit" type="submit" value="UPDATE">
 

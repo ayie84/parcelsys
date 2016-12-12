@@ -1,11 +1,24 @@
 <?php
 /*
 @Title 		: Parcel Management System
-@Filename 	: result.php
-@Author		: Fit3
+@Filename 	: resultbydate.php
+@Author		: Restu Lestari Resources
 @date		: 13-11-16
+
 */
-session_start();
+
+// Start Session
+// Comment this line to off the authentication session	
+	session_start();
+		
+		// if session is not set this will redirect to login page
+		 if( !isset($_SESSION['SESS_MEMBER_ID']) ) {
+		  header("Location: index.php");
+		  exit;
+		 }
+ // End Session
+
+
 include 'inc/function.php';
 //include 'config/database.php';
 debugScript();//comment this line to debug

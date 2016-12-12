@@ -2,11 +2,24 @@
 /*
 @Title 		: Parcel Management System
 @Filename 	: courier.php
-@Author		: Fit3
+@Author		: Restu Lestari Resources
 @date		: 13-11-16
 refdashboard : http://themestruck.com/download-file/?theme-name=harmony
 
 */
+
+// Start Session
+// Comment this line to off the authentication session	
+	session_start();
+		
+		// if session is not set this will redirect to login page
+		 if( !isset($_SESSION['SESS_MEMBER_ID']) ) {
+		  header("Location: index.php");
+		  exit;
+		 }
+ // End Session
+
+ 
 include 'inc/function.php';
 //auth();
 debugScript();//comment this line to debug

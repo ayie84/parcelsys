@@ -71,6 +71,7 @@ $result = courierReg();
                 </div>
             </div>
 			
+			<!--
 			<div class="form-group">
 				<div class="col-md-12">
                     <div class="input-group">                    
@@ -79,6 +80,8 @@ $result = courierReg();
                     </div>
                 </div>
             </div>
+
+            -->
 
 			<div class="form-group">                       
 				<div class="col-md-12">
