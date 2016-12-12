@@ -108,7 +108,13 @@ pageTitle("Parcel Management System");
 
    <!-- Error Message Print -->
 
-						<form role="form" action="result.php" method="GET"> <!-- <form id="loginForm" name="loginForm" method="post" action="/aug/login-exec.php"> -->
+						
+						<!--
+						<form role="form" action="result.php" method="GET"> -->
+
+						<!-- <form id="loginForm" name="loginForm" method="post" action="/aug/login-exec.php"> -->
+
+						<form>
 							<fieldset>
 								<div class="row">
 									<div class="center-block spacer" align="center">
@@ -120,12 +126,12 @@ pageTitle("Parcel Management System");
 										<div class="form-group">
 											<div class="input-group">
 
-
+   <span class="input-group-addon"><i class="fa fa-search"></i></span>
 
 											  <input type="text" name="query" class="form-control" placeholder="Search for..." onkeyup="showTracking(this.value)">
-      <span class="input-group-btn">
-        <button class="btn btn-default" type="submit">Go!</button>
-      </span>
+    <span class="input-group-btn">
+     <!--     <button class="btn btn-default" type="submit">Go!</button>-->
+      </span> 
 											</div>
 										</div>
 									

@@ -42,7 +42,7 @@ $query = $_GET['query'];
         $query = mysql_real_escape_string($query);
         // makes sure nobody uses SQL injection
 
-        $raw_results = mysql_query("SELECT * FROM parcel WHERE (`parcel_cnumber` LIKE '%".$query."%') OR (`parcel_courier` LIKE '%".$query."%')") or die(mysql_error());
+        $raw_results = mysql_query("SELECT * FROM parcel WHERE (`parcel_cnumber` = '".$query."') OR (`parcel_courier` LIKE '%".$query."%')") or die(mysql_error());
 		
 		
 		echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';
