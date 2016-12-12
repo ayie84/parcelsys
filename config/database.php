@@ -11,7 +11,7 @@ SELECT count(*) FROM parcel WHERE MONTH(parcel_timestamp) = 1 AND YEAR(parcel_ti
 - Total Parcel Hari Ini
 SELECT count(*) FROM parcel WHERE DAY(parcel_timestamp) = 1 AND MONTH(parcel_timestamp) = 12 AND YEAR(parcel_timestamp) = 2016
 
-- 
+- Total PTJ Yang Ada Parcel Pada Hari Ini Sahaja
 SELECT count(ptj.ptj_name) FROM ptj INNER JOIN parcel ON ptj.ptj_name=parcel.parcel_ptj WHERE DAY(parcel.parcel_timestamp) = 5 AND MONTH(parcel.parcel_timestamp) = 12 AND YEAR(parcel.parcel_timestamp) = 2016
 
 - All Parcel Hari Ini Selected PTJ

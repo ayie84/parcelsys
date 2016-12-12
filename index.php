@@ -2,11 +2,16 @@
 /*
 @Title 		: Parcel Management System
 @Filename 	: index.php
-@Author		: Restu Lestari Resources
+@Author		: Fit3
 @date		: 13-11-16
 
 */
 
+
+
+
+
+include 'inc/function.php';
 
 // Start Session
 // Comment this line to off the authentication session	
@@ -14,23 +19,24 @@
 		
 		// if session is not set this will redirect to login page
 		 if( isset($_SESSION['SESS_MEMBER_ID']) ) {
-		  header("Location: dashboard_chart.php");
+		  header("Location: dashboard.php");
 		  exit;
 		 }
  // End Session
 
-include 'inc/function.php';
-
-
+/*
 
 session_start();
 
- /*if( isset($_SESSION['SESS_MEMBER_ID']) ) {
-  header("Location: dashboard_chart.php");
+ if( isset($_SESSION['SESS_MEMBER_ID']) ) {
+  //header("Location: dashboard.php");
+  header("Location: dashboard.php");
   exit;
  }else{
 
- }*/
+ }
+
+ */
 
 
 debugScript(); //comment this line for debug error msg
@@ -40,10 +46,6 @@ pageTitle("Parcel Management System");
 include 'inc/header.php';
 
 ?>
-
-
-
-
  <div class="container" style="margin-top:40px">
 		<div class="row spacer">
 			<div class="col-sm-6 col-md-4 col-md-offset-4">

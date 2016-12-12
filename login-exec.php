@@ -4,10 +4,10 @@
 	session_start();
 		
 		// if session is not set this will redirect to login page
-		 if( !isset($_SESSION['SESS_MEMBER_ID']) ) {
+	/*	 if( !isset($_SESSION['SESS_MEMBER_ID']) ) {
 		  header("Location: index.php");
 		  exit;
-		 }
+		 }*/
  // End Session
 	
 	include 'inc/function.php';
@@ -69,7 +69,7 @@
 			$_SESSION['SESS_LOGIN'] = $member['login'];
 			session_write_close();
 			//redirect after login successful
-			header("location: parcel.php");
+			header("location: dashboard.php");
 			exit();
 		}else {
 				//redirect after login failed

@@ -83,13 +83,13 @@ echo '
 
 <!-- 
 
-<li class="active"><a href="dashboard_chart.php">Home <span class="sr-only">(current)</span></a></li>
+<li class="active"><a href="dashboard.php">Home <span class="sr-only">(current)</span></a></li>
 
 
 -->
 
         <!--<li><a href="dashboard.php">Home <span class="sr-only">(current)</span></a></li>-->
-        <li><a href="dashboard_chart.php">Dashboard<span class="sr-only">(current)</span></a></li>
+        <li><a href="dashboard.php">Dashboard<span class="sr-only">(current)</span></a></li>
 
 
        <!-- <li><a href="parcel.php">Parcel</a></li>-->
@@ -101,6 +101,7 @@ echo '
 				<li><a href="parcelByPtj.php">Register By PTJ</a></li>
 				 <li role="separator" class="divider"></li>
 				<li><a href="parcelViewToday.php">View Today ( '.date('d-m-Y').' )</a></li>
+				<li><a href="parcelViewTodayByPtj.php">View Today By PTJ</a></li>
 				<li><a href="parcelViewYear.php">View Year ( '.date('Y').' )</a></li>
 				<li><a href="parcelViewSetting.php">View Setting</a></li>
 			</ul>
@@ -396,9 +397,9 @@ function ptjReg()
 	//$ptj_code = $_REQUEST['ptj_code'];
 	$ptj_pic = $_REQUEST['ptj_pic'];
 	$ptj_pic_email = $_REQUEST['ptj_pic_email'];
-	//$ptj_pic_contact = $_REQUEST['ptj_pic_contact'];
-	//$ins_query="insert into ptj(`ptj_name`,`ptj_acro`,`ptj_code`,`ptj_pic`,`ptj_pic_contact`)values('$ptj_name','$ptj_acro','$ptj_code','$ptj_pic','$ptj_pic_contact')";
-	$ins_query="insert into ptj(`ptj_name`,`ptj_acro`,`ptj_pic`,`ptj_pic_email`)values('$ptj_name','$ptj_acro','$ptj_pic','$ptj_pic_email')";
+	$ptj_pic_contact = $_REQUEST['ptj_pic_contact'];
+	$ins_query="insert into ptj(`ptj_name`,`ptj_acro`,`ptj_pic`,`ptj_pic_contact`,`ptj_pic_email`)values('$ptj_name','$ptj_acro','$ptj_pic','$ptj_pic_contact','$ptj_pic_email')";
+	//$ins_query="insert into ptj(`ptj_name`,`ptj_acro`,`ptj_pic`,`ptj_pic_email`)values('$ptj_name','$ptj_acro','$ptj_pic','$ptj_pic_email')";
 	mysql_query($ins_query) or die(mysql_error());
 	if ($error == false) {
 		$result='<div class="alert alert-success vertical-center">'.$ptj_name.' Successful!!</div>';
@@ -423,12 +424,12 @@ function ptjUpdate()
 	//$ptj_code = $_REQUEST['ptj_code'];
 	$ptj_pic = $_REQUEST['ptj_pic'];
 	$ptj_pic_email = $_REQUEST['ptj_pic_email'];
-	//$ptj_pic_contact = $_REQUEST['ptj_pic_contact'];
+	$ptj_pic_contact = $_REQUEST['ptj_pic_contact'];
 	
 				
 				
 	//mysql_query("UPDATE ptj SET ptj_name = '$ptj_name', ptj_acro = '$ptj_acro', ptj_code='$ptj_code', ptj_pic='$ptj_pic', ptj_pic_contact='$ptj_pic_contact' WHERE id = '$id'")or die(mysql_error());
-	mysql_query("UPDATE ptj SET ptj_name = '$ptj_name', ptj_acro = '$ptj_acro', ptj_pic='$ptj_pic', ptj_pic_email='$ptj_pic_email' WHERE id = '$id'")or die(mysql_error());
+	mysql_query("UPDATE ptj SET ptj_name = '$ptj_name', ptj_acro = '$ptj_acro', ptj_pic='$ptj_pic', ptj_pic_email='$ptj_pic_email',ptj_pic_contact='$ptj_pic_contact'  WHERE id = '$id'")or die(mysql_error());
 
 	if ($error == false) {
 		$result='<div class="alert alert-success vertical-center">'.$ptj_name.' UPDATE Successful!!</div> <meta http-equiv=Refresh content=1;url=ptj.php>';
@@ -735,6 +736,199 @@ function parcelView()
 					</td>';
 					echo '</tr>';
 					$cnt++;
+			
+				}
+			echo '</tbody></table>';
+			
+		
+
+			// Start PAGINATION//////////////////////////////
+
+			
+			
+
+
+				$sql = "SELECT count(*) FROM parcel WHERE DAY(parcel_timestamp) = ".date('d')." AND MONTH(parcel_timestamp) = ".date('m')." AND YEAR(parcel_timestamp) = ".date('Y')."";  
+
+				//echo $sql;
+
+					$rs_result = mysql_query($sql);  
+					$row = mysql_fetch_row($rs_result);  
+					$total_records = $row[0];  
+					$total_pages = ceil($total_records / $limit);
+
+						//echo $total_records;
+					// echo $total_pages;
+
+
+			/*
+				echo '<div class="col-md-offset-3	 col-md-8 row spacer">
+					<ul class="pagination navbar-right margin-right=10px">';
+
+						for ($i=1; $i<=$total_pages; $i++) {
+								
+							echo '<li><a href="courier.php?page='.$i.'">'.$i.'</a></li>';
+							};
+
+				echo '</ul></div>';
+			*/
+
+
+			//echo '<div class="row"><div class="col-md-6 col-md-offset-10">';
+			echo'
+			<nav aria-label="Page navigation">
+			  <ul class="pagination">';
+
+			   for ($i=1; $i<=$total_pages; $i++) {
+								
+							echo '<li><a href="parcel.php?page='.$i.'">'.$i.'</a></li>';
+							};
+
+			 echo' </ul></nav>';
+			//echo '</div></div>';
+
+					
+		// End PAGINATION//////////////////////////////
+
+		
+		}
+		else
+		{ //jika tiada data pada table, echo this..
+			echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';
+			echo '<div class="col-md-offset-2 col-md-8 row spacer" >';
+			echo '<h3 class="sub-header">'.$tableTitle.' - '.$date.'</h3></div>';
+			
+			echo '
+			<div class="col col-xs-10 text-right">
+			<!--<button type="button" class="btn btn-warning pull-right">View Report</button>-->
+			</div>
+			<div class="table-responsive col-md-offset-2 col-md-8 row spacer">
+			<table class="table table-striped table-bordered table-list" style="word-wrap: break-word;">
+			<thead>
+			  <!--<tr>
+				<th class="text-center">Tracking Number</th>
+				<th class="text-center">Courier</th>
+				<th class="text-center">PTJ</th>
+				<th class="text-center">Taken By</th>
+
+				<th style="width:15%" class="text-center"><em class="glyphicon glyphicon-cog"></em></th>
+				</tr> -->
+			</thead>
+			<tbody><tr><td colspan=5>
+			';
+			echo '
+			<center>Sorry No Record found for Parcel Today.</center></td></tr></tbody></table></div>';
+		}
+}
+
+function parcelViewTodayByPtj(){
+
+
+$tableTitle = 'Received Parcel Today';
+	
+	$today = date('Y-m-d H:i:s');
+	//echo $today;
+	//$today='2016-11-13 15:28:10';
+	
+	$timestamp = $today;
+	$splitTimeStamp = explode(" ",$timestamp);
+	//$date= '2016'; //for testing purpose, to view all data to pages.
+	$date = $splitTimeStamp[0];
+	$time = $splitTimeStamp[1];
+	
+	con2db();//db connect
+
+
+	
+	$value = mysql_query("SELECT COUNT( * ) AS Value FROM `parcel` where `parcel_timestamp` LIKE '%".$date."%'") or die (mysql_query());
+	//$value = mysql_query("SELECT COUNT( * ) AS Value FROM  `parcel` where `parcel_timestamp` LIKE '%2016%'") or die (mysql_query());
+	$num_rows = mysql_fetch_array($value);
+	$val = $num_rows['Value'];
+
+
+	if($val>0)
+		{
+			$cnt = 1;
+			$limit = 50;  
+
+			if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { 
+				$page=1; 
+			};  
+			
+			$start_from = ($page-1) * $limit; 
+
+			//echo $start_from;
+
+			
+			//$query =  mysql_query("SELECT  * FROM `parcel` WHERE `parcel_timestamp` LIKE '%".$date."%' ORDER BY id DESC LIMIT $start_from, $limit") or die (mysql_query());
+
+//$query =  mysql_query("SELECT ptj.ptj_name FROM ptj INNER JOIN parcel ON ptj.ptj_name=parcel.parcel_ptj WHERE `parcel_timestamp` LIKE '%".$date."%' ORDER BY id DESC LIMIT $start_from, $limit") or die (mysql_query());
+
+
+					echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';//Add row space
+					echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';//Add row space
+					
+			
+
+			// Start Title Row & Action Button Before Table 
+			
+		$totalList =  mysql_query("SELECT COUNT(parcel_courier) AS parceltotal FROM parcel WHERE parcel_timestamp LIKE '%".$date." %'") or die (mysql_query());
+					
+
+					echo '<div class="row">';
+						echo '<div class="col-md-4""><h3 class="" style="margin-top:0;margin-bottom:0;"> '.$tableTitle.' ('.mysql_result($totalList, 0).') </h3></div>';
+
+						
+			  	/*	
+
+			  			echo '<div class="col-md-3 col-md-offset-5" text-right>
+
+			  			<p><a href="parcel.php" class="btn btn-info">New Parcel</a> 
+
+			  			<a target = "_blank" href="printParcelByDatePtj.php?date='.$date.'&ptj=" class="btn btn-warning" >Export To PDF</a></p>
+
+			  			 </div>';
+						
+					echo '</div>'; */
+
+			// End Title Row & Action Button Before Table
+
+
+					echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';//Add row space
+
+
+
+					echo '
+
+					<table class="table table-striped table-bordered table-list" style="word-wrap: break-word;">
+			        <thead>
+						<tr>
+							<th class="text-center">#</th>
+							<th class="text-center">Parcel By PTJ</th>
+							<th style="width:15%" class="text-center"><em class="glyphicon glyphicon-cog"></em></th>						</tr> 
+			        </thead>
+			        <tbody>
+					';
+
+
+
+$query = mysql_query("SELECT distinct(ptj.ptj_name) FROM ptj INNER JOIN parcel ON ptj.ptj_name=parcel.parcel_ptj WHERE parcel_timestamp LIKE '%".$date."%' ORDER BY ptj.id ASC ");
+
+$i =1;
+			while($test = mysql_fetch_array($query))//loop process
+				{
+					$id = $test['id'];
+					$_SESSION['id'] = $id;
+
+					echo '<tr>';
+					echo '<td align="center">'.$i.'</td>';
+					echo '<td>'.$test['ptj_name'].'</td>';
+					echo '<td align="center">
+					<a target = "_blank" href="printParcelByDatePtj.php?date='.$date.'&ptj='.$test['ptj_name'].'" class="btn btn-warning" >Export To PDF</a>
+					</td>';
+					echo '</tr>';
+					$cnt++;
+					$i++;
 			
 				}
 			echo '</tbody></table>';
@@ -1350,7 +1544,7 @@ function ptjView()
 				<th class="text-center">PTJ</th>
 				<th class="text-center">Acronym</th>
 				<th class="text-center">PIC</th>
-				<!--<th class="text-center">H/P</th>-->
+				<th class="text-center">Contact</th>
 				<th class="text-center">Email</th>
 				<th style="width:15%" class="text-center"><em class="glyphicon glyphicon-cog"></em></th>
 				</tr> 
@@ -1374,7 +1568,7 @@ function ptjView()
 					echo '<td>'. $test['ptj_name'].'</td>';
 					echo '<td>'. $test['ptj_acro'].'</td>';
 					echo '<td>'. $test['ptj_pic'].'</td>';
-					//echo '<td>'. $test['ptj_pic_contact'].'</td>';
+					echo '<td>'. $test['ptj_pic_contact'].'</td>';
 					echo '<td>'. $test['ptj_pic_email'].'</td>';
 					echo '<td align="center">
 					<a href="update_ptj.php?id='.$id.'" class="btn btn-default" onclick="javascript:return confirm(\'Are you sure to UPDATE '.$test['ptj_name'].'?\')"><em class="glyphicon glyphicon-pencil"></em></a>

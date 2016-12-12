@@ -29,7 +29,10 @@ $query =  mysql_query("SELECT  * FROM `ptj` WHERE id=$id") or die (mysql_query()
 $test = mysql_fetch_array($query);//will show 1st data only
 $ptj_name = $test['ptj_name'];
 $ptj_acro = $test['ptj_acro'];
-$ptj_code = $test['ptj_code'];
+$ptj_pic = $test['ptj_pic'];
+$ptj_pic_contact = $test['ptj_pic_contact'];
+$ptj_pic_email = $test['ptj_pic_email'];
+
 $result = ptjUpdate();
 ?>
 <div class="col-md-offset-4 col-md-4" id="box">
@@ -54,7 +57,7 @@ $result = ptjUpdate();
                     </div>                        
                 </div>
 			</div>
-
+<!--
 			<div class="form-group">
 				<div class="col-md-12">
                     <div class="input-group">                    
@@ -63,12 +66,12 @@ $result = ptjUpdate();
                     </div>
                 </div>
             </div>
-			
+			-->
 			<div class="form-group">
 				<div class="col-md-12">
                     <div class="input-group">                    
                     <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>                        
-                    <input name="ptj_pic" id="ptj_pic" placeholder="PTJ Person In Charge" class="form-control" type="text">                          
+                    <input name="ptj_pic" id="ptj_pic" placeholder="PTJ Person In Charge" class="form-control" type="text" value="<?php echo $ptj_pic; ?>" >                          
                     </div>
                 </div>
             </div>
@@ -76,12 +79,20 @@ $result = ptjUpdate();
 			<div class="form-group">
 				<div class="col-md-12">
                     <div class="input-group">                    
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-phone-alt"></i></span>
-                    <input name="ptj_pic_contact" id="ptj_pic_contact" placeholder="Person In Charge Mobile" class="form-control" type="text">                          
+                    <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                    <input name="ptj_pic_contact" id="ptj_pic_contact" placeholder="Person In Charge Mobile" class="form-control" type="text" value="<?php echo $ptj_pic_contact; ?>" >                          
                     </div>
                 </div>
             </div>
 
+	<div class="form-group">
+				<div class="col-md-12">
+                    <div class="input-group">                    
+                    <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                    <input name="ptj_pic_email" id="ptj_pic_contact" placeholder="Person In Charge Email" class="form-control" type="text" value="<?php echo $ptj_pic_email; ?>" >                          
+                    </div>
+                </div>
+            </div>
 			
 			<div class="form-group">                       
 				
