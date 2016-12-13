@@ -2,7 +2,7 @@
 /*
 @Title 		: Parcel Management System
 @Filename 	: delete_parcel.php
-@Author		: Fit3
+@Author		: FRestu Lestari
 @date		: 13-11-16
 
 */

@@ -2,7 +2,7 @@
 /*
 @Title 		: Parcel Management System
 @Filename 	: query.php
-@Author		: Fit3
+@Author		: Restu Lestari Resources
 @date		: 13-11-16
 
 */

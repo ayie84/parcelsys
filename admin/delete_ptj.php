@@ -2,7 +2,7 @@
 /*
 @Title 		: Parcel Management System
 @Filename 	: delete_ptj.php
-@Author		: Fit3
+@Author		: Restu Lestari
 @date		: 13-11-16
 
 */
