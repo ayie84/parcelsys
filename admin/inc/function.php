@@ -924,7 +924,7 @@ $i =1;
 					echo '<td align="center">'.$i.'</td>';
 					echo '<td>'.$test['ptj_name'].'</td>';
 					echo '<td align="center">
-					<a target = "_blank" href="printParcelByDatePtj.php?date='.$date.'&ptj='.$test['ptj_name'].'" class="btn btn-warning" >Export To PDF</a>
+					<a target = "_blank" href="printParcelByDatePtj.php?date='.$date.'&ptj='.urlencode($test['ptj_name']).'" class="btn btn-warning" >Export To PDF</a>
 					</td>';
 					echo '</tr>';
 					$cnt++;

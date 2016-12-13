@@ -20,7 +20,10 @@ $dateGlobal = $_REQUEST['date'];
 
 //echo $date;
 
-$ptj=$_REQUEST['ptj'];
+$ptj=urldecode($_REQUEST['ptj']);
+
+
+
 list($ptjTotal,$courierTotal)=pmsInfo();
 
 	class PDF extends FPDF
