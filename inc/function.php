@@ -2017,8 +2017,35 @@ echo '<div class="col-md-3 col-md-offset-5" text-right>
 					$cnt++;
 			
 				}
-			echo '</tbody></table></div>';
+			echo '</tbody></table>';
 			
+
+			//START PAGINATION//////////////////////////////			
+
+			$sql = "SELECT COUNT(id) FROM parcel WHERE `parcel_timestamp` LIKE '%".$date."%'";  
+			$rs_result = mysql_query($sql);  
+			$row = mysql_fetch_row($rs_result);  
+			$total_records = $row[0];  
+			$total_pages = ceil($total_records / $limit);
+			
+					echo'
+			<nav aria-label="Page navigation">
+			  <ul class="pagination">';
+
+			   for ($i=1; $i<=$total_pages; $i++) {
+								
+							echo '<li><a href="parcel.php?page='.$i.'">'.$i.'</a></li>';
+							};
+
+			 echo' </ul></nav>';
+
+			//END PAGINATION//////////////////////////////
+
+
+
+/*
+
+
 			$sql = "SELECT COUNT(id) FROM parcel WHERE `parcel_timestamp` LIKE '%".$date."%'";  
 			$rs_result = mysql_query($sql);  
 			$row = mysql_fetch_row($rs_result);  
@@ -2036,10 +2063,8 @@ echo '<div class="col-md-3 col-md-offset-5" text-right>
 			echo '<li><a href="parcel.php?page='.$i.'">'.$i.'</a></li>';
 			};
 			?>
-
-		  </ul></div>
-
-		<?php	
+*/
+		 
 		}
 		else
 		{ //jika tiada data pada table, echo this..
