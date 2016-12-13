@@ -34,25 +34,26 @@ $query = $_GET['query'];
     $min_length = 8;
     // you can set minimum length of the query if you want
      
+ /*
+ // jika length lebih dari $min_length
     if(strlen($query) >= $min_length){ // if query length is more or equal minimum length then
-         
+ */        
         $query = htmlspecialchars($query); 
         // changes characters used in html to their equivalents, for example: < to &gt;
          
         $query = mysql_real_escape_string($query);
         // makes sure nobody uses SQL injection
 
-        $raw_results = mysql_query("SELECT * FROM parcel WHERE (`parcel_cnumber` = '".$query."') OR (`parcel_courier` LIKE '%".$query."%')") or die(mysql_error());
+       // $raw_results = mysql_query("SELECT * FROM parcel WHERE (`parcel_cnumber` = '".$query."') OR (`parcel_courier` LIKE '%".$query."%')") or die(mysql_error());
 		
-		
+		$raw_results = mysql_query("SELECT * FROM parcel WHERE (`parcel_cnumber` = '".$query."') ") or die(mysql_error());
+
 		echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';
 			echo '<div class="col-md-offset-2 col-md-8 row spacer" >';
 			echo '<h3 class="sub-header">Received Parcel Today</h3></div>';
 			
 			echo '
-			<!--<div class="col col-xs-10 text-right">
-			<button type="button" class="btn btn-warning pull-right">View Report</button>
-			</div>-->
+			
 			<div class="table-responsive col-md-offset-2 col-md-8 row spacer">
 			<table class="table table-striped table-bordered table-list" style="word-wrap: break-word;">
 			<thead>
@@ -62,7 +63,7 @@ $query = $_GET['query'];
 				<th class="text-center">Taken By</th>
 				<th class="text-center">Received Date</th>
 				<th class="text-center">Received Time</th>
-				<!--<th style="width:15%" class="text-center"><em class="glyphicon glyphicon-cog"></em></th>-->
+			
 				</tr> 
 			</thead>
 			<tbody>
@@ -99,11 +100,37 @@ $query = $_GET['query'];
 			echo '</tbody></table></div>';
         }
          
+ /* 
+// jika length kurang dari $min_length
     }
-    else{ // if query length is less than minimum
-        echo "<center>Minimum length is ".$min_length;
-		echo '</center></tbody></table></div>';
+   else{ // if query length is less than minimum
+    	echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';
+			echo '<div class="col-md-offset-2 col-md-8 row spacer" >';
+			echo '<h3 class="sub-header">Received Parcel Today</h3></div>';
+			
+			echo '
+			
+			<div class="table-responsive col-md-offset-2 col-md-8 row spacer">
+			<table class="table table-striped table-bordered table-list" style="word-wrap: break-word;">
+			<thead>
+			  <tr>
+				<th class="text-center">Tracking Number</th>
+				<th class="text-center">Courier</th>
+				<th class="text-center">Taken By</th>
+				<th class="text-center">Received Date</th>
+				<th class="text-center">Received Time</th>
+			
+				</tr> 
+			</thead>
+			<tbody>
+			';
+
+		//echo "<tr><td colspan='5'>".$min_length."</td></tr>";
+       echo "<tr><td colspan='5'><center>Minimum Tracking Number length is ".$min_length."</center></td></tr>";
+		echo '</tbody></table></div>';
     } 
+// jika length kurang dari $min_length
+    */
 	echo '</tbody></table></div>';
 		echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';//Add row space
 					echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';//Add row space
