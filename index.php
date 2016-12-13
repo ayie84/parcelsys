@@ -80,12 +80,15 @@ include 'inc/header.php';
 
 						<form role="form" action="login-exec.php" method="POST"> <!-- <form id="loginForm" name="loginForm" method="post" action="/aug/login-exec.php"> -->
 							<fieldset>
-								<div class="row">
-									<div class="center-block spacer" align="center">
-										
-									</div>
+								<div class="row" align="center">
+									
+								<p>		<a href="../">Utama</a> | 
+					<a href="tracking.html">Semak Parcel</a>
+					</p>
+								
 								</div>
-								<div class="row">
+								<div class="row" align="center">
+
 									<div class="col-sm-12 col-md-10  col-md-offset-1 ">
 										<div class="form-group">
 											<div class="input-group">
