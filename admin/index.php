@@ -48,6 +48,12 @@ include 'inc/header.php';
 ?>
  <div class="container" style="margin-top:40px">
 		<div class="row spacer">
+
+		<div class="col-sm-6 col-md-4 col-md-offset-4" align="center">
+
+			<img width="200px" class="logo" src="public/images/ump.png">
+		</div> 
+		<div class="col-md-offset-2 col-md-8 row spacer"></div>
 			<div class="col-sm-6 col-md-4 col-md-offset-4">
 				<div class="panel panel-default">
 					<div class="panel-heading">

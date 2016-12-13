@@ -17,6 +17,13 @@ margin-bottom: 50px;
 
 }
 
+#logo{
+   
+    margin: 3px;
+    width: 200px;
+
+}
+
 #box{
     /*border: 1px solid #337ab7rgb(253, 150, 81);*/
     border: 1px solid #337ab7;
