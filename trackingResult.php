@@ -46,11 +46,11 @@ $query = $_GET['query'];
 
        // $raw_results = mysql_query("SELECT * FROM parcel WHERE (`parcel_cnumber` = '".$query."') OR (`parcel_courier` LIKE '%".$query."%')") or die(mysql_error());
 		
-		$raw_results = mysql_query("SELECT * FROM parcel WHERE (`parcel_cnumber` = '".$query."') ") or die(mysql_error());
+		$raw_results = mysql_query("SELECT * FROM parcel WHERE (`parcel_cnumber` = '".$query."')") or die(mysql_error());
 
 		echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';
 			echo '<div class="col-md-offset-2 col-md-8 row spacer" >';
-			echo '<h3 class="sub-header">Received Parcel Today</h3></div>';
+			echo '<h3 class="sub-header">Status Parcel</h3></div>';
 			
 			echo '
 			
