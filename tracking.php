@@ -128,7 +128,7 @@ pageTitle("Parcel Management System");
 
    <span class="input-group-addon"><i class="fa fa-search"></i></span>
 
-											  <input type="text" name="query" class="form-control" placeholder="Search for..." onkeyup="showTracking(this.value)">
+											  <input type="text" name="query" class="form-control" placeholder="Consignment Number" onkeyup="showTracking(this.value)" autofocus="">
     <span class="input-group-btn">
      <!--     <button class="btn btn-default" type="submit">Go!</button>-->
       </span> 
