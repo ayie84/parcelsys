@@ -29,7 +29,9 @@ include 'inc/header.php';?>
 <!--<div class="col-md-offset-2 col-md-4 row spacer">-->
 <?php
 $date_picker = $_REQUEST['date_picker'];
+
 track();
+
 echo $date_picker;?>
 <!--</div>-->
 <?php

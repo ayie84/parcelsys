@@ -1721,7 +1721,7 @@ function ptjViewOld()
 		}
 }
 
-function track()
+function trackOld()
 {
 	con2db();
 	$query = $_GET['query']; 
@@ -1803,6 +1803,101 @@ function track()
 }
 
 
+function track()
+{
+	con2db();
+	$cn = $_GET['query']; 
+     
+    $min_length = 6;
+    // you can set minimum length of the query if you want
+     
+    if(strlen($cn) >= $min_length){ // if query length is more or equal minimum length then
+         
+        $query = htmlspecialchars($cn); 
+        // changes characters used in html to their equivalents, for example: < to &gt;
+         
+        $query = mysql_real_escape_string($cn);
+        // makes sure nobody uses SQL injection
+
+        $query = mysql_query("SELECT * FROM parcel WHERE (`parcel_cnumber` LIKE '%".$query."%') OR (`parcel_courier` LIKE '%".$query."%')") or die(mysql_error());
+		
+		
+						echo '<div class="row">';
+						
+						echo '<div class="col-md-4""><h3 class="" style="margin-top:0;margin-bottom:0;"> Search Result </h3></div>';
+
+						//echo '<div class="col-md-4""><h3 class="" style="margin-top:0;margin-bottom:0;"> Search Result('.mysql_result($totalList, 0).') </h3></div>';
+
+						
+			  	
+						/*
+			  			echo '<div class="col-md-3 col-md-offset-5" text-right>
+
+			  			<p><a href="parcel.php" class="btn btn-info">New Parcel</a> 
+
+			  			<a target = "_blank" href="printParcelByDatePtj.php?date='.$date.'&ptj=" class="btn btn-warning" >Export To PDF</a></p>
+
+			  			 </div>';*/
+
+			  		
+		
+
+			echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';//Add row space
+
+
+
+					echo '
+
+					<table class="table table-striped table-bordered table-list" style="word-wrap: break-word;">
+			        <thead>
+						<tr>
+							<th class="text-center">Tracking Number</th>
+							<th class="text-center">Courier</th>
+							<th class="text-center">PTJ</th>
+							<th class="text-center">Taken By</th>
+							<th class="text-center">Remark</th>
+							<th style="width:15%" class="text-center"><em class="glyphicon glyphicon-cog"></em></th>						</tr> 
+			        </thead>
+			        <tbody>
+					';
+
+		if(mysql_num_rows($query) > 0){ // if one or more rows are returned do following
+			//$query01 =  mysql_query("SELECT  * FROM `parcel` ORDER BY id ASC") or die (mysql_query());
+			while($test = mysql_fetch_array($query))//loop process
+				{
+					$id = $test['id'];
+					$_SESSION['id'] = $id;
+
+					echo '<tr><td>'. $test['parcel_cnumber'].'</td>';
+					echo '<td>'. $test['parcel_courier'].'</td>';
+					echo '<td>'. $test['parcel_ptj'].'</td>';
+					echo '<td>'. $test['parcel_takenby'].'</td>';
+					echo '<td>'. $test['parcel_remark'].'</td>';
+					echo '<td align="center">
+					<a href="update_parcel.php?id='.$id.'" class="btn btn-default" onclick="javascript:return confirm(\'Are you sure to UPDATE '.$test['parcel_cnumber'].'?\')"><em class="glyphicon glyphicon-pencil"></em></a>
+					<a href="delete_parcel.php?id='.$id.'" class="btn btn-danger" onclick="javascript:return confirm(\'Are You Sure to REMOVE '.$test['parcel_cnumber'].'?\')"><em class="glyphicon glyphicon-trash"></em></a>
+					</td>';
+					echo '</tr>';
+					$cnt++;
+			
+				}
+			echo '</tbody></table>';
+			
+         
+         }
+        else{ // if there is no matching rows do following
+            
+			echo "<tr><td colspan='6'><center>Maaf, Tiada Rekod ".$cnumber." Di Temui</center></td></tr>";
+			echo '</tbody></table></div>';
+        }
+         
+    }
+    else{ // if query length is less than minimum
+        echo "<center>Minimum length is ".$min_length;
+		echo '</center></tbody></table></div>';
+    } 
+	echo '</tbody></table></div>';
+}
 
 function parcelReportToday()
 {
