@@ -2217,7 +2217,7 @@ function parcelViewByDate()
 	date_default_timezone_set("Asia/Kuala_Lumpur");
  
 	$date = $_REQUEST['date_picker'];
-	$ptj = $_REQUEST['ptj'];
+	$ptj = urldecode($_REQUEST['ptj']);
 
 	$tableTitle = 'Received Parcel On '.date("d-m-Y", strtotime($date));
 	$today = date("Y-m-d H:i:s");
@@ -2294,6 +2294,7 @@ echo '<div class="col-md-3 col-md-offset-5" text-right>
 			echo'<table class="table table-striped table-bordered table-list" style="word-wrap: break-word;">
 			<thead>
 			  <tr>
+			  				<th class="text-center">#</th>
 							<th class="text-center">Tracking Number</th>
 							<th class="text-center">Courier</th>
 							<th class="text-center">PTJ</th>
@@ -2307,12 +2308,16 @@ echo '<div class="col-md-3 col-md-offset-5" text-right>
 			<tbody>
 			';
 			//$query01 =  mysql_query("SELECT  * FROM `parcel` ORDER BY id ASC") or die (mysql_query());
+			
+$i=1;
 			while($test = mysql_fetch_array($query))//loop process
 				{
 					$id = $test['id'];
 					$_SESSION['id'] = $id;
 
-					echo '<tr><td>'. $test['parcel_cnumber'].'</td>';
+					echo '<tr>';
+					echo'<td align="center">'. $i.'</td>';
+					echo'<td>'. $test['parcel_cnumber'].'</td>';
 					echo '<td>'. $test['parcel_courier'].'</td>';
 					echo '<td>'. $test['parcel_ptj'].'</td>';
 					echo '<td>'. $test['parcel_timestamp'].'</td>';					
@@ -2324,14 +2329,41 @@ echo '<div class="col-md-3 col-md-offset-5" text-right>
 					</td>';
 					echo '</tr>';
 					$cnt++;
+					$i++;
 			
 				}
 			echo '</tbody></table>';
 			
 
-			//START PAGINATION//////////////////////////////			
+			//START PAGINATION//////////////////////////////		
+//echo $ptj;
 
-			$sql = "SELECT COUNT(id) FROM parcel WHERE `parcel_timestamp` LIKE '%".$date."%'";  
+			if(!empty($ptj)){
+
+//echo $ptj;
+
+	//$value = mysql_query("SELECT COUNT( * ) AS Value FROM  `parcel` where `parcel_timestamp` LIKE '%".$date."%' AND parcel_ptj='".$ptj."'") or die (mysql_query());
+
+//$sql = "SELECT COUNT(id) FROM parcel WHERE `parcel_timestamp` LIKE '%".$date."%'"; 
+
+	$sql = "SELECT COUNT(id) FROM parcel WHERE `parcel_timestamp` LIKE '%".$date."%' AND parcel_ptj='".$ptj."'"	; 
+
+
+	//$sql = "SELECT COUNT(id) FROM parcel WHERE `parcel_timestamp` LIKE '%".$date."%'AND parcel_ptj='".$ptj."'") or die (mysql_query()); 
+
+	}else{
+	//$value = mysql_query("SELECT COUNT( * ) AS Value FROM  `parcel` where `parcel_timestamp` LIKE '%".$date."%'") or die (mysql_query());
+	//echo 'test'.$value;
+	
+	$sql = "SELECT COUNT(id) FROM parcel WHERE `parcel_timestamp` LIKE '%".$date."%'"; 
+
+
+	}	
+
+			//$sql = "SELECT COUNT(id) FROM parcel WHERE `parcel_timestamp` LIKE '%".$date."%'";  
+			
+
+
 			$rs_result = mysql_query($sql);  
 			$row = mysql_fetch_row($rs_result);  
 			$total_records = $row[0];  
@@ -2343,7 +2375,7 @@ echo '<div class="col-md-3 col-md-offset-5" text-right>
 
 			   for ($i=1; $i<=$total_pages; $i++) {
 								
-							echo '<li><a href="parcel.php?page='.$i.'">'.$i.'</a></li>';
+							echo '<li><a href="resultbydate.php?page='.$i.'&date='.$date.'&ptj='.urlencode($ptj).'">'.$i.'</a></li>';
 							};
 
 			 echo' </ul></nav>';

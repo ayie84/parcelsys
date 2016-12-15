@@ -30,7 +30,7 @@ include 'inc/header.php';?>
 
 <?php
 $date_picker = $_REQUEST['date_picker'];
-$ptj = $_REQUEST['ptj'];
+$ptj = urldecode($_REQUEST['ptj']);
 
 //echo 'Date'.$date_picker;
 //echo 'Ptj'.$ptj;
