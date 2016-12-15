@@ -2276,7 +2276,7 @@ echo '<div class="col-md-3 col-md-offset-5" text-right>
 
 			  			<p><a href="parcel.php" class="btn btn-info">New Parcel</a> 
 
-			  			<a target = "_blank" href="printParcelByDatePtj.php?date='.$date.'&ptj='.$ptj.'" class="btn btn-warning" >Export To PDF</a></p>
+			  			<a target = "_blank" href="printParcelByDatePtj.php?date='.$date.'&ptj='.urlencode($ptj).'" class="btn btn-warning" >Export To PDF</a></p>
 
 			  			 </div>';
 
