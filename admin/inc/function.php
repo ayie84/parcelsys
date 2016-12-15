@@ -849,7 +849,7 @@ $tableTitle = 'Received Parcel Today';
 	if($val>0)
 		{
 			$cnt = 1;
-			$limit = 50;  
+			$limit = 10;  
 
 			if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { 
 				$page=1; 
@@ -871,8 +871,12 @@ $tableTitle = 'Received Parcel Today';
 			
 
 			// Start Title Row & Action Button Before Table 
-			
+		
 		$totalList =  mysql_query("SELECT COUNT(parcel_courier) AS parceltotal FROM parcel WHERE parcel_timestamp LIKE '%".$date." %'") or die (mysql_query());
+
+
+
+		//$totalList =  mysql_query("SELECT COUNT(parcel_courier) AS parceltotal FROM parcel WHERE parcel_timestamp LIKE '%".$date." %'") or die (mysql_query());
 					
 
 					echo '<div class="row">';
@@ -911,8 +915,12 @@ $tableTitle = 'Received Parcel Today';
 					';
 
 
+//$query =  mysql_query("SELECT  * FROM `parcel` WHERE `parcel_timestamp` LIKE '%".$date."%' ORDER BY id DESC LIMIT $start_from, $limit") or die (mysql_query());
 
-$query = mysql_query("SELECT distinct(ptj.ptj_name) FROM ptj INNER JOIN parcel ON ptj.ptj_name=parcel.parcel_ptj WHERE parcel_timestamp LIKE '%".$date."%' ORDER BY ptj.id ASC ");
+$query = mysql_query("SELECT distinct(ptj.ptj_name) FROM ptj INNER JOIN parcel ON ptj.ptj_name=parcel.parcel_ptj WHERE parcel_timestamp LIKE '%".$date."%' ORDER BY ptj.id DESC LIMIT $start_from, $limit") or die (mysql_query());
+
+
+//$query = mysql_query("SELECT distinct(ptj.ptj_name) FROM ptj INNER JOIN parcel ON ptj.ptj_name=parcel.parcel_ptj WHERE parcel_timestamp LIKE '%".$date."%' ORDER BY ptj.id ASC ");
 
 $i =1;
 			while($test = mysql_fetch_array($query))//loop process
@@ -938,16 +946,29 @@ $i =1;
 			// Start PAGINATION//////////////////////////////
 
 			
-			
+			//$query = mysql_query("SELECT distinct(ptj.ptj_name) FROM ptj INNER JOIN parcel ON ptj.ptj_name=parcel.parcel_ptj WHERE parcel_timestamp LIKE '%".$date."%' ORDER BY ptj.id ASC ");
 
 
-				$sql = "SELECT count(*) FROM parcel WHERE DAY(parcel_timestamp) = ".date('d')." AND MONTH(parcel_timestamp) = ".date('m')." AND YEAR(parcel_timestamp) = ".date('Y')."";  
+			$sql = mysql_query("SELECT count(distinct(ptj.ptj_name)) FROM ptj INNER JOIN parcel ON ptj.ptj_name=parcel.parcel_ptj WHERE parcel_timestamp LIKE '%".$date."%'");
+
+			//echo (mysql_result($sql, 0));
+
+			//echo "SELECT count(distinct(ptj.ptj_name)) FROM ptj INNER JOIN parcel ON ptj.ptj_name=parcel.parcel_ptj WHERE parcel_timestamp LIKE '%".$date."%'";
+
+
+
+				//$sql = "SELECT count(*) FROM parcel WHERE DAY(parcel_timestamp) = ".date('d')." AND MONTH(parcel_timestamp) = ".date('m')." AND YEAR(parcel_timestamp) = ".date('Y')."";  
 
 				//echo $sql;
 
 					$rs_result = mysql_query($sql);  
 					$row = mysql_fetch_row($rs_result);  
-					$total_records = $row[0];  
+					//$total_records = $row[0]; s 
+			//echo $total_records;
+					//echo (mysql_result($sql, 0));
+
+$total_records = mysql_result($sql, 0);
+
 					$total_pages = ceil($total_records / $limit);
 
 						//echo $total_records;
@@ -974,7 +995,7 @@ $i =1;
 
 			   for ($i=1; $i<=$total_pages; $i++) {
 								
-							echo '<li><a href="parcel.php?page='.$i.'">'.$i.'</a></li>';
+							echo '<li><a href="parcelViewTodayByPtj.php?page='.$i.'">'.$i.'</a></li>';
 							};
 
 			 echo' </ul></nav>';
@@ -1839,7 +1860,7 @@ function track()
 
 			  			 </div>';*/
 
-			  		
+
 		
 
 			echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';//Add row space
