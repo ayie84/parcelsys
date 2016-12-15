@@ -30,6 +30,6 @@ include 'inc/header.php';
 ?>
 
 <?php
-parcelView();
+parcelViewToday();
 include 'inc/footer.php';
 ?>
