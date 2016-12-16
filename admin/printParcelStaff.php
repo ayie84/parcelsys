@@ -70,9 +70,11 @@ $cou = '';
 //$raw_results = mysql_query("SELECT  * FROM `parcel` WHERE `parcel_timestamp` LIKE '%".$date."%' ORDER BY `parcel`.`parcel_courier` ASC") or die(mysql_error());
 
 				
-				//Dapatkan rekod daripada PTJ sahaja
+				//Dapatkan rekod daripada STAFF sahaja
+				//$value = mysql_query("SELECT COUNT( * ) AS Value FROM  `parcel` where `parcel_timestamp` LIKE '%".$date."%' AND parcel_ptj NOT Like '%KK1%' AND parcel_ptj NOT Like '%KK2%' AND parcel_ptj NOT Like '%KK3%' AND parcel_ptj NOT Like '%KK4%' AND parcel_ptj NOT Like '%KK5%'") or die (mysql_query());
 
-				if(!empty($ptj)){
+
+				/*if(!empty($ptj)){
 				$raw_results = mysql_query("SELECT * FROM  `parcel` where `parcel_timestamp` LIKE '%".$dateGlobal."%' AND parcel_ptj='".$ptj."' ORDER BY `parcel`.`parcel_courier` ASC") or die (mysql_query());
 
 				
@@ -80,7 +82,10 @@ $cou = '';
 				$raw_results = mysql_query("SELECT * FROM  `parcel` where `parcel_timestamp` LIKE '%".$dateGlobal."%' ORDER BY `parcel`.`parcel_courier` ASC") or die (mysql_query());
 
 				
-				}
+				}*/
+
+$raw_results = mysql_query("SELECT * FROM  `parcel` where `parcel_timestamp` LIKE '%".$dateGlobal."%' AND parcel_ptj NOT Like '%KK1%' AND parcel_ptj NOT Like '%KK2%' AND parcel_ptj NOT Like '%KK3%' AND parcel_ptj NOT Like '%KK4%' AND parcel_ptj NOT Like '%KK5%' ORDER BY `parcel`.`parcel_courier` ASC") or die (mysql_query());
+
 
 
 //echo $date;
@@ -138,7 +143,7 @@ $pdf->SetFont('Arial','',8);
 
 		}else{
 
-						$pdf->Cell(40,5,"SENARAI PARCEL > ALL",0,1);
+						$pdf->Cell(40,5,"SENARAI PARCEL > STAFF",0,1);
 						$pdf->Ln(10);
 		}
 
