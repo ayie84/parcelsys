@@ -89,7 +89,7 @@ include 'inc/header.php';
 								<div class="row" align="center">
 									
 								<p>		<a href="../">Utama</a> | 
-					<a href="tracking.html">Semak Parcel</a>
+					<a href="../tracking.html">Semak Parcel</a>
 					</p>
 								
 								</div>
