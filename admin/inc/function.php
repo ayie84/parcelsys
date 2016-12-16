@@ -103,6 +103,7 @@ echo '
 				 <li role="separator" class="divider"></li>
 				<li><a href="parcelViewToday.php">View Today (All)</a></li>
 				<li><a href="parcelViewTodayStaff.php">View Today (Staff)</a></li>
+				<li><a href="parcelViewTodayKK.php">View Today (Kolej Kediaman)</a></li>
 				<li><a href="parcelViewTodayByPtj.php">View Today By PTJ (All)</a></li>
 			
 				<li><a href="parcelViewYear.php">View Year ( '.date('Y').' )</a></li>
@@ -1053,7 +1054,7 @@ function parcelViewTodayKK()
 	date_default_timezone_set("Asia/Kuala_Lumpur");
     //echo date('d-m-Y H:i:s'); //Returns IST
    // echo date('Y-m-d H:i:s'); //Returns IST
-	$tableTitle = 'Received Parcel Today At Staff';
+	$tableTitle = 'Received Parcel Today At Kolej Kediaman';
 	$today = date('Y-m-d H:i:s');
 	//echo $today;
 	//$today='2016-11-13 15:28:10';
@@ -1068,7 +1069,7 @@ function parcelViewTodayKK()
 	
 	//$value = mysql_query("SELECT COUNT( * ) AS Value FROM  `parcel` where `parcel_timestamp` LIKE '%".$date."%'") or die (mysql_query());
 
-	$value = mysql_query("SELECT COUNT( * ) AS Value FROM  `parcel` where `parcel_timestamp` LIKE '%".$date."%' AND parcel_ptj NOT Like '%KK1%' AND parcel_ptj NOT Like '%KK2%' AND parcel_ptj NOT Like '%KK3%' AND parcel_ptj NOT Like '%KK4%' AND parcel_ptj NOT Like '%KK5%'") or die (mysql_query());
+	$value = mysql_query("SELECT COUNT( * ) AS Value FROM  `parcel` where `parcel_timestamp` LIKE '%".$date."%' AND parcel_ptj Like '%kolej%'") or die (mysql_query());
 	//$value = mysql_query("SELECT COUNT( * ) AS Value FROM  `parcel` where `parcel_timestamp` LIKE '%2016%'") or die (mysql_query());
 	$num_rows = mysql_fetch_array($value);
 	$val = $num_rows['Value'];
@@ -1077,7 +1078,7 @@ function parcelViewTodayKK()
 	if($val>0)
 		{
 			$cnt = 1;
-			$limit = 10;  
+			$limit = 50;  
 
 			if (isset($_GET["page"])) { $page  = $_GET["page"]; } else { 
 				$page=1; 
@@ -1088,7 +1089,7 @@ function parcelViewTodayKK()
 			//echo $start_from;
 
 			
-			$query =  mysql_query("SELECT  * FROM `parcel` WHERE `parcel_timestamp` LIKE '%".$date."%' AND parcel_ptj NOT Like '%KK1%' AND parcel_ptj NOT Like '%KK2%' AND parcel_ptj NOT Like '%KK3%' AND parcel_ptj NOT Like '%KK4%' AND parcel_ptj NOT Like '%KK5%' ORDER BY id DESC LIMIT $start_from, $limit") or die (mysql_query());
+			$query =  mysql_query("SELECT  * FROM `parcel` WHERE `parcel_timestamp` LIKE '%".$date."%' AND parcel_ptj Like '%kolej%' ORDER BY id DESC LIMIT $start_from, $limit") or die (mysql_query());
 
 
 					echo '<div class="col-md-offset-2 col-md-8 row spacer"></div>';//Add row space
@@ -1098,7 +1099,7 @@ function parcelViewTodayKK()
 
 			// Start Title Row & Action Button Before Table 
 			
-			$totalList =  mysql_query("SELECT COUNT(parcel_courier) AS parceltotal FROM parcel WHERE parcel_timestamp LIKE '%".$date." %' AND parcel_ptj NOT Like '%KK1%' AND parcel_ptj NOT Like '%KK2%' AND parcel_ptj NOT Like '%KK3%' AND parcel_ptj NOT Like '%KK4%' AND parcel_ptj NOT Like '%KK5%'") or die (mysql_query());
+			$totalList =  mysql_query("SELECT COUNT(parcel_courier) AS parceltotal FROM parcel WHERE parcel_timestamp LIKE '%".$date." %'  AND parcel_ptj LIKE '%kolej%' ") or die (mysql_query());
 					
 
 					echo '<div class="row">';
@@ -1169,7 +1170,7 @@ function parcelViewTodayKK()
 			
 
 
-				$sql = "SELECT count(*) FROM parcel WHERE DAY(parcel_timestamp) = ".date('d')." AND MONTH(parcel_timestamp) = ".date('m')." AND YEAR(parcel_timestamp) = ".date('Y')." AND parcel_ptj NOT Like '%KK1%' AND parcel_ptj NOT Like '%KK2%' AND parcel_ptj NOT Like '%KK3%' AND parcel_ptj NOT Like '%KK4%' AND parcel_ptj NOT Like '%KK5%'";  
+				$sql = "SELECT count(*) FROM parcel WHERE DAY(parcel_timestamp) = ".date('d')." AND MONTH(parcel_timestamp) = ".date('m')." AND YEAR(parcel_timestamp) = ".date('Y')." AND parcel_ptj Like '%kolej%'";  
 
 				//echo $sql;
 
@@ -1202,7 +1203,7 @@ function parcelViewTodayKK()
 
 			   for ($i=1; $i<=$total_pages; $i++) {
 								
-							echo '<li><a href="parcelViewTodayStaff.php?page='.$i.'">'.$i.'</a></li>';
+							echo '<li><a href="parcelViewTodayKK.php?page='.$i.'">'.$i.'</a></li>';
 							};
 
 			 echo' </ul></nav>';
