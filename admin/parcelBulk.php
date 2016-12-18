@@ -32,7 +32,7 @@ include 'inc/header.php';
 
 
 <div class="col-md-offset-4 col-md-4" id="box">
-	   <h3>Parcel Bulk</h3><p>Register new parcel by selecting PTJ And Courier once.</p><hr>
+	   <h3>Parcel Express</h3><p>Register new parcel by selecting PTJ And Courier once.</p><hr>
 	<form class="form-horizontal" name="form" method="post" action="">
 	<input type="hidden" name="new" value="1" />
 	<!--<form class="form-horizontal" name="form" action="" method="post" id="contact_form">-->
@@ -121,6 +121,6 @@ include 'inc/header.php';
 		
 	</div>
 <?php
-parcelView();
+parcelViewExpress();
 include 'inc/footer.php';
 ?>
