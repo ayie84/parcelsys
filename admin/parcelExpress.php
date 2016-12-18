@@ -32,7 +32,9 @@ include 'inc/header.php';
 
 
 <div class="col-md-offset-4 col-md-4" id="box">
-	   <h3>Parcel By PTJ</h3><p>Register new parcel by selecting PTJ once.</p><hr>
+	   <h3>Parcel Express</h3>
+	  <!-- <p>Register new parcel by entering Tracking Number, PTJ And Courier Only. </p> -->
+	   <p>PTJ and Courier are required for the first time. Next record it will filled by the previous selected value.</p><hr>
 	<form class="form-horizontal" name="form" method="post" action="">
 	<input type="hidden" name="new" value="1" />
 	<!--<form class="form-horizontal" name="form" action="" method="post" id="contact_form">-->
@@ -41,15 +43,7 @@ include 'inc/header.php';
 
                
 
-              	<?php 	
-				//DROP DOWN MENU PTJ
-				
-              	//GET FIRST PTJ VALUE
-				$ptj = $_REQUEST['ptj'];
 
-					ptjDropMenu($ptj,"required"); 
-					
-				?>
 
 
 			<div class="form-group">
@@ -61,9 +55,26 @@ include 'inc/header.php';
                 </div>
             </div>
 
+
+                          	<?php 	
+				//DROP DOWN MENU PTJ
+				
+              	//GET FIRST PTJ VALUE
+				$ptj = $_REQUEST['ptj'];
+
+					ptjDropMenu($ptj,"required"); 
+					
+				?>
+
 			<?php 
 			//DROP DOWN MENU COURIER
-			courierDropMenu(); 
+
+			//GET FIRST PTJ VALUE
+			$courier = $_REQUEST['courier'];
+			
+			courierDropMenu($courier,"required"); 
+
+			//courierDropMenu(); 
 			?>
 
 
@@ -76,16 +87,6 @@ include 'inc/header.php';
                 </div>
             </div>
 
-
-				
-			<!--<div class="form-group">
-				<div class="col-md-12">
-                    <div class="input-group">                    
-                    <span class="input-group-addon"><i class="glyphicon glyphicon-saved"></i></span>                        
-                    <input name="parcel_takenby" placeholder="Taken By" class="form-control" type="text">                          
-                    </div>
-                </div>
-            </div>-->
 			
 			<?php
 			
@@ -122,6 +123,6 @@ include 'inc/header.php';
 		
 	</div>
 <?php
-parcelViewByPtj();
+parcelViewExpress();
 include 'inc/footer.php';
 ?>

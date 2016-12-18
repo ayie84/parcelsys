@@ -36,7 +36,7 @@ list($total,$nottaken,$taken)=parcelCalc();
             --> 
             <li class=""><a href="parcel.php">Register Parcel</a></li>
              <li class=""><a href="parcelByPtj.php">Register Parcel By PTJ</a></li>
-                          <li class=""><a href="parcelBulk.php">Register Parcel Bulk</a></li>
+                          <li class=""><a href="parcelExpress.php">Register Parcel Express</a></li>
 
           </ul>
         <!--  <ul class="nav nav-sidebar">
