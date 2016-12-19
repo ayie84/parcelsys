@@ -8,10 +8,18 @@
 		  header("Location: index.php");
 		  exit;
 		 }
+
+
+
  // End Session
          
 		//$conn = mysql_connect("localhost", "root", "");
 		//mysql_select_db("pms");
+
+         include 'inc/function.php';
+//auth();
+debugScript();//comment this line to debug
+con2db();
 		
 		
 		/* Timce Function */
@@ -30,7 +38,7 @@
 <head>
 <title>Pusat Mel UMP</title>
    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>-->
-   <script src="https://code.highcharts.com/highcharts.js"></script>  
+   <script src="public/js/highcharts.js"></script>  
     <script src="public/js/jquery.min.js"></script>
    
    <!--<script type="text/javascript" src="js/modules/exporting.js"></script>
@@ -95,7 +103,8 @@ $(function () {
 
 //SELECT count(ptj.ptj_name) FROM ptj INNER JOIN parcel ON ptj.ptj_name=parcel.parcel_ptj WHERE DAY(parcel.parcel_timestamp) = 5 AND MONTH(parcel.parcel_timestamp) = 12 AND YEAR(parcel.parcel_timestamp) = 2016
 
-                $query =  mysql_query("SELECT ptj.ptj_name FROM ptj INNER JOIN parcel ON ptj.ptj_name=parcel.parcel_ptj WHERE DAY(parcel.parcel_timestamp) = 5 AND MONTH(parcel.parcel_timestamp) = 12 AND YEAR(parcel.parcel_timestamp) = 2016 ") or die (mysql_query());
+                $query =  mysql_query("SELECT ptj.ptj_name FROM ptj INNER JOIN parcel ON ptj.ptj_name=parcel.parcel_ptj WHERE DAY(parcel.parcel_timestamp) = 19 AND MONTH(parcel.parcel_timestamp) = 12 AND YEAR(parcel.parcel_timestamp) = 2016 ") or die (mysql_query());
+
                 while($row = mysql_fetch_array($query))//loop process
                     {
                     echo "['".$row['ptj_name']."',";    
