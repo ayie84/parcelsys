@@ -26,7 +26,7 @@ debugScript();//comment this line to debug
 con2db();
 pageTitle("PMS Dashboard");
 include 'inc/header.php';
-list($total,$nottaken,$taken)=parcelCalc();
+list($total,$nottaken,$taken,$totalParcelYear,$totalParcelReturnYear,$totalParcelNotTakenYear)=parcelCalc();
 ?>
 
     <div class="row">
@@ -57,6 +57,7 @@ list($total,$nottaken,$taken)=parcelCalc();
 
          
 		<div class="col-md-12">
+			
 			<div class="row">
 				<div class="col-md-4">
 					<div class="panel panel-default">
@@ -89,14 +90,58 @@ list($total,$nottaken,$taken)=parcelCalc();
 					</div>
 				</div>
 			</div>
+
+			<!-- THIS YEAR -->
+
+			<div class="row">
+
+				<div class="col-md-4">
+					<div class="panel panel-default">
+						<div class="panel-body bk-primary text-light">
+							<div class="stat-panel text-center">
+								<div class="stat-panel-number h1 "><?php echo $totalParcelYear; ?></div>
+								<div class="stat-panel-title text-uppercase">Total Parcel <?php echo date('Y')?></div>
+							</div>
+						</div>	
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="panel panel-default">
+						<div class="panel-body bk-primary text-light">
+							<div class="stat-panel text-center">
+								<div class="stat-panel-number h1 "><?php echo $totalParcelNotTakenYear ; ?></div>
+								<div class="stat-panel-title text-uppercase">Total Parcel Not Taken <?php echo date('Y')?></div>
+							</div>
+						</div>	
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="panel panel-default">
+						<div class="panel-body bk-primary text-light">
+							<div class="stat-panel text-center">
+								<div class="stat-panel-number h1 "><?php echo $totalParcelReturnYear; ?></div>
+								<div class="stat-panel-title text-uppercase">Total Parcel Return <?php echo date('Y')?></div>
+							</div>
+						</div>	
+					</div>
+				</div>
+			</div>
+		
+			<div class="row">
+				
+				 <!--<h2 class="sub-header">Chart</h2>-->
+          
+            <?php include 'chart.php'; ?>
+          
+
+			</div>
+
+
 		</div>
 						
 
 
-          <!--<h2 class="sub-header">Chart</h2>-->
-          <div class="table-responsive">
-            <?php //include 'chartParcelByPtj.php'; ?>
-          </div>
+         
         </div>
       </div>
 

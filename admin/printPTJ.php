@@ -83,7 +83,7 @@ while($results=mysql_fetch_array($raw_results))
 $pdf=new PDF_MC_Table();
 $pdf->AliasNbPages();
 $pdf->AddPage();
-$pdf->SetFont('Arial','',10);
+$pdf->SetFont('Arial','',7);
 
 //Display Total Count start
 $pdf->Cell(40,5,"JUMLAH PTJ/Fakulti",0,0);

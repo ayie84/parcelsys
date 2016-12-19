@@ -1496,7 +1496,7 @@ function parcelViewTodayKK()
 
 			  			echo '<div class="col-md-3 col-md-offset-5" text-right>
 
-			  			<p><a href="parcel.php" class="btn btn-info">New Parcel</a> 
+			  			<!-- <p><a href="parcel.php" class="btn btn-info">New Parcel</a> -->
 
 			  			<a target = "_blank" href="printParcelKK.php?date='.$date.'&ptj=" class="btn btn-warning" >Export To PDF</a></p>
 
@@ -3609,9 +3609,22 @@ function parcelCalc()
 		$nottaken=$row['parcelTaken'];
 	}
 	$taken = $total - $nottaken;
+
+
+	$query = mysql_query("SELECT count(*) from parcel");
+
+	$totalParcelYear=mysql_result($query, 0);
+
+
+	$query = mysql_query("SELECT count(*) from parcel where parcel_ptj like '%return%' or parcel_remark like '%return%'");
+
+	$totalParcelReturnYear=mysql_result($query, 0);
+
+	$query =  mysql_query("select count(*) from parcel where parcel_takenby like '' and parcel_timestamp like '%".date('Y')."%'") or die (mysql_query());
 	
+	$totalParcelNotTakenYear=mysql_result($query, 0);
 	
-	return array($total,$nottaken,$taken);
+	return array($total,$nottaken,$taken,$totalParcelYear,$totalParcelReturnYear,$totalParcelNotTakenYear);
 }
 
 function pmsInfo()
