@@ -92,7 +92,7 @@ list($total,$nottaken,$taken,$totalParcelYear,$totalParcelReturnYear,$totalParce
 			</div>
 
 			<!-- THIS YEAR -->
-
+<!--
 			<div class="row">
 
 				<div class="col-md-4">
@@ -126,12 +126,14 @@ list($total,$nottaken,$taken,$totalParcelYear,$totalParcelReturnYear,$totalParce
 					</div>
 				</div>
 			</div>
+-->
+
 		
 			<div class="row">
 				
 				 <!--<h2 class="sub-header">Chart</h2>-->
           
-            <?php include 'chart.php'; ?>
+            <?php //include 'chart.php'; ?>
           
 
 			</div>
