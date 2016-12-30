@@ -122,7 +122,7 @@ include 'inc/header.php';
 						</form>
 					</div>
 					<div class="panel-footer ">
-						<h6 align="center">Hakcipta © 2013 Universiti Malaysia Pahang. </br>Hak cipta terpelihara.</h6>
+						<h6 align="center">Hakcipta © 2016 Universiti Malaysia Pahang. </br>Hak cipta terpelihara.</h6>
 					</div>
                 </div>
 			</div>
